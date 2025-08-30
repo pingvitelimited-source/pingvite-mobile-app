@@ -1,4 +1,4 @@
-name: pinginvite
+name: pingvite
 description: "Event Management App"
 publish_to: 'none'
 version: 1.0.0+1
@@ -17,11 +17,23 @@ dependencies:
   dartz: ^0.10.1
   flutter_native_splash: ^2.4.6
   flutter_svg: ^2.2.0
+  geolocator: ^14.0.2
+  image_picker: ^1.2.0
+  permission_handler: ^12.0.1
+  geocoding: ^4.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/png/applogo.png"
+  adaptive_icon_background: "#f8fbff"
+  remove_alpha_ios: true
 
 flutter:
 
@@ -32,7 +44,7 @@ flutter:
 
 
 flutter_native_splash:
-  color: "#ffffff"            # Background color
+  color: "#f8fbff"            # Background color
   image: assets/png/applogo.png # Path to your splash logo
   android: true
   ios: true
@@ -40,7 +52,7 @@ flutter_native_splash:
 
   android_12:
     image: assets/png/applogo.png
-    icon_background_color: "#ffffff"
+    icon_background_color: "#f8fbff"
 
   # fonts:
   #   - family: Schyler
