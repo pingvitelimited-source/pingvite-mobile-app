@@ -21,6 +21,11 @@ dependencies:
   image_picker: ^1.2.0
   permission_handler: ^12.0.1
   geocoding: ^4.0.0
+  google_fonts: ^6.3.1
+  form_field_validator: ^1.1.0
+  flutter_form_builder: ^10.2.0
+  form_builder_validators: ^11.2.0
+  gap: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -31,8 +36,9 @@ dev_dependencies:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/png/applogo.png"
+  image_path: "assets/png/app_logo.png"
   adaptive_icon_background: "#f8fbff"
+  adaptive_icon_foreground: "assets/png/app_icon.png"
   remove_alpha_ios: true
 
 flutter:
@@ -41,17 +47,18 @@ flutter:
 
   assets:
     - assets/png/
+    - assets/svg/
 
 
 flutter_native_splash:
   color: "#f8fbff"            # Background color
-  image: assets/png/applogo.png # Path to your splash logo
+  image: assets/png/splashscreen.png # Path to your splash logo
   android: true
   ios: true
   web: false
 
   android_12:
-    image: assets/png/applogo.png
+    image: assets/png/splashscreen.png
     icon_background_color: "#f8fbff"
 
   # fonts:

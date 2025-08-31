@@ -1,8 +1,24 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color primary = Colors.deepPurple;
-  static const Color accent = Colors.amber;
-  static const Color background = Colors.white;
+  //// Background colors
+  static const Color lightbackground = Color(0xFFF8FBFF);
   static const Color darkBackground = Colors.black;
+
+  // Text colors that adapt to theme
+  static const Color lightPrimaryText = Color(0xFF333333);
+  static const Color darkPrimaryText = Color(0xFFFFFFFF);
+
+  static const Color lightSecondaryText = Color(0xFF666666);
+  static const Color darkSecondaryText = Color(0xFFB3B3B3);
+
+  static const Color lightAccentText = Color(0xFF1976D2);
+  static const Color darkAccentText = Color(0xFF64B5F6);
+
+  //Gradient Button Color
+  static const Color lightGradient = Color(0xFFDF2A2C);
+  static const Color darkGradient = Color(0xFF4611C2);
+
+  //basic colors
+  static const Color white = Colors.white;
 }
