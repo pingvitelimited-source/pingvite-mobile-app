@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pingvite/core/theme/app_buttom_theme.dart';
+import 'package:pingvite/core/theme/app_bottom_nav_theme.dart';
+import 'package:pingvite/core/theme/app_button_theme.dart';
+import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_image_theme.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/theme/app_top_bar_theme.dart';
 import 'app_colors.dart';
 
 class AppTheme {
@@ -14,6 +17,9 @@ class AppTheme {
       AppTextTheme.light,
       AppImageTheme.light,
       AppButtonTheme.light,
+      AppBottomNavTheme.light,
+      AppTopBarTheme.light,
+      AppCardTheme.light,
     ],
   );
 
@@ -25,6 +31,9 @@ class AppTheme {
       AppTextTheme.dark,
       AppImageTheme.dark,
       AppButtonTheme.dark,
+      AppBottomNavTheme.dark,
+      AppTopBarTheme.dark,
+      AppCardTheme.dark,
     ],
   );
 }

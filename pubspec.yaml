@@ -26,6 +26,7 @@ dependencies:
   flutter_form_builder: ^10.2.0
   form_builder_validators: ^11.2.0
   gap: ^3.0.1
+  provider: ^6.1.5+1
 
 dev_dependencies:
   flutter_test:
@@ -48,11 +49,12 @@ flutter:
   assets:
     - assets/png/
     - assets/svg/
+    - assets/jpg/
 
 
 flutter_native_splash:
-  color: "#f8fbff"            # Background color
-  image: assets/png/splashscreen.png # Path to your splash logo
+  color: "#f8fbff"            
+  image: assets/png/splashscreen.png 
   android: true
   ios: true
   web: false

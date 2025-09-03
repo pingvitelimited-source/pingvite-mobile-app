@@ -11,6 +11,7 @@ class AppImages {
       imagePath,
       height: sl<SizeConfig>().rpx(height),
       width: sl<SizeConfig>().rpx(width),
+      fit: BoxFit.cover,
     );
   }
 
@@ -19,12 +20,16 @@ class AppImages {
     BuildContext context,
     String svgPath,
     double height,
-    double width,
-  ) {
+    double width, [
+    Color? color,
+  ]) {
     return SvgPicture.asset(
       svgPath,
       height: sl<SizeConfig>().iconSize(height),
       width: sl<SizeConfig>().iconSize(width),
+      colorFilter: color != null
+          ? ColorFilter.mode(color, BlendMode.srcIn)
+          : null,
     );
   }
 
@@ -33,15 +38,21 @@ class AppImages {
     BuildContext context,
     String iconPath,
     double height,
-    double width,
-  ) {
+    double width, {
+    bool applyColor = true,
+    double? scale,
+  }) {
     final imageTheme = Theme.of(context).extension<AppImageTheme>()!;
 
-    return Image.asset(
+    Widget imageWidget = Image.asset(
       iconPath,
       height: sl<SizeConfig>().iconSize(height),
       width: sl<SizeConfig>().iconSize(width),
-      color: imageTheme.iconColor,
+      color: applyColor ? imageTheme.iconColor : null,
     );
+    if (scale != null) {
+      imageWidget = Transform.scale(scale: scale, child: imageWidget);
+    }
+    return imageWidget;
   }
 }

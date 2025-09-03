@@ -9,12 +9,16 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
   final TextStyle subheading;
   final TextStyle body;
   final TextStyle accent;
+  final TextStyle body1;
+  final TextStyle body2;
 
   const AppTextTheme({
     required this.heading,
     required this.subheading,
     required this.body,
     required this.accent,
+    required this.body1,
+    required this.body2,
   });
 
   @override
@@ -23,12 +27,16 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
     TextStyle? subheading,
     TextStyle? body,
     TextStyle? accent,
+    TextStyle? body1,
+    TextStyle? body2,
   }) {
     return AppTextTheme(
       heading: heading ?? this.heading,
       subheading: subheading ?? this.subheading,
       body: body ?? this.body,
       accent: accent ?? this.accent,
+      body1: body1 ?? this.body1,
+      body2: body2 ?? this.body2,
     );
   }
 
@@ -42,6 +50,8 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
       subheading: TextStyle.lerp(subheading, other.subheading, t)!,
       body: TextStyle.lerp(body, other.body, t)!,
       accent: TextStyle.lerp(accent, other.accent, t)!,
+      body1: TextStyle.lerp(accent, other.accent, t)!,
+      body2: TextStyle.lerp(accent, other.accent, t)!,
     );
   }
 
@@ -67,6 +77,16 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
       fontWeight: FontWeight.w500,
       color: AppColors.lightSecondaryText,
     ),
+    body1: TextStyle(
+      fontSize: sl<SizeConfig>().rpx(10),
+      fontWeight: FontWeight.w500,
+      color: AppColors.darkPrimaryText,
+    ),
+    body2: TextStyle(
+      fontSize: sl<SizeConfig>().rpx(18),
+      fontWeight: FontWeight.w500,
+      color: AppColors.lightPrimaryText,
+    ),
   );
 
   // Dark theme text styles
@@ -90,6 +110,16 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
       fontSize: sl<SizeConfig>().rpx(16),
       fontWeight: FontWeight.w600,
       color: AppColors.darkAccentText,
+    ),
+    body1: TextStyle(
+      fontSize: sl<SizeConfig>().rpx(10),
+      fontWeight: FontWeight.w500,
+      color: AppColors.darkPrimaryText,
+    ),
+    body2: TextStyle(
+      fontSize: sl<SizeConfig>().rpx(18),
+      fontWeight: FontWeight.w500,
+      color: AppColors.darkPrimaryText,
     ),
   );
 }

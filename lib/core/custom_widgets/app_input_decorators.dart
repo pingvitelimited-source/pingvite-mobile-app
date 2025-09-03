@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pingvite/core/theme/app_buttom_theme.dart';
+import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
