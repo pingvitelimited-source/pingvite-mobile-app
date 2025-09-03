@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
-import 'package:pingvite/core/theme/app_buttom_theme.dart';
+import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
@@ -8,7 +8,7 @@ import 'package:pingvite/service_locator_dependencies.dart';
 
 class AppPrimaryButton extends StatelessWidget {
   final String title;
-  final bool isLoading;
+  final bool? isLoading;
   final AppTextTheme textTheme;
   final AppButtonTheme buttonTheme;
   final VoidCallback onPressed;
@@ -16,11 +16,13 @@ class AppPrimaryButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? buttonTextColor;
   final double? textFontSize;
+  final Color? borderColor;
+  final EdgeInsetsGeometry? contentPadding;
 
   const AppPrimaryButton({
     super.key,
     required this.title,
-    required this.isLoading,
+    this.isLoading = false,
     required this.textTheme,
     required this.buttonTheme,
     required this.onPressed,
@@ -28,6 +30,11 @@ class AppPrimaryButton extends StatelessWidget {
     this.backgroundColor,
     required this.buttonTextColor,
     this.textFontSize = 18,
+    this.borderColor,
+    this.contentPadding = const EdgeInsets.symmetric(
+      horizontal: 18,
+      vertical: 8,
+    ),
   });
 
   @override
@@ -39,20 +46,24 @@ class AppPrimaryButton extends StatelessWidget {
         borderRadius: borderRadius,
         gradient: gradient,
         color: gradient == null
-            ? (backgroundColor ?? buttonTheme.primaryButtonColor) // 👈 fallback
+            ? (backgroundColor ?? buttonTheme.primaryButtonColor)
             : null,
-        border: Border.all(color: buttonTheme.borderColor),
+        border: Border.all(
+          color: borderColor ?? buttonTheme.borderColor,
+          width: sl<SizeConfig>().rpx(1),
+        ),
       ),
       child: ElevatedButton(
-        onPressed: isLoading ? null : onPressed,
+        onPressed: (isLoading ?? false) ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
           ),
+          padding: EdgeInsets.zero,
         ),
-        child: isLoading
+        child: (isLoading ?? false)
             ? SizedBox(
                 height: sl<SizeConfig>().rpx(20),
                 width: sl<SizeConfig>().rpx(20),
@@ -63,12 +74,15 @@ class AppPrimaryButton extends StatelessWidget {
                   ),
                 ),
               )
-            : AppTexts(
-                text: title,
-                style: textTheme.body.copyWith(
-                  color: buttonTextColor,
-                  fontWeight: FontWeight.w600,
-                  fontSize: sl<SizeConfig>().rpx(textFontSize!),
+            : Padding(
+                padding: contentPadding ?? EdgeInsets.zero,
+                child: AppTexts(
+                  text: title,
+                  style: textTheme.body.copyWith(
+                    color: buttonTextColor,
+                    fontWeight: FontWeight.w600,
+                    fontSize: sl<SizeConfig>().rpx(textFontSize!),
+                  ),
                 ),
               ),
       ),

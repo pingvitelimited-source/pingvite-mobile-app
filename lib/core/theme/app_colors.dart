@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   //// Background colors
   static const Color lightbackground = Color(0xFFF8FBFF);
-  static const Color darkBackground = Colors.black;
+  static const Color darkBackground = Color(0xFF333333);
 
   // Text colors that adapt to theme
   static const Color lightPrimaryText = Color(0xFF333333);
@@ -21,4 +21,11 @@ class AppColors {
 
   //basic colors
   static const Color white = Colors.white;
+
+  //bottombar app color
+  static const Color selectedTab = Color(0xFF61A0FF);
+  static const Color unSelectedTabText = Color(0x66666666);
+
+  //Appbar Color
+  static const Color greetingColor = Color(0xFFFECF24);
 }

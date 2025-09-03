@@ -3,12 +3,12 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:gap/gap.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_primary_buttons.dart';
-import 'package:pingvite/core/theme/app_buttom_theme.dart';
+import 'package:pingvite/core/custom_widgets/text_field_factory.dart';
+import 'package:pingvite/core/routes.dart';
+import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
-import 'package:pingvite/features/auth/signin/presentation/widgets/email_field.dart';
-import 'package:pingvite/features/auth/signin/presentation/widgets/password_field.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
 class LoginForm extends StatefulWidget {
@@ -24,13 +24,17 @@ class _LoginFormState extends State<LoginForm> {
 
   void _handleLogin() async {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
+      FocusScope.of(context).unfocus();
       setState(() => _isLoading = true);
 
       //final formData = _formKey.currentState!.value;
       // final email = formData['email'] as String;
       // final password = formData['password'] as String;
       try {
-        await Future.delayed(const Duration(seconds: 2)); // simulate API
+        await Future.delayed(const Duration(seconds: 2));
+        if (mounted) {
+          Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
+        }
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -55,9 +59,13 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            EmailField(buttonTheme: buttonTheme),
+            TextFieldFactory.email(context: context, buttonTheme: buttonTheme),
             Gap(sl<SizeConfig>().rpx(25)),
-            PasswordField(buttonTheme: buttonTheme, onSubmit: _handleLogin),
+            TextFieldFactory.password(
+              context: context,
+              buttonTheme: buttonTheme,
+              onSubmitted: _handleLogin,
+            ),
             Gap(sl<SizeConfig>().rpx(25)),
             AppPrimaryButton(
               title: Constants.loginButton,
