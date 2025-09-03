@@ -20,6 +20,19 @@ class Constants {
   static const createEventText1 = "You have not added any event yet.";
   static const createEventText2 = "Create your first event.";
 
+  //Create Event Screen
+  static const continueButton = "Continue";
+  static const saveAsDraft = "Save as draft";
+  static const createNewEvent = 'Create New Event';
+  static const eventDetails = 'Event Details';
+  static const attendees = 'Attendees';
+  static const location = 'Location';
+  static const template = 'Template';
+  static const eventName = "Event name";
+  static const startDateAndTime = "Start date and Time";
+  static const endDateAndTime = "End date and Time";
+  static const eventType = "Event name";
+
   //Image URL from Assets
   static const appLogo = 'assets/png/splashscreen.png';
   static const email = 'assets/svg/email.svg';
@@ -34,4 +47,6 @@ class Constants {
   static const event = 'assets/svg/event.svg';
   static const contact = 'assets/svg/contacts.svg';
   static const sample = 'assets/png/sample.png';
+  static const backArrow = 'assets/svg/backarrow.svg';
+  static const calendar = 'assets/svg/calendar.svg';
 }

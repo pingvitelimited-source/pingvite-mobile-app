@@ -21,6 +21,7 @@ class AppColors {
 
   //basic colors
   static const Color white = Colors.white;
+  static const Color black = Colors.black;
 
   //bottombar app color
   static const Color selectedTab = Color(0xFF61A0FF);
