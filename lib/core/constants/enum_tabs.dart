@@ -1,0 +1,1 @@
+enum TabStyle { simple, boxy }

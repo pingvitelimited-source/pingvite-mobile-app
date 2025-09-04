@@ -11,6 +11,7 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
   final TextStyle accent;
   final TextStyle body1;
   final TextStyle body2;
+  final TextStyle semiBold;
 
   const AppTextTheme({
     required this.heading,
@@ -19,6 +20,7 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
     required this.accent,
     required this.body1,
     required this.body2,
+    required this.semiBold,
   });
 
   @override
@@ -29,6 +31,7 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
     TextStyle? accent,
     TextStyle? body1,
     TextStyle? body2,
+    TextStyle? semiBold,
   }) {
     return AppTextTheme(
       heading: heading ?? this.heading,
@@ -37,6 +40,7 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
       accent: accent ?? this.accent,
       body1: body1 ?? this.body1,
       body2: body2 ?? this.body2,
+      semiBold: semiBold ?? this.semiBold,
     );
   }
 
@@ -50,8 +54,9 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
       subheading: TextStyle.lerp(subheading, other.subheading, t)!,
       body: TextStyle.lerp(body, other.body, t)!,
       accent: TextStyle.lerp(accent, other.accent, t)!,
-      body1: TextStyle.lerp(accent, other.accent, t)!,
-      body2: TextStyle.lerp(accent, other.accent, t)!,
+      body1: TextStyle.lerp(body1, other.body1, t)!,
+      body2: TextStyle.lerp(body2, other.body2, t)!,
+      semiBold: TextStyle.lerp(semiBold, other.semiBold, t)!,
     );
   }
 
@@ -87,6 +92,11 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
       fontWeight: FontWeight.w500,
       color: AppColors.lightPrimaryText,
     ),
+    semiBold: TextStyle(
+      fontSize: sl<SizeConfig>().rpx(16),
+      fontWeight: FontWeight.w600,
+      color: AppColors.lightPrimaryText,
+    ),
   );
 
   // Dark theme text styles
@@ -119,6 +129,11 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
     body2: TextStyle(
       fontSize: sl<SizeConfig>().rpx(18),
       fontWeight: FontWeight.w500,
+      color: AppColors.darkPrimaryText,
+    ),
+    semiBold: TextStyle(
+      fontSize: sl<SizeConfig>().rpx(16),
+      fontWeight: FontWeight.w600,
       color: AppColors.darkPrimaryText,
     ),
   );

@@ -6,16 +6,29 @@ import 'package:pingvite/service_locator_dependencies.dart';
 class AppInputDecoration {
   static InputDecoration build({
     required String hintText,
-    required Widget prefixIcon,
+    required Widget? prefixIcon,
+    required Widget? suffixIcon,
     required AppButtonTheme buttonTheme,
   }) {
     return InputDecoration(
       hintText: hintText,
       isDense: true,
-      prefixIcon: Padding(
-        padding: EdgeInsets.symmetric(horizontal: sl<SizeConfig>().rpx(12)),
-        child: prefixIcon,
-      ),
+      prefixIcon: prefixIcon != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: sl<SizeConfig>().rpx(12),
+              ),
+              child: prefixIcon,
+            )
+          : null,
+      suffixIcon: suffixIcon != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: sl<SizeConfig>().rpx(12),
+              ),
+              child: suffixIcon,
+            )
+          : null,
       prefixIconConstraints: const BoxConstraints(minWidth: 24, minHeight: 24),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),

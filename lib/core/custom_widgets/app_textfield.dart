@@ -19,6 +19,7 @@ class CustomTextField extends StatelessWidget {
   final bool enabled;
   final String? initialValue;
   final ValueChanged<String?>? onChanged;
+  final bool readOnly;
 
   const CustomTextField({
     super.key,
@@ -36,12 +37,14 @@ class CustomTextField extends StatelessWidget {
     this.enabled = true,
     this.initialValue,
     this.onChanged,
+    this.readOnly = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
       name: name,
+      readOnly: readOnly,
       initialValue: initialValue,
       obscureText: obscureText,
       keyboardType: keyboardType,
@@ -50,7 +53,8 @@ class CustomTextField extends StatelessWidget {
       enabled: enabled,
       decoration: AppInputDecoration.build(
         hintText: hintText,
-        prefixIcon: prefixIcon!,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
         buttonTheme: buttonTheme,
       ),
       validator: validators != null

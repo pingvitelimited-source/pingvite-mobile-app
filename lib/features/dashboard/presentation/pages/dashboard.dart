@@ -55,7 +55,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: CustomAppBar.dashboard(
         greeting: 'Hi',
         userName: 'John',
         userImageUrl: null,

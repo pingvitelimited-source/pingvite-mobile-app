@@ -64,7 +64,9 @@ class _HometabState extends State<Hometab> {
                     title: Constants.createEventButton,
                     textTheme: textTheme,
                     buttonTheme: buttonTheme,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.createEvent);
+                    },
                     gradient: const LinearGradient(
                       colors: [AppColors.lightGradient, AppColors.darkGradient],
                       begin: Alignment.centerLeft,
