@@ -33,7 +33,6 @@ class AppImages {
     );
   }
 
-  // For PNG icons that need theme-based color (fallback)
   static Widget pngIcon(
     BuildContext context,
     String iconPath,
@@ -41,6 +40,7 @@ class AppImages {
     double width, {
     bool applyColor = true,
     double? scale,
+    Color? color,
   }) {
     final imageTheme = Theme.of(context).extension<AppImageTheme>()!;
 
@@ -48,7 +48,7 @@ class AppImages {
       iconPath,
       height: sl<SizeConfig>().iconSize(height),
       width: sl<SizeConfig>().iconSize(width),
-      color: applyColor ? imageTheme.iconColor : null,
+      color: applyColor ? (color ?? imageTheme.iconColor) : null,
     );
     if (scale != null) {
       imageWidget = Transform.scale(scale: scale, child: imageWidget);

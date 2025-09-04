@@ -16,7 +16,7 @@ class BottomButtons extends StatelessWidget {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     final buttonTheme = Theme.of(context).extension<AppButtonTheme>()!;
     return Padding(
-      padding: EdgeInsets.all(sl<SizeConfig>().rpx(30)),
+      padding: EdgeInsets.all(sl<SizeConfig>().rpx(20)),
       child: Row(
         children: [
           Expanded(

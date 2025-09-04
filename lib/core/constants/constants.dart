@@ -33,9 +33,14 @@ class Constants {
   static const endDateAndTime = "End date and Time";
   static const eventType = "Event name";
 
+  //Attendees Screen
+  static const eventAttendees = "Event attendees";
+
   //Image URL from Assets
   static const appLogo = 'assets/png/splashscreen.png';
   static const email = 'assets/svg/email.svg';
+  static const deleteIcon = 'assets/svg/deleteIcon.svg';
+  static const delete = 'assets/png/delete.png';
   static const password = 'assets/svg/password.svg';
   static const indianFlag = 'assets/svg/india_flag.svg';
   static const notifybell = 'assets/svg/notifybell.svg';
@@ -49,4 +54,5 @@ class Constants {
   static const sample = 'assets/png/sample.png';
   static const backArrow = 'assets/svg/backarrow.svg';
   static const calendar = 'assets/svg/calendar.svg';
+  static const addImage = 'assets/svg/add.svg';
 }

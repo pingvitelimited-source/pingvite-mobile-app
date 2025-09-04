@@ -45,11 +45,14 @@ class ReusableTabWidget extends StatefulWidget {
 
 class _ReusableTabWidgetState extends State<ReusableTabWidget> {
   late int selectedIndex;
+  final ScrollController _scrollController = ScrollController();
+  final List<GlobalKey> _tabKeys = [];
 
   @override
   void initState() {
     super.initState();
     selectedIndex = widget.initialIndex;
+    _tabKeys.addAll(List.generate(widget.tabs.length, (_) => GlobalKey()));
   }
 
   @override
@@ -64,7 +67,6 @@ class _ReusableTabWidgetState extends State<ReusableTabWidget> {
 
         if (widget.showContent) ...[
           const SizedBox(height: 16),
-          // Tab Content
           if (widget.tabs[selectedIndex].content != null)
             Padding(
               padding: widget.contentPadding ?? EdgeInsets.zero,
@@ -92,6 +94,7 @@ class _ReusableTabWidgetState extends State<ReusableTabWidget> {
       child: Container(
         color: AppColors.darkPrimaryText,
         child: SingleChildScrollView(
+          controller: _scrollController,
           scrollDirection: Axis.horizontal,
           physics: const BouncingScrollPhysics(),
           child: Row(
@@ -99,11 +102,19 @@ class _ReusableTabWidgetState extends State<ReusableTabWidget> {
               final tab = widget.tabs[index];
               final isSelected = selectedIndex == index;
               return GestureDetector(
+                key: _tabKeys[index],
                 onTap: () {
                   _onTabTap(index);
-                  if (widget.onTabChanged != null) {
-                    widget.onTabChanged!(index);
+                  if (_tabKeys[index].currentContext != null) {
+                    Scrollable.ensureVisible(
+                      _tabKeys[index].currentContext!,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                      alignment: 0.5, // keep it nicely centered
+                    );
                   }
+
+                  widget.onTabChanged?.call(index);
                 },
                 child: Container(
                   alignment: Alignment.center,

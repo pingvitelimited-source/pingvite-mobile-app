@@ -28,6 +28,7 @@ dependencies:
   gap: ^3.0.1
   provider: ^6.1.5+1
   intl: ^0.20.2
+  dotted_line: ^3.2.3
 
 dev_dependencies:
   flutter_test:
