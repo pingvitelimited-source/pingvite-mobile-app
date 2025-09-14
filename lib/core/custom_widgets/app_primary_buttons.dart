@@ -18,6 +18,7 @@ class AppPrimaryButton extends StatelessWidget {
   final double? textFontSize;
   final Color? borderColor;
   final EdgeInsetsGeometry? contentPadding;
+  final TextStyle textStyle;
 
   const AppPrimaryButton({
     super.key,
@@ -35,13 +36,13 @@ class AppPrimaryButton extends StatelessWidget {
       horizontal: 18,
       vertical: 8,
     ),
+    required this.textStyle,
   });
 
   @override
   Widget build(BuildContext context) {
     final borderRadius = BorderRadius.circular(sl<SizeConfig>().rpx(12));
     return Container(
-      height: sl<SizeConfig>().rpx(50),
       decoration: BoxDecoration(
         borderRadius: borderRadius,
         gradient: gradient,
@@ -61,7 +62,7 @@ class AppPrimaryButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
           ),
-          padding: EdgeInsets.zero,
+          padding: contentPadding,
         ),
         child: (isLoading ?? false)
             ? SizedBox(
@@ -74,17 +75,7 @@ class AppPrimaryButton extends StatelessWidget {
                   ),
                 ),
               )
-            : Padding(
-                padding: contentPadding ?? EdgeInsets.zero,
-                child: AppTexts(
-                  text: title,
-                  style: textTheme.body.copyWith(
-                    color: buttonTextColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: sl<SizeConfig>().rpx(textFontSize!),
-                  ),
-                ),
-              ),
+            : AppTexts(text: title, style: textStyle),
       ),
     );
   }

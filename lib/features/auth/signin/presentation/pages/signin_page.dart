@@ -7,6 +7,7 @@ import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/utils/permissions.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/features/auth/signin/presentation/widgets/login_form.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
@@ -20,6 +21,58 @@ class SigninPage extends StatefulWidget {
 
 class _SigninPageState extends State<SigninPage> {
   final bool _isLoading = false;
+  bool permissionsHandled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkAndRequestPermissions();
+  }
+
+  Future<void> _checkAndRequestPermissions() async {
+    // Wait a bit for the page to load
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    if (!mounted) return;
+
+    // Check location permission first
+    final hasLocationBeenAsked = await PermissionManager.hasLocationBeenAsked();
+    if (!hasLocationBeenAsked && mounted) {
+      await _showLocationPermissionDialog();
+    }
+
+    // Then check camera permission
+    if (!mounted) return;
+    final hasCameraBeenAsked = await PermissionManager.hasCameraBeenAsked();
+    if (!hasCameraBeenAsked && mounted) {
+      await _showCameraPermissionDialog();
+    }
+  }
+
+  Future<void> _showLocationPermissionDialog() async {
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => LocationPermissionDialog(
+        onComplete: () {
+          // Location permission handled
+        },
+      ),
+    );
+  }
+
+  Future<void> _showCameraPermissionDialog() async {
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => CameraPermissionDialog(
+        onComplete: () {
+          // Camera permission handled
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
@@ -62,6 +115,13 @@ class _SigninPageState extends State<SigninPage> {
                   buttonTextColor: AppColors.lightPrimaryText,
                   textFontSize: sl<SizeConfig>().rpx(12),
                   borderColor: AppColors.lightPrimaryText,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: sl<SizeConfig>().rpx(30),
+                    vertical: sl<SizeConfig>().rpx(10),
+                  ),
+                  textStyle: textTheme.semiBold.copyWith(
+                    color: AppColors.lightPrimaryText,
+                  ),
                 ),
               ],
             ),
