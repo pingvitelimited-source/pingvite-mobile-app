@@ -64,7 +64,7 @@ class CustomDropdown<T> extends StatelessWidget {
               angle: -math.pi / 2,
               child: Padding(
                 padding: EdgeInsets.all(sl<SizeConfig>().rpx(18)),
-                child: AppImages.svgIcon(context, Constants.backArrow, 20, 12),
+                child: AppImages.svgIcon(context, Constants.backArrow, 15, 12),
               ),
             ),
           ),

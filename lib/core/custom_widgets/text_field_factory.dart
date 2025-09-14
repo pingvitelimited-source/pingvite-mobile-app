@@ -1,10 +1,15 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_textfield.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
+import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/date_time_picker_util.dart';
+import 'package:pingvite/core/utils/sizeconfig.dart';
+import 'package:pingvite/service_locator_dependencies.dart';
 
 class TextFieldFactory {
   static Widget email({
@@ -14,6 +19,7 @@ class TextFieldFactory {
     String? initialValue,
     ValueChanged<String?>? onChanged,
   }) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     return CustomTextField(
       name: 'email',
       hintText: 'Registered email ID',
@@ -28,6 +34,8 @@ class TextFieldFactory {
       onSubmitted: onSubmitted,
       initialValue: initialValue,
       onChanged: onChanged,
+      textStyle: textTheme.body,
+      hintStyle: textTheme.body,
     );
   }
 
@@ -39,6 +47,7 @@ class TextFieldFactory {
     String? initialValue,
     ValueChanged<String?>? onChanged,
   }) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     return CustomTextField(
       name: 'password',
       hintText: 'Password',
@@ -56,6 +65,8 @@ class TextFieldFactory {
       onSubmitted: onSubmitted,
       initialValue: initialValue,
       onChanged: onChanged,
+      textStyle: textTheme.body,
+      hintStyle: textTheme.body,
     );
   }
 
@@ -67,6 +78,7 @@ class TextFieldFactory {
     String? initialValue,
     ValueChanged<String?>? onChanged,
   }) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     return CustomTextField(
       name: 'phone',
       hintText: 'Phone Number',
@@ -83,6 +95,8 @@ class TextFieldFactory {
       onSubmitted: onSubmitted,
       initialValue: initialValue,
       onChanged: onChanged,
+      textStyle: textTheme.body,
+      hintStyle: textTheme.body,
     );
   }
 
@@ -90,27 +104,31 @@ class TextFieldFactory {
   static Widget name({
     required BuildContext context,
     required AppButtonTheme buttonTheme,
-    String hintText = Constants.eventName,
+    required String name,
+    required String hintText,
+    String requiredError = 'This field is required',
+    String minLengthError = 'Must be at least 2 characters',
+    int minLength = 2,
     VoidCallback? onSubmitted,
     String? initialValue,
     ValueChanged<String?>? onChanged,
   }) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     return CustomTextField(
-      name: Constants.eventName,
+      name: name,
       hintText: hintText,
       buttonTheme: buttonTheme,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
       validators: [
-        FormBuilderValidators.required(errorText: 'Event Name is required'),
-        FormBuilderValidators.minLength(
-          2,
-          errorText: 'Event Name must be at least 2 characters',
-        ),
+        FormBuilderValidators.required(errorText: requiredError),
+        FormBuilderValidators.minLength(minLength, errorText: minLengthError),
       ],
       onSubmitted: onSubmitted,
       initialValue: initialValue,
       onChanged: onChanged,
+      textStyle: textTheme.body,
+      hintStyle: textTheme.body,
     );
   }
 
@@ -122,6 +140,7 @@ class TextFieldFactory {
     String? initialValue,
     ValueChanged<String?>? onChanged,
   }) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     return CustomTextField(
       name: Constants.startDateAndTime,
       hintText: hintText,
@@ -151,6 +170,8 @@ class TextFieldFactory {
       onSubmitted: onSubmitted,
       initialValue: initialValue,
       onChanged: onChanged,
+      textStyle: textTheme.body,
+      hintStyle: textTheme.body,
     );
   }
 
@@ -162,6 +183,7 @@ class TextFieldFactory {
     String? initialValue,
     ValueChanged<String?>? onChanged,
   }) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     return CustomTextField(
       name: Constants.endDateAndTime,
       readOnly: true,
@@ -188,10 +210,126 @@ class TextFieldFactory {
       onSubmitted: onSubmitted,
       initialValue: initialValue,
       onChanged: onChanged,
+      textStyle: textTheme.body,
+      hintStyle: textTheme.body,
     );
   }
 
-  // Custom Field - for any other type
+  static Widget multiline({
+    required BuildContext context,
+    required AppButtonTheme buttonTheme,
+    required String name,
+    required String hintText,
+    String requiredError = 'This field is required',
+    int maxLines = 5,
+    VoidCallback? onSubmitted,
+    String? initialValue,
+    ValueChanged<String?>? onChanged,
+  }) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    return CustomTextField(
+      name: name,
+      hintText: hintText,
+      buttonTheme: buttonTheme,
+      keyboardType: TextInputType.multiline,
+      textInputAction: TextInputAction.newline,
+      maxLines: maxLines,
+      validators: [FormBuilderValidators.required(errorText: requiredError)],
+      onSubmitted: onSubmitted,
+      initialValue: initialValue,
+      onChanged: onChanged,
+      textStyle: textTheme.body,
+      hintStyle: textTheme.body,
+    );
+  }
+
+  static Widget counter({
+    required BuildContext context,
+    required AppButtonTheme buttonTheme,
+    required String name,
+    required String hintText,
+    int initialCount = 0,
+    int minValue = 0,
+    VoidCallback? onSubmitted,
+    ValueChanged<String?>? onChanged,
+  }) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    int count = initialCount;
+
+    return StatefulBuilder(
+      builder: (context, setState) {
+        void increment() {
+          setState(() {
+            count++;
+          });
+          onChanged?.call(count.toString());
+        }
+
+        void decrement() {
+          if (count > minValue) {
+            setState(() {
+              count--;
+            });
+            onChanged?.call(count.toString());
+          }
+        }
+
+        return CustomTextField(
+          name: name,
+          hintText: hintText,
+          buttonTheme: buttonTheme,
+          readOnly: true,
+          initialValue: count.toString(),
+          textInputAction: TextInputAction.done,
+          keyboardType: TextInputType.number,
+          suffixIcon: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: increment,
+                child: Transform.rotate(
+                  angle: math.pi / 2, // arrow pointing down
+                  child: Padding(
+                    padding: EdgeInsets.all(sl<SizeConfig>().rpx(8)),
+                    child: AppImages.svgIcon(
+                      context,
+                      Constants.backArrow,
+                      12,
+                      12,
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: decrement,
+                child: Transform.rotate(
+                  angle: -math.pi / 2, // arrow pointing up
+                  child: Padding(
+                    padding: EdgeInsets.all(sl<SizeConfig>().rpx(8)),
+                    child: AppImages.svgIcon(
+                      context,
+                      Constants.backArrow,
+                      12,
+                      12,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          validators: [
+            FormBuilderValidators.required(errorText: '$hintText is required'),
+            FormBuilderValidators.numeric(errorText: 'Enter valid number'),
+          ],
+          onSubmitted: onSubmitted,
+          onChanged: onChanged,
+          textStyle: textTheme.body,
+          hintStyle: textTheme.body,
+        );
+      },
+    );
+  }
+
   static Widget custom({
     required String name,
     required String hintText,

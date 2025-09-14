@@ -48,12 +48,14 @@
 		<key>UIStatusBarHidden</key>
 		<false/>
 		<key>NSLocationWhenInUseUsageDescription</key>
-		<string>Your location is used to show your address.</string>
-		<key>NSLocationAlwaysUsageDescription</key>
-		<string>Your location is used to show your address.</string>
+    	<string>This app needs access to location to provide location-based services and find nearby features.</string>
 		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-		<string>We need your location to provide location-based features.</string>
+    	<string>This app needs access to location to provide location-based services and find nearby features.</string>
+		<key>NSCameraUsageDescription</key>
+		<string>We need access to your camera to take photos.</string>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>This app needs access to photos and videos to select media files.</string>
+		<string>We need access to your photo library to select images.</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>We need access to save images to your photo library.</string>
 	</dict>
 </plist>

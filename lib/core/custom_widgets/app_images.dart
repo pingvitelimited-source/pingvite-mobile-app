@@ -5,13 +5,17 @@ import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
 class AppImages {
-  // For regular PNG images (no color - like your logo, banners, photos)
-  static Widget image(String imagePath, double height, double width) {
+  static Widget image(
+    String imagePath, [
+    double? height,
+    double? width,
+    BoxFit? fit,
+  ]) {
     return Image.asset(
       imagePath,
-      height: sl<SizeConfig>().rpx(height),
-      width: sl<SizeConfig>().rpx(width),
-      fit: BoxFit.cover,
+      height: height != null ? sl<SizeConfig>().rpx(height) : null,
+      width: width != null ? sl<SizeConfig>().rpx(width) : null,
+      fit: fit,
     );
   }
 

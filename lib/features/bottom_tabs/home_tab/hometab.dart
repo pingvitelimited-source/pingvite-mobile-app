@@ -8,6 +8,8 @@ import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/utils/sizeconfig.dart';
+import 'package:pingvite/service_locator_dependencies.dart';
 
 class Hometab extends StatefulWidget {
   const Hometab({super.key});
@@ -35,8 +37,8 @@ class _HometabState extends State<Hometab> {
               child: AppImages.pngIcon(
                 context,
                 Constants.noEvent,
-                260,
-                269,
+                sl<SizeConfig>().rpx(260),
+                sl<SizeConfig>().rpx(269),
                 applyColor: false,
                 scale: 1.26,
               ),
@@ -73,9 +75,13 @@ class _HometabState extends State<Hometab> {
                       end: Alignment.centerRight,
                     ),
                     buttonTextColor: AppColors.darkPrimaryText,
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 38,
-                      vertical: 12,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: sl<SizeConfig>().rpx(45),
+                      vertical: sl<SizeConfig>().rpx(10),
+                    ),
+                    textStyle: textTheme.body2.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.white,
                     ),
                   ),
                 ],

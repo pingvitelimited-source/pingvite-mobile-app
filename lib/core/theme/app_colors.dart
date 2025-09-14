@@ -22,8 +22,12 @@ class AppColors {
   //basic colors
   static const Color white = Colors.white;
   static const Color black = Colors.black;
+  static const Color red = Colors.red;
   static const Color blue = Color(0xFF61A0FF);
   static const Color circleColor1 = Color(0xFFBD0D6A);
+  static const Color labelPink = Color(0xFFBD0D6A);
+  static const Color labelBlue = Color(0xFF1F78D5);
+  static const Color imageUploadCardColor = Color(0xFFE8EAEC);
 
   //bottombar app color
   static const Color selectedTab = Color(0xFF61A0FF);

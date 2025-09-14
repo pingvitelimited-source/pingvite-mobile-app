@@ -4,6 +4,7 @@ import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/theme/theme_controller.dart';
 import 'package:pingvite/features/bottom_tabs/home_tab/hometab.dart';
+import 'package:pingvite/features/bottom_tabs/venue_tab/presentation/pages/venue_tab.dart';
 import 'package:pingvite/features/dashboard/data/model/navitem.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/app_bottom_navigation.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/custom_appbar.dart';
@@ -29,7 +30,7 @@ class _DashboardState extends State<Dashboard> {
   final _tabs = const <Widget>[
     Hometab(),
     _DummyTab(label: 'Contacts'),
-    _DummyTab(label: 'Venues'),
+    VenueTab(),
     _DummyTab(label: 'Events'),
     _DummyTab(label: 'Profile'),
   ];

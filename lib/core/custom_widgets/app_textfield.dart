@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pingvite/core/custom_widgets/app_input_decorators.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
+import 'package:pingvite/core/theme/app_text_theme.dart';
 
 class CustomTextField extends StatelessWidget {
   final String name;
@@ -20,6 +21,8 @@ class CustomTextField extends StatelessWidget {
   final String? initialValue;
   final ValueChanged<String?>? onChanged;
   final bool readOnly;
+  final TextStyle? textStyle;
+  final TextStyle? hintStyle;
 
   const CustomTextField({
     super.key,
@@ -38,10 +41,13 @@ class CustomTextField extends StatelessWidget {
     this.initialValue,
     this.onChanged,
     this.readOnly = false,
+    this.textStyle,
+    this.hintStyle,
   });
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     return FormBuilderTextField(
       name: name,
       readOnly: readOnly,
@@ -51,12 +57,14 @@ class CustomTextField extends StatelessWidget {
       textInputAction: textInputAction,
       maxLines: maxLines,
       enabled: enabled,
+      style: textStyle,
       decoration: AppInputDecoration.build(
         hintText: hintText,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         buttonTheme: buttonTheme,
-      ),
+        textTheme: textTheme,
+      ).copyWith(hintStyle: hintStyle),
       validator: validators != null
           ? FormBuilderValidators.compose(validators!)
           : null,

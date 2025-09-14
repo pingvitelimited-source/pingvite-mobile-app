@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
+import 'package:pingvite/core/theme/app_colors.dart';
+import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
@@ -9,10 +11,12 @@ class AppInputDecoration {
     required Widget? prefixIcon,
     required Widget? suffixIcon,
     required AppButtonTheme buttonTheme,
+    AppTextTheme? textTheme,
   }) {
     return InputDecoration(
       hintText: hintText,
       isDense: true,
+      errorStyle: textTheme?.body.copyWith(color: AppColors.lightGradient),
       prefixIcon: prefixIcon != null
           ? Padding(
               padding: EdgeInsets.symmetric(

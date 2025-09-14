@@ -29,7 +29,12 @@ class BottomButtons extends StatelessWidget {
               },
               backgroundColor: AppColors.unSelectedTabText,
               buttonTextColor: AppColors.darkPrimaryText,
-              contentPadding: const EdgeInsets.symmetric(vertical: 12),
+              contentPadding: EdgeInsets.symmetric(
+                vertical: sl<SizeConfig>().rpx(15),
+              ),
+              textStyle: textTheme.semiBold.copyWith(
+                color: AppColors.darkPrimaryText,
+              ),
             ),
           ),
           const SizedBox(width: 12), // spacing between buttons
@@ -47,7 +52,12 @@ class BottomButtons extends StatelessWidget {
                 end: Alignment.centerRight,
               ),
               buttonTextColor: AppColors.darkPrimaryText,
-              contentPadding: const EdgeInsets.symmetric(vertical: 12),
+              contentPadding: EdgeInsets.symmetric(
+                vertical: sl<SizeConfig>().rpx(15),
+              ),
+              textStyle: textTheme.semiBold.copyWith(
+                color: AppColors.darkPrimaryText,
+              ),
             ),
           ),
         ],

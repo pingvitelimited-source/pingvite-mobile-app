@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gap/gap.dart';
+import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/custom_dropdown.dart';
 import 'package:pingvite/core/custom_widgets/text_field_factory.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
@@ -27,7 +28,14 @@ class _EventDetailFormState extends State<EventDetailForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextFieldFactory.name(context: context, buttonTheme: buttonTheme),
+            TextFieldFactory.name(
+              context: context,
+              buttonTheme: buttonTheme,
+              name: Constants.venueName,
+              hintText: Constants.enterVenueName,
+              requiredError: Constants.venueNameRequired,
+              minLengthError: Constants.venueNameMinChar,
+            ),
             Gap(sl<SizeConfig>().rpx(25)),
             TextFieldFactory.startTimeDate(
               context: context,

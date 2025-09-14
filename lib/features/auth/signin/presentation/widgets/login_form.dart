@@ -79,6 +79,14 @@ class _LoginFormState extends State<LoginForm> {
                 end: Alignment.centerRight,
               ),
               buttonTextColor: AppColors.darkPrimaryText,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: sl<SizeConfig>().rpx(36),
+                vertical: sl<SizeConfig>().rpx(10),
+              ),
+              textStyle: textTheme.body2.copyWith(
+                fontWeight: FontWeight.w600,
+                color: AppColors.white,
+              ),
             ),
           ],
         ),
