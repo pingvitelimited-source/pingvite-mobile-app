@@ -155,7 +155,7 @@ class _ReusableTabWidgetState extends State<ReusableTabWidget> {
                     widget.tabPadding ??
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
+                  borderRadius: BorderRadius.circular(15),
                   border: Border.all(
                     color: isSelected
                         ? (widget.selectedColor ??
@@ -170,7 +170,7 @@ class _ReusableTabWidgetState extends State<ReusableTabWidget> {
                 ),
                 child: Text(
                   tab.title,
-                  style: textTheme.body2.copyWith(
+                  style: textTheme.body.copyWith(
                     color: isSelected
                         ? (widget.selectedTextColor ??
                               Theme.of(context).primaryColor)

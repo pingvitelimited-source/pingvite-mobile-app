@@ -48,6 +48,12 @@ class Constants {
   static const venueNameMinChar = "Venue Name must be at least 2 characters";
   static const uploadImage = "Upload Image";
 
+  //Template Screen
+  static const allTemplate = "All Template";
+  static const wedding = "Wedding";
+  static const birthday = "Birthday";
+  static const corporate = "Corporate";
+
   //Image URL from Assets
   static const appLogo = 'assets/png/splashscreen.png';
   static const email = 'assets/svg/email.svg';
