@@ -11,8 +11,13 @@ import 'package:pingvite/service_locator_dependencies.dart';
 
 class AttendeeTile extends StatelessWidget {
   final Map<String, String> attendee;
+  final bool isVisible;
 
-  const AttendeeTile({super.key, required this.attendee});
+  const AttendeeTile({
+    super.key,
+    required this.attendee,
+    required this.isVisible,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,17 +59,20 @@ class AttendeeTile extends StatelessWidget {
             ),
 
             /// Delete Icon
-            Padding(
-              padding: EdgeInsets.only(
-                right: sl<SizeConfig>().rpx(20),
-                top: sl<SizeConfig>().rpx(25),
-              ),
-              child: AppImages.pngIcon(
-                context,
-                Constants.delete,
-                22,
-                22,
-                color: AppColors.lightGradient,
+            Visibility(
+              visible: isVisible,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  right: sl<SizeConfig>().rpx(20),
+                  top: sl<SizeConfig>().rpx(25),
+                ),
+                child: AppImages.pngIcon(
+                  context,
+                  Constants.delete,
+                  22,
+                  22,
+                  color: AppColors.lightGradient,
+                ),
               ),
             ),
           ],

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/constants/constants.dart';
-import 'package:pingvite/core/custom_widgets/gradient_fab.dart';
+import 'package:pingvite/core/custom_widgets/custom_fab.dart';
 import 'package:pingvite/core/routes.dart';
-import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/features/bottom_tabs/venue_tab/data/model/venue.dart';
 import 'package:pingvite/features/bottom_tabs/venue_tab/presentation/widgets/venue_card.dart';
 
@@ -33,16 +32,10 @@ class _VenueTabState extends State<VenueTab> {
             return VenueCard(venue: venues[index]);
           },
         ),
-        floatingActionButton: GradientFAB(
+        floatingActionButton: CustomFAB(
           onPressed: () {
             Navigator.pushNamed(context, AppRoutes.createVenue);
           },
-          gradient: const LinearGradient(
-            colors: [AppColors.lightGradient, AppColors.darkGradient],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-          size: 48,
           child: const Icon(Icons.add, color: Colors.white, size: 28),
         ),
       ),

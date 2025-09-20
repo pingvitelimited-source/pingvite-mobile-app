@@ -37,7 +37,10 @@ class _AttendeesPageState extends State<AttendeesPage> {
             child: ListView.builder(
               itemCount: attendees.length,
               itemBuilder: (context, index) {
-                return AttendeeTile(attendee: attendees[index]);
+                return AttendeeTile(
+                  attendee: attendees[index],
+                  isVisible: true,
+                );
               },
             ),
           ),

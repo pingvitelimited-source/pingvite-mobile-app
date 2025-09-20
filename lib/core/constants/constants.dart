@@ -54,6 +54,16 @@ class Constants {
   static const birthday = "Birthday";
   static const corporate = "Corporate";
 
+  //Event Tab Screen
+  static const allEvents = "All Events";
+  static const upcoming = "Upcoming";
+  static const completed = "Completed";
+  static const draft = "Draft";
+
+  //Contacts Tab Screen
+  static const allContacts = "All Contacts";
+  static const friends = "Friends";
+
   //Image URL from Assets
   static const appLogo = 'assets/png/splashscreen.png';
   static const email = 'assets/svg/email.svg';
