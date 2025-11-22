@@ -5,7 +5,12 @@ import 'package:pingvite/features/bottom_tabs/events_tab/data/model/event_model.
 
 class EventCardWidget extends StatelessWidget {
   final List<EventModel> dummyEvents;
-  const EventCardWidget({super.key, required this.dummyEvents});
+  final Widget Function(EventModel event)? extraContent;
+  const EventCardWidget({
+    super.key,
+    required this.dummyEvents,
+    this.extraContent,
+  });
 
   String _formatDateTime(DateTime date) {
     return "${date.day} ${_monthName(date.month)} ${date.year} | "
@@ -34,6 +39,9 @@ class EventCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: true, // ✅ makes ListView take only required height
+      physics:
+          const NeverScrollableScrollPhysics(), // ✅ avoids nested scroll issue
       padding: const EdgeInsets.all(12),
       itemCount: dummyEvents.length,
       itemBuilder: (context, index) {
@@ -143,6 +151,10 @@ class EventCardWidget extends StatelessWidget {
                         ),
                       ],
                     ),
+                    if (extraContent != null) ...[
+                      const SizedBox(height: 16),
+                      extraContent!(event),
+                    ],
                   ],
                 ),
               ),

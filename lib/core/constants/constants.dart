@@ -19,6 +19,9 @@ class Constants {
   static const createEventButton = "Create Event";
   static const createEventText1 = "You have not added any event yet.";
   static const createEventText2 = "Create your first event.";
+  static const listedEvents = "Listed Events";
+  static const listedVenues = "Listed Venues";
+  static const currentEvent = "Current Event";
 
   //Create Event Screen
   static const continueButton = "Continue";
@@ -85,4 +88,6 @@ class Constants {
   static const backArrow = 'assets/svg/backarrow.svg';
   static const calendar = 'assets/svg/calendar.svg';
   static const addImage = 'assets/svg/add.svg';
+  static const listedEvent = 'assets/svg/listed_event.svg';
+  static const listedVenue = 'assets/svg/listed_venues.svg';
 }
