@@ -47,26 +47,12 @@ class TextFieldFactory {
     String? initialValue,
     ValueChanged<String?>? onChanged,
   }) {
-    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    return CustomTextField(
-      name: 'password',
-      hintText: 'Password',
+    return _PasswordField(
+      context: context,
       buttonTheme: buttonTheme,
-      prefixIcon: AppImages.svgIcon(context, Constants.password, 16, 12),
-      obscureText: true,
-      textInputAction: TextInputAction.done,
-      validators: [
-        FormBuilderValidators.required(errorText: 'Password is required'),
-        FormBuilderValidators.minLength(
-          6,
-          errorText: 'Password must be at least 6 characters',
-        ),
-      ],
       onSubmitted: onSubmitted,
       initialValue: initialValue,
       onChanged: onChanged,
-      textStyle: textTheme.body,
-      hintStyle: textTheme.body,
     );
   }
 
@@ -362,6 +348,69 @@ class TextFieldFactory {
       enabled: enabled,
       initialValue: initialValue,
       onChanged: onChanged,
+    );
+  }
+}
+
+// Stateful Password Field with Eye Icon Toggle
+class _PasswordField extends StatefulWidget {
+  final BuildContext context;
+  final AppButtonTheme buttonTheme;
+  final VoidCallback? onSubmitted;
+  final String? initialValue;
+  final ValueChanged<String?>? onChanged;
+
+  const _PasswordField({
+    required this.context,
+    required this.buttonTheme,
+    this.onSubmitted,
+    this.initialValue,
+    this.onChanged,
+  });
+
+  @override
+  State<_PasswordField> createState() => _PasswordFieldState();
+}
+
+class _PasswordFieldState extends State<_PasswordField> {
+  bool _obscureText = true;
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    return CustomTextField(
+      name: 'password',
+      hintText: 'Password',
+      buttonTheme: widget.buttonTheme,
+      prefixIcon: AppImages.svgIcon(context, Constants.password, 16, 12),
+      suffixIcon: GestureDetector(
+        onTap: _togglePasswordVisibility,
+        child: Icon(
+          _obscureText ? Icons.visibility_off : Icons.visibility,
+          color: Colors.grey,
+          size: 20,
+        ),
+      ),
+      obscureText: _obscureText,
+      textInputAction: TextInputAction.done,
+      validators: [
+        FormBuilderValidators.required(errorText: 'Password is required'),
+        FormBuilderValidators.minLength(
+          6,
+          errorText: 'Password must be at least 6 characters',
+        ),
+      ],
+      onSubmitted: widget.onSubmitted,
+      initialValue: widget.initialValue,
+      onChanged: widget.onChanged,
+      textStyle: textTheme.body,
+      hintStyle: textTheme.body,
     );
   }
 }

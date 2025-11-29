@@ -81,62 +81,86 @@ class _SigninPageState extends State<SigninPage> {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: sl<SizeConfig>().rpx(10)),
+            padding: EdgeInsets.symmetric(horizontal: sl<SizeConfig>().rpx(32)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                AppImages.image(Constants.appLogo, 63, 242),
-                Gap(sl<SizeConfig>().rpx(20)),
-                AppTexts(
-                  text: Constants.loginHeaderText,
-                  style: textTheme.heading,
-                ),
-                Gap(sl<SizeConfig>().rpx(10)),
-                AppTexts(
-                  text: Constants.loginHeaderSubText,
-                  style: textTheme.subheading,
-                ),
-                Gap(sl<SizeConfig>().rpx(30)),
-                const LoginForm(),
-                Gap(sl<SizeConfig>().rpx(40)),
-                AppTexts(
-                  text: Constants.forgotPasswordText,
-                  style: textTheme.subheading,
+                Gap(sl<SizeConfig>().rpx(60)),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AppImages.image(Constants.appLogo, 74.71, 74.71),
+                        Gap(sl<SizeConfig>().rpx(8)),
+                        AppTexts(
+                          text: Constants.loginHeaderText,
+                          style: textTheme.heading.copyWith(
+                            fontSize: sl<SizeConfig>().rpx(32),
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.lightPrimaryText,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Gap(sl<SizeConfig>().rpx(2)),
+                    Padding(
+                      padding: EdgeInsets.only(left: sl<SizeConfig>().rpx(83)),
+                      child: AppTexts(
+                        text: Constants.loginHeaderSubText,
+                        style: textTheme.body.copyWith(
+                          fontSize: sl<SizeConfig>().rpx(13),
+                          color: AppColors.lightSecondaryText,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Gap(sl<SizeConfig>().rpx(50)),
+                const LoginForm(),
+                Gap(sl<SizeConfig>().rpx(16)),
+                GestureDetector(
+                  onTap: () {},
+                  child: AppTexts(
+                    text: Constants.forgotPasswordText,
+                    style: textTheme.body.copyWith(
+                      color: AppColors.blue,
+                      fontSize: sl<SizeConfig>().rpx(14),
+                    ),
+                  ),
+                ),
+                Gap(sl<SizeConfig>().rpx(120)),
                 AppPrimaryButton(
                   title: Constants.createNewButton,
                   isLoading: _isLoading,
                   textTheme: textTheme,
                   buttonTheme: buttonTheme,
                   onPressed: () {},
-                  backgroundColor: AppColors.lightbackground,
-                  buttonTextColor: AppColors.lightPrimaryText,
-                  textFontSize: sl<SizeConfig>().rpx(12),
-                  borderColor: AppColors.lightPrimaryText,
+                  gradient: const LinearGradient(
+                    colors: [AppColors.lightGradient, AppColors.darkGradient],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  backgroundColor: Colors.transparent,
+                  buttonTextColor: AppColors.white,
+                  textFontSize: sl<SizeConfig>().rpx(16),
+                  borderColor: Colors.transparent,
                   contentPadding: EdgeInsets.symmetric(
-                    horizontal: sl<SizeConfig>().rpx(30),
-                    vertical: sl<SizeConfig>().rpx(10),
+                    horizontal: sl<SizeConfig>().rpx(40),
+                    vertical: sl<SizeConfig>().rpx(14),
                   ),
                   textStyle: textTheme.semiBold.copyWith(
-                    color: AppColors.lightPrimaryText,
+                    color: AppColors.white,
+                    fontSize: sl<SizeConfig>().rpx(16),
                   ),
                 ),
+                Gap(sl<SizeConfig>().rpx(40)),
               ],
             ),
           ),
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(bottom: sl<SizeConfig>().rpx(30)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AppImages.svgIcon(context, Constants.indianFlag, 20, 20),
-            SizedBox(width: 10),
-            AppTexts(text: Constants.madeInIndia, style: textTheme.accent),
-          ],
         ),
       ),
     );

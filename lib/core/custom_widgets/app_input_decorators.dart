@@ -36,21 +36,21 @@ class AppInputDecoration {
       prefixIconConstraints: const BoxConstraints(minWidth: 24, minHeight: 24),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
-        borderSide: BorderSide(color: buttonTheme.borderColor),
+        borderSide: BorderSide(color: buttonTheme.borderColor, width: 1.28),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
-        borderSide: BorderSide(color: buttonTheme.borderColor),
+        borderSide: BorderSide(color: buttonTheme.borderColor, width: 1.28),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
-        borderSide: BorderSide(color: buttonTheme.focusedBorderColor, width: 2),
+        borderSide: BorderSide(color: buttonTheme.focusedBorderColor, width: 1.28),
       ),
       filled: true,
       fillColor: buttonTheme.fillColor,
       contentPadding: EdgeInsets.symmetric(
         horizontal: sl<SizeConfig>().rpx(16),
-        vertical: sl<SizeConfig>().rpx(16),
+        vertical: sl<SizeConfig>().rpx(14),
       ),
     );
   }

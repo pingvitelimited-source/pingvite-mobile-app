@@ -41,7 +41,7 @@ class AppPrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderRadius = BorderRadius.circular(sl<SizeConfig>().rpx(12));
+    final borderRadius = BorderRadius.circular(10);
     return Container(
       decoration: BoxDecoration(
         borderRadius: borderRadius,
@@ -60,7 +60,7 @@ class AppPrimaryButton extends StatelessWidget {
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
+            borderRadius: BorderRadius.circular(10),
           ),
           padding: contentPadding,
         ),

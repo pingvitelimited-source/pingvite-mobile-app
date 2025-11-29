@@ -52,44 +52,52 @@ class _LoginFormState extends State<LoginForm> {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     final buttonTheme = Theme.of(context).extension<AppButtonTheme>()!;
 
-    return Padding(
-      padding: EdgeInsets.all(sl<SizeConfig>().rpx(20)),
-      child: FormBuilder(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextFieldFactory.email(context: context, buttonTheme: buttonTheme),
-            Gap(sl<SizeConfig>().rpx(25)),
-            TextFieldFactory.password(
+    return FormBuilder(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 327,
+            height: 60,
+            child: TextFieldFactory.email(context: context, buttonTheme: buttonTheme),
+          ),
+          Gap(sl<SizeConfig>().rpx(16)),
+          SizedBox(
+            width: 327,
+            height: 60,
+            child: TextFieldFactory.password(
               context: context,
               buttonTheme: buttonTheme,
               onSubmitted: _handleLogin,
             ),
-            Gap(sl<SizeConfig>().rpx(25)),
-            AppPrimaryButton(
+          ),
+          const Gap(12.82),
+          SizedBox(
+            width: 327,
+            height: 60,
+            child: AppPrimaryButton(
               title: Constants.loginButton,
               isLoading: _isLoading,
               textTheme: textTheme,
               buttonTheme: buttonTheme,
               onPressed: _handleLogin,
-              gradient: const LinearGradient(
-                colors: [AppColors.lightGradient, AppColors.darkGradient],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
+              backgroundColor: AppColors.blue,
+              buttonTextColor: AppColors.white,
+              borderColor: Colors.transparent,
+              contentPadding: const EdgeInsets.only(
+                top: 19.22,
+                right: 38.45,
+                bottom: 19.22,
+                left: 38.45,
               ),
-              buttonTextColor: AppColors.darkPrimaryText,
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: sl<SizeConfig>().rpx(36),
-                vertical: sl<SizeConfig>().rpx(10),
-              ),
-              textStyle: textTheme.body2.copyWith(
-                fontWeight: FontWeight.w600,
+              textStyle: textTheme.semiBold.copyWith(
                 color: AppColors.white,
+                fontSize: sl<SizeConfig>().rpx(16),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
