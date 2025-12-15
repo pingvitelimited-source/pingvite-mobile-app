@@ -5,7 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/custom_dropdown.dart';
-import 'package:pingvite/core/custom_widgets/text_field_factory.dart';
+import 'package:pingvite/core/custom_widgets/factory/text_field_factory.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';

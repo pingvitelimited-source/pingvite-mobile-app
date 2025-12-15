@@ -13,7 +13,10 @@ class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case signin:
-        return MaterialPageRoute(builder: (_) => const SigninPage());
+        final authType = settings.arguments as int?;
+        return MaterialPageRoute(
+          builder: (_) => SigninPage(authType: authType),
+        );
       case dashboard:
         return MaterialPageRoute(builder: (_) => const Dashboard());
       case createEvent:

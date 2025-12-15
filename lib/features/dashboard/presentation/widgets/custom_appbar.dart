@@ -17,6 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final VoidCallback? onBackPressed;
   final bool showBackButton;
+  final bool? showNotificationBell;
 
   const CustomAppBar({
     super.key,
@@ -28,6 +29,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.onBackPressed,
     this.showBackButton = false,
+    this.showNotificationBell,
   });
 
   // Factory constructors for easy usage
@@ -38,16 +40,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.userImageUrl,
     this.onNotificationTap,
     this.hasNotification = false,
+    this.showNotificationBell,
   }) : title = null,
        onBackPressed = null,
        showBackButton = false;
 
   const CustomAppBar.withBackButton({
     super.key,
-    required String this.title,
+    this.title,
     this.onNotificationTap,
     this.onBackPressed,
     this.hasNotification = false,
+    this.showNotificationBell,
   }) : showBackButton = true,
        greeting = null,
        userName = null,
@@ -57,6 +61,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final appBarTheme = Theme.of(context).extension<AppTopBarTheme>()!;
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final shouldShowNotificationBell = showNotificationBell ?? !showBackButton;
 
     return Container(
       height: preferredSize.height,
@@ -134,11 +139,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
               ),
 
-              // Notification bell (always present) - uses global handler
-              NotificationBell(
-                count: hasNotification ? 3 : 0,
-                onTap: () => NotificationHandler.handleNotificationTap(context),
-              ),
+              if (shouldShowNotificationBell)
+                NotificationBell(
+                  count: hasNotification ? 3 : 0,
+                  onTap: () =>
+                      NotificationHandler.handleNotificationTap(context),
+                ),
             ],
           ),
         ),

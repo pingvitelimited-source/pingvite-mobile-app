@@ -19,6 +19,9 @@ class AppPrimaryButton extends StatelessWidget {
   final Color? borderColor;
   final EdgeInsetsGeometry? contentPadding;
   final TextStyle textStyle;
+  final double? width;
+  final Widget? prefixIcon;
+  final double? iconSpacing;
 
   const AppPrimaryButton({
     super.key,
@@ -37,45 +40,67 @@ class AppPrimaryButton extends StatelessWidget {
       vertical: 8,
     ),
     required this.textStyle,
+    this.width,
+    this.prefixIcon,
+    this.iconSpacing,
   });
 
   @override
   Widget build(BuildContext context) {
     final borderRadius = BorderRadius.circular(sl<SizeConfig>().rpx(12));
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: borderRadius,
-        gradient: gradient,
-        color: gradient == null
-            ? (backgroundColor ?? buttonTheme.primaryButtonColor)
-            : null,
-        border: Border.all(
-          color: borderColor ?? buttonTheme.borderColor,
-          width: sl<SizeConfig>().rpx(1),
-        ),
-      ),
-      child: ElevatedButton(
-        onPressed: (isLoading ?? false) ? null : onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
+    return SizedBox(
+      width: width,
+      child: IntrinsicWidth(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: borderRadius,
+            gradient: gradient,
+            color: gradient == null
+                ? (backgroundColor ?? buttonTheme.primaryButtonColor)
+                : null,
+            border: Border.all(
+              color: borderColor ?? buttonTheme.borderColor,
+              width: sl<SizeConfig>().rpx(1),
+            ),
           ),
-          padding: contentPadding,
-        ),
-        child: (isLoading ?? false)
-            ? SizedBox(
-                height: sl<SizeConfig>().rpx(20),
-                width: sl<SizeConfig>().rpx(20),
-                child: const CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    AppColors.darkPrimaryText,
+          child: ElevatedButton(
+            onPressed: (isLoading ?? false) ? null : onPressed,
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size.zero,
+              backgroundColor: Colors.transparent,
+              shadowColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
+              ),
+              padding: contentPadding,
+            ),
+            child: (isLoading ?? false)
+                ? SizedBox(
+                    height: sl<SizeConfig>().rpx(20),
+                    width: sl<SizeConfig>().rpx(20),
+                    child: const CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        AppColors.darkPrimaryText,
+                      ),
+                    ),
+                  )
+                : Stack(
+                    children: [
+                      if (prefixIcon != null)
+                        Positioned(
+                          left: sl<SizeConfig>().rpx(0),
+                          top: 0,
+                          bottom: 0,
+                          child: Center(child: prefixIcon!),
+                        ),
+                      Center(
+                        child: AppTexts(text: title, style: textStyle),
+                      ),
+                    ],
                   ),
-                ),
-              )
-            : AppTexts(text: title, style: textStyle),
+          ),
+        ),
       ),
     );
   }

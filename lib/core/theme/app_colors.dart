@@ -28,6 +28,7 @@ class AppColors {
   static const Color labelPink = Color(0xFFBD0D6A);
   static const Color labelBlue = Color(0xFF1F78D5);
   static const Color imageUploadCardColor = Color(0xFFE8EAEC);
+  static const Color grey = Color(0xFF2F2E36);
 
   //bottombar app color
   static const Color selectedTab = Color(0xFF61A0FF);

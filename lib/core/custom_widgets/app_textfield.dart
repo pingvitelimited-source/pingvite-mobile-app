@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final VoidCallback? onSuffixIconTap;
   final bool obscureText;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
@@ -31,6 +32,7 @@ class CustomTextField extends StatelessWidget {
     required this.buttonTheme,
     this.prefixIcon,
     this.suffixIcon,
+    this.onSuffixIconTap,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.next,
@@ -61,7 +63,9 @@ class CustomTextField extends StatelessWidget {
       decoration: AppInputDecoration.build(
         hintText: hintText,
         prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
+        suffixIcon: suffixIcon != null && onSuffixIconTap != null
+            ? GestureDetector(onTap: onSuffixIconTap, child: suffixIcon)
+            : suffixIcon,
         buttonTheme: buttonTheme,
         textTheme: textTheme,
       ).copyWith(hintStyle: hintStyle),
