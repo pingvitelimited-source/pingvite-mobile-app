@@ -42,9 +42,12 @@ class _InitialPageState extends State<InitialPage> {
                 },
               ),
               Gap(sl<SizeConfig>().rpx(50)),
-              AppTexts(
-                text: Constants.signup,
-                style: textTheme.semiBold.copyWith(color: AppColors.blue),
+              GestureDetector(
+                onTap: () => Navigator.pushNamed(context, AppRoutes.signup),
+                child: AppTexts(
+                  text: Constants.signup,
+                  style: textTheme.semiBold.copyWith(color: AppColors.blue),
+                ),
               ),
             ],
           ),

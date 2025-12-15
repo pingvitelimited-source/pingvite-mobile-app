@@ -157,6 +157,13 @@ class TextFieldFactory {
       hintText: hintText,
       buttonTheme: buttonTheme,
       keyboardType: TextInputType.name,
+      prefixIcon: AppImages.svgIcon(
+        context,
+        Constants.profile,
+        16,
+        12,
+        AppColors.black,
+      ),
       textInputAction: TextInputAction.next,
       validators: [
         FormBuilderValidators.required(errorText: requiredError),
