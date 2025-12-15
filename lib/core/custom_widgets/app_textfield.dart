@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pingvite/core/custom_widgets/app_input_decorators.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
+import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -50,6 +51,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final isLocked = !enabled || readOnly;
     return FormBuilderTextField(
       name: name,
       readOnly: readOnly,
@@ -60,15 +62,22 @@ class CustomTextField extends StatelessWidget {
       maxLines: maxLines,
       enabled: enabled,
       style: textStyle,
-      decoration: AppInputDecoration.build(
-        hintText: hintText,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon != null && onSuffixIconTap != null
-            ? GestureDetector(onTap: onSuffixIconTap, child: suffixIcon)
-            : suffixIcon,
-        buttonTheme: buttonTheme,
-        textTheme: textTheme,
-      ).copyWith(hintStyle: hintStyle),
+      decoration:
+          AppInputDecoration.build(
+            hintText: hintText,
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon != null && onSuffixIconTap != null
+                ? GestureDetector(onTap: onSuffixIconTap, child: suffixIcon)
+                : suffixIcon,
+            buttonTheme: buttonTheme,
+            textTheme: textTheme,
+          ).copyWith(
+            hintStyle: hintStyle,
+            filled: true,
+            fillColor: isLocked
+                ? AppColors.grey.withValues(alpha: 0.08) // 🔒 muted background
+                : Colors.white,
+          ),
       validator: validators != null
           ? FormBuilderValidators.compose(validators!)
           : null,

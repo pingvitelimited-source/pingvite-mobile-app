@@ -11,6 +11,18 @@ class Constants {
   static const createAccountButton = "Create Account";
   static const enterFullName = "Enter Full Name";
 
+  //Reset Password
+  static const resetPassword = "Reset Password";
+  static const registedEmailOrPhone =
+      "Enter your registered email or phone number";
+  static const phone = "Phone";
+  static const resetEmail = "Email";
+  static const pleasewait = "Please wait...";
+  static const confirm = "Confirm";
+  static const verified = "Verified";
+  static const enterNewPassword = "Enter New Password";
+  static const reenterNewPassword = "Re-enter New Password";
+
   //Dashboard Screen
   static const homeLabel = 'Home';
   static const profileLabel = 'Profile';

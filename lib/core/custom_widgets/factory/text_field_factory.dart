@@ -19,12 +19,16 @@ class TextFieldFactory {
     VoidCallback? onSubmitted,
     String? initialValue,
     ValueChanged<String?>? onChanged,
+    bool? isEnabled,
+    Widget? suffixIcon,
   }) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     return CustomTextField(
-      name: 'email',
+      name: 'email_field',
       hintText: 'Registered email ID',
       buttonTheme: buttonTheme,
+      enabled: isEnabled ?? true,
+      suffixIcon: suffixIcon,
       prefixIcon: AppImages.svgIcon(
         context,
         Constants.email,
@@ -56,6 +60,7 @@ class TextFieldFactory {
     String? initialValue,
     ValueChanged<String?>? onChanged,
     String fieldKey = 'password',
+    String? hintText,
   }) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     _passwordVisibilityNotifiers[fieldKey] ??= ValueNotifier<bool>(true);
@@ -65,7 +70,7 @@ class TextFieldFactory {
       builder: (context, isObscure, child) {
         return CustomTextField(
           name: fieldKey,
-          hintText: 'Password',
+          hintText: hintText ?? 'Password',
           buttonTheme: buttonTheme,
           prefixIcon: AppImages.svgIcon(
             context,
@@ -115,12 +120,16 @@ class TextFieldFactory {
     VoidCallback? onSubmitted,
     String? initialValue,
     ValueChanged<String?>? onChanged,
+    bool? isEnabled,
+    Widget? suffixIcon,
   }) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     return CustomTextField(
-      name: 'phone',
+      name: 'phone_field',
       hintText: 'Phone Number',
       buttonTheme: buttonTheme,
+      enabled: isEnabled ?? true,
+      suffixIcon: suffixIcon,
       prefixIcon: AppImages.svgIcon(context, Constants.call, 16, 12),
       keyboardType: TextInputType.phone,
       textInputAction: TextInputAction.next,
