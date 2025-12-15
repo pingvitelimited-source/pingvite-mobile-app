@@ -1,9 +1,8 @@
 class Constants {
   static const appTitle = 'Pingvite';
   //Login Screen
-  static const loginHeaderText = "Let’s create deals and offers";
-  static const loginHeaderSubText = "Login to post your offers and deals.";
-  static const loginButton = "Login to continue";
+  static const loginHeaderText = "Events simplified";
+  static const loginButton = "Login";
   static const forgotPasswordText = "Forgot Password?";
   static const createNewButton = "Create new account";
   static const madeInIndia = "Made In India";
@@ -67,6 +66,15 @@ class Constants {
   static const allContacts = "All Contacts";
   static const friends = "Friends";
 
+  //InitialScreen
+  static const loginWithPhone = "Login with Phone";
+  static const loginWithEmail = "Login with Email";
+  static const signup = "Signup";
+  static const acceptText = "If you continue you are accepting\nPingvite ";
+  static const termsAndCondition = "Terms and Conditions";
+  static const and = " and ";
+  static const privacyPolicy = "Privacy policy";
+
   //Image URL from Assets
   static const appLogo = 'assets/png/splashscreen.png';
   static const email = 'assets/svg/email.svg';
@@ -87,6 +95,8 @@ class Constants {
   static const sample = 'assets/png/sample.png';
   static const backArrow = 'assets/svg/backarrow.svg';
   static const calendar = 'assets/svg/calendar.svg';
+  static const call = 'assets/svg/call.svg';
+  static const sms = 'assets/svg/sms.svg';
   static const addImage = 'assets/svg/add.svg';
   static const listedEvent = 'assets/svg/listed_event.svg';
   static const listedVenue = 'assets/svg/listed_venues.svg';

@@ -4,7 +4,7 @@ import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_theme.dart';
 import 'package:pingvite/core/theme/theme_controller.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
-import 'package:pingvite/features/auth/signin/presentation/pages/signin_page.dart';
+import 'package:pingvite/features/inital_screen/presentation/pages/initial_page.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
             darkTheme: AppTheme.darkTheme,
             themeMode: themeController.themeMode,
             onGenerateRoute: AppRoutes.generateRoute,
-            home: SigninPage(),
+            home: InitialPage(),
           );
         },
       ),

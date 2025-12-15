@@ -6,6 +6,7 @@ import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_textfield.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
+import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/date_time_picker_util.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
@@ -24,7 +25,13 @@ class TextFieldFactory {
       name: 'email',
       hintText: 'Registered email ID',
       buttonTheme: buttonTheme,
-      prefixIcon: AppImages.svgIcon(context, Constants.email, 16, 12),
+      prefixIcon: AppImages.svgIcon(
+        context,
+        Constants.email,
+        16,
+        12,
+        AppColors.grey,
+      ),
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       validators: [
@@ -40,34 +47,65 @@ class TextFieldFactory {
   }
 
   // Password Field
+  static final Map<String, ValueNotifier<bool>> _passwordVisibilityNotifiers =
+      {};
   static Widget password({
     required BuildContext context,
     required AppButtonTheme buttonTheme,
     VoidCallback? onSubmitted,
     String? initialValue,
     ValueChanged<String?>? onChanged,
+    String fieldKey = 'password',
   }) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    return CustomTextField(
-      name: 'password',
-      hintText: 'Password',
-      buttonTheme: buttonTheme,
-      prefixIcon: AppImages.svgIcon(context, Constants.password, 16, 12),
-      obscureText: true,
-      textInputAction: TextInputAction.done,
-      validators: [
-        FormBuilderValidators.required(errorText: 'Password is required'),
-        FormBuilderValidators.minLength(
-          6,
-          errorText: 'Password must be at least 6 characters',
-        ),
-      ],
-      onSubmitted: onSubmitted,
-      initialValue: initialValue,
-      onChanged: onChanged,
-      textStyle: textTheme.body,
-      hintStyle: textTheme.body,
+    _passwordVisibilityNotifiers[fieldKey] ??= ValueNotifier<bool>(true);
+    final obscureNotifier = _passwordVisibilityNotifiers[fieldKey]!;
+    return ValueListenableBuilder(
+      valueListenable: obscureNotifier,
+      builder: (context, isObscure, child) {
+        return CustomTextField(
+          name: fieldKey,
+          hintText: 'Password',
+          buttonTheme: buttonTheme,
+          prefixIcon: AppImages.svgIcon(
+            context,
+            Constants.password,
+            16,
+            12,
+            AppColors.grey,
+          ),
+          suffixIcon: Icon(
+            isObscure ? Icons.visibility_off : Icons.visibility,
+            color: AppColors.grey,
+            size: 20,
+          ),
+          onSuffixIconTap: () {
+            obscureNotifier.value = !obscureNotifier.value;
+          },
+          obscureText: isObscure,
+          textInputAction: TextInputAction.done,
+          validators: [
+            FormBuilderValidators.required(errorText: 'Password is required'),
+            FormBuilderValidators.minLength(
+              6,
+              errorText: 'Password must be at least 6 characters',
+            ),
+          ],
+          onSubmitted: onSubmitted,
+          initialValue: initialValue,
+          onChanged: onChanged,
+          textStyle: textTheme.body,
+          hintStyle: textTheme.body,
+        );
+      },
     );
+  }
+
+  static void dispose() {
+    for (var notifier in _passwordVisibilityNotifiers.values) {
+      notifier.dispose();
+    }
+    _passwordVisibilityNotifiers.clear();
   }
 
   // Phone Field
@@ -83,7 +121,7 @@ class TextFieldFactory {
       name: 'phone',
       hintText: 'Phone Number',
       buttonTheme: buttonTheme,
-      prefixIcon: AppImages.svgIcon(context, Constants.email, 16, 12),
+      prefixIcon: AppImages.svgIcon(context, Constants.call, 16, 12),
       keyboardType: TextInputType.phone,
       textInputAction: TextInputAction.next,
       validators: [

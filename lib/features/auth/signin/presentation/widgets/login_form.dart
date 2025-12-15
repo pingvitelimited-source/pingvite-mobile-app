@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:gap/gap.dart';
 import 'package:pingvite/core/constants/constants.dart';
-import 'package:pingvite/core/custom_widgets/app_primary_buttons.dart';
-import 'package:pingvite/core/custom_widgets/text_field_factory.dart';
+import 'package:pingvite/core/custom_widgets/factory/app_button_factory.dart';
+import 'package:pingvite/core/custom_widgets/factory/text_field_factory.dart';
 import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
-import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  final int? authType;
+  const LoginForm({super.key, this.authType});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -20,12 +20,12 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormBuilderState>();
-  bool _isLoading = false;
+  bool isLoading = false;
 
   void _handleLogin() async {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       FocusScope.of(context).unfocus();
-      setState(() => _isLoading = true);
+      setState(() => isLoading = true);
 
       //final formData = _formKey.currentState!.value;
       // final email = formData['email'] as String;
@@ -42,16 +42,14 @@ class _LoginFormState extends State<LoginForm> {
           );
         }
       } finally {
-        if (mounted) setState(() => _isLoading = false);
+        if (mounted) setState(() => isLoading = false);
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     final buttonTheme = Theme.of(context).extension<AppButtonTheme>()!;
-
     return Padding(
       padding: EdgeInsets.all(sl<SizeConfig>().rpx(20)),
       child: FormBuilder(
@@ -59,7 +57,15 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextFieldFactory.email(context: context, buttonTheme: buttonTheme),
+            widget.authType == 0
+                ? TextFieldFactory.phone(
+                    context: context,
+                    buttonTheme: buttonTheme,
+                  )
+                : TextFieldFactory.email(
+                    context: context,
+                    buttonTheme: buttonTheme,
+                  ),
             Gap(sl<SizeConfig>().rpx(25)),
             TextFieldFactory.password(
               context: context,
@@ -67,26 +73,14 @@ class _LoginFormState extends State<LoginForm> {
               onSubmitted: _handleLogin,
             ),
             Gap(sl<SizeConfig>().rpx(25)),
-            AppPrimaryButton(
+            AppButtonFactory.build(
+              context: context,
+              type: ButtonType.simple,
               title: Constants.loginButton,
-              isLoading: _isLoading,
-              textTheme: textTheme,
-              buttonTheme: buttonTheme,
               onPressed: _handleLogin,
-              gradient: const LinearGradient(
-                colors: [AppColors.lightGradient, AppColors.darkGradient],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-              buttonTextColor: AppColors.darkPrimaryText,
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: sl<SizeConfig>().rpx(36),
-                vertical: sl<SizeConfig>().rpx(10),
-              ),
-              textStyle: textTheme.body2.copyWith(
-                fontWeight: FontWeight.w600,
-                color: AppColors.white,
-              ),
+              backgroundColor: AppColors.blue,
+              textColor: AppColors.white,
+              borderColor: Colors.transparent,
             ),
           ],
         ),
