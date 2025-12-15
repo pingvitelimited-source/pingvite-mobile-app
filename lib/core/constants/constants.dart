@@ -7,6 +7,10 @@ class Constants {
   static const createNewButton = "Create new account";
   static const madeInIndia = "Made In India";
 
+  //Signup Screen
+  static const createAccountButton = "Create Account";
+  static const enterFullName = "Enter Full Name";
+
   //Dashboard Screen
   static const homeLabel = 'Home';
   static const profileLabel = 'Profile';

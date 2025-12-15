@@ -5,6 +5,7 @@ import 'package:pingvite/core/custom_widgets/factory/app_button_factory.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/custom_widgets/auth_screen_header.dart';
+import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/permissions.dart';
@@ -103,7 +104,8 @@ class _SigninPageState extends State<SigninPage> {
                     context: context,
                     type: ButtonType.gradient,
                     title: Constants.createNewButton,
-                    onPressed: () {},
+                    onPressed: () =>
+                        Navigator.pushNamed(context, AppRoutes.signup),
                   ),
                 ),
               ],
