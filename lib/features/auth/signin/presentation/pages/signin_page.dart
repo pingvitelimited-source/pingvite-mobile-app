@@ -94,9 +94,13 @@ class _SigninPageState extends State<SigninPage> {
                 Gap(sl<SizeConfig>().rpx(30)),
                 LoginForm(authType: widget.authType),
                 Gap(sl<SizeConfig>().rpx(40)),
-                AppTexts(
-                  text: Constants.forgotPasswordText,
-                  style: textTheme.semiBold.copyWith(color: AppColors.blue),
+                GestureDetector(
+                  onTap: () =>
+                      Navigator.pushNamed(context, AppRoutes.forgotPassword),
+                  child: AppTexts(
+                    text: Constants.forgotPasswordText,
+                    style: textTheme.semiBold.copyWith(color: AppColors.blue),
+                  ),
                 ),
                 Gap(sl<SizeConfig>().rpx(50)),
                 Center(

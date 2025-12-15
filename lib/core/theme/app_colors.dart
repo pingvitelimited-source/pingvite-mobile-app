@@ -24,11 +24,13 @@ class AppColors {
   static const Color black = Colors.black;
   static const Color red = Colors.red;
   static const Color blue = Color(0xFF61A0FF);
+  static const Color greenColor = Color(0x004BD670);
   static const Color circleColor1 = Color(0xFFBD0D6A);
   static const Color labelPink = Color(0xFFBD0D6A);
   static const Color labelBlue = Color(0xFF1F78D5);
   static const Color imageUploadCardColor = Color(0xFFE8EAEC);
   static const Color grey = Color(0xFF2F2E36);
+  static const Color transparent = Color(0x00000000);
 
   //bottombar app color
   static const Color selectedTab = Color(0xFF61A0FF);

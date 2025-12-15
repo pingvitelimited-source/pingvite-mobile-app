@@ -79,6 +79,7 @@ class AppButtonFactory {
             );
 
         return AppPrimaryButton(
+          width: width,
           title: title,
           textTheme: textTheme,
           buttonTheme: buttonTheme,
