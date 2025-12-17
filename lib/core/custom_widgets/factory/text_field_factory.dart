@@ -384,6 +384,31 @@ class TextFieldFactory {
     );
   }
 
+  static Widget search({
+    required BuildContext context,
+    required AppButtonTheme buttonTheme,
+    String hintText = 'Search...',
+    ValueChanged<String?>? onChanged,
+    VoidCallback? onSubmitted,
+    VoidCallback? onSearchTap,
+  }) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+
+    return CustomTextField(
+      name: 'search',
+      hintText: hintText,
+      buttonTheme: buttonTheme,
+      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.search,
+      onChanged: onChanged,
+      onSubmitted: onSubmitted,
+      suffixIcon: AppImages.svgIcon(context, Constants.searchIcon, 24, 24),
+      onSuffixIconTap: onSearchTap,
+      textStyle: textTheme.body,
+      hintStyle: textTheme.body.copyWith(color: AppColors.grey),
+    );
+  }
+
   static Widget custom({
     required String name,
     required String hintText,

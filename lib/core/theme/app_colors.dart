@@ -22,8 +22,10 @@ class AppColors {
   //basic colors
   static const Color white = Colors.white;
   static const Color black = Colors.black;
+  static const Color black100 = Color(0xFF000738);
   static const Color red = Colors.red;
   static const Color blue = Color(0xFF61A0FF);
+  static const Color homebackground = Color(0xFFF0FAFE);
   static const Color greenColor = Color(0x004BD670);
   static const Color circleColor1 = Color(0xFFBD0D6A);
   static const Color labelPink = Color(0xFFBD0D6A);

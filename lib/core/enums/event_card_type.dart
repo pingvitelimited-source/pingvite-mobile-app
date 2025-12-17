@@ -1,0 +1,1 @@
+enum EventCardType { event, activity }

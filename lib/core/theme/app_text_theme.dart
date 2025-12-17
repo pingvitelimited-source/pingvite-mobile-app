@@ -12,6 +12,7 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
   final TextStyle body1;
   final TextStyle body2;
   final TextStyle semiBold;
+  final TextStyle bold;
 
   const AppTextTheme({
     required this.heading,
@@ -21,6 +22,7 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
     required this.body1,
     required this.body2,
     required this.semiBold,
+    required this.bold,
   });
 
   @override
@@ -32,6 +34,7 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
     TextStyle? body1,
     TextStyle? body2,
     TextStyle? semiBold,
+    TextStyle? bold,
   }) {
     return AppTextTheme(
       heading: heading ?? this.heading,
@@ -41,6 +44,7 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
       body1: body1 ?? this.body1,
       body2: body2 ?? this.body2,
       semiBold: semiBold ?? this.semiBold,
+      bold: bold ?? this.bold,
     );
   }
 
@@ -57,6 +61,7 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
       body1: TextStyle.lerp(body1, other.body1, t)!,
       body2: TextStyle.lerp(body2, other.body2, t)!,
       semiBold: TextStyle.lerp(semiBold, other.semiBold, t)!,
+      bold: TextStyle.lerp(bold, other.bold, t)!,
     );
   }
 
@@ -97,6 +102,11 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
       fontWeight: FontWeight.w600,
       color: AppColors.lightPrimaryText,
     ),
+    bold: TextStyle(
+      fontSize: sl<SizeConfig>().rpx(20),
+      fontWeight: FontWeight.bold,
+      color: AppColors.darkPrimaryText,
+    ),
   );
 
   // Dark theme text styles
@@ -134,6 +144,11 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
     semiBold: TextStyle(
       fontSize: sl<SizeConfig>().rpx(16),
       fontWeight: FontWeight.w600,
+      color: AppColors.darkPrimaryText,
+    ),
+    bold: TextStyle(
+      fontSize: sl<SizeConfig>().rpx(20),
+      fontWeight: FontWeight.bold,
       color: AppColors.darkPrimaryText,
     ),
   );

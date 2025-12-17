@@ -33,7 +33,7 @@ class _LoginFormState extends State<LoginForm> {
       try {
         await Future.delayed(const Duration(seconds: 2));
         if (mounted) {
-          Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
+          Navigator.pushReplacementNamed(context, AppRoutes.home);
         }
       } catch (e) {
         if (mounted) {
