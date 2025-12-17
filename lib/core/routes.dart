@@ -5,10 +5,12 @@ import 'package:pingvite/features/create_event_screen/presentation/pages/create_
 import 'package:pingvite/features/create_venue_screen/presentation/pages/create_venue_screen.dart';
 import 'package:pingvite/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:pingvite/features/forgot_password/presentation/pages/forgot_password_screen.dart';
+import 'package:pingvite/features/home/presentation/pages/home_page.dart';
 
 class AppRoutes {
   static const String signin = '/signin';
   static const String dashboard = '/dashboard';
+  static const String home = '/home';
   static const String createEvent = '/createEvent';
   static const String createVenue = '/createVenue';
   static const String signup = '/signup';
@@ -23,6 +25,8 @@ class AppRoutes {
         );
       case signup:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
+      case home:
+        return MaterialPageRoute(builder: (_) => const HomePage());
       case dashboard:
         return MaterialPageRoute(builder: (_) => const Dashboard());
       case createEvent:

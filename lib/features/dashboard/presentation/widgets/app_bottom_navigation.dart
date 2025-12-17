@@ -80,8 +80,8 @@ class AppBottomNavigation extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 item.iconPath,
-                height: sl<SizeConfig>().iconSize(29),
-                width: sl<SizeConfig>().iconSize(25),
+                height: sl<SizeConfig>().isz(29),
+                width: sl<SizeConfig>().isz(25),
                 colorFilter: ColorFilter.mode(
                   isSelected ? theme.selectedColor : theme.unselectedColor,
                   BlendMode.srcIn,

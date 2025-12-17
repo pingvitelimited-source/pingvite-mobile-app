@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pingvite/core/theme/app_image_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
@@ -29,8 +28,8 @@ class AppImages {
   ]) {
     return SvgPicture.asset(
       svgPath,
-      height: sl<SizeConfig>().iconSize(height),
-      width: sl<SizeConfig>().iconSize(width),
+      height: sl<SizeConfig>().isz(height),
+      width: sl<SizeConfig>().isz(width),
       colorFilter: color != null
           ? ColorFilter.mode(color, BlendMode.srcIn)
           : null,
@@ -42,18 +41,24 @@ class AppImages {
     String iconPath,
     double height,
     double width, {
-    bool applyColor = true,
+    bool applyColor = false,
     double? scale,
     Color? color,
   }) {
-    final imageTheme = Theme.of(context).extension<AppImageTheme>()!;
+    final resolvedWidth = width == double.infinity
+        ? double.infinity
+        : sl<SizeConfig>().isz(width);
+
+    final resolvedHeight = sl<SizeConfig>().isz(height);
 
     Widget imageWidget = Image.asset(
       iconPath,
-      height: sl<SizeConfig>().iconSize(height),
-      width: sl<SizeConfig>().iconSize(width),
-      color: applyColor ? (color ?? imageTheme.iconColor) : null,
+      height: resolvedHeight,
+      width: resolvedWidth,
+      fit: BoxFit.cover, // 🔥 IMPORTANT
+      color: applyColor ? color : null,
     );
+
     if (scale != null) {
       imageWidget = Transform.scale(scale: scale, child: imageWidget);
     }

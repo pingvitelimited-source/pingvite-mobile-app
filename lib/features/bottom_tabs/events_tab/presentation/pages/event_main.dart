@@ -3,7 +3,7 @@ import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/constants/enum_tabs.dart';
 import 'package:pingvite/core/custom_widgets/custom_fab.dart';
 import 'package:pingvite/core/custom_widgets/reusable_tab_widget.dart';
-import 'package:pingvite/core/dummyList/dummy_event_list.dart';
+import 'package:pingvite/core/data/dummy_event_list.dart';
 import 'package:pingvite/core/model/tab_item.dart';
 import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/features/bottom_tabs/events_tab/presentation/widgets/event_card_widget.dart';

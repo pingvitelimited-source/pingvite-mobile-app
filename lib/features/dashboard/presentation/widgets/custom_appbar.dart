@@ -9,145 +9,204 @@ import 'package:pingvite/features/dashboard/presentation/widgets/notification_be
 import 'package:pingvite/features/dashboard/presentation/widgets/notification_handler.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  // Common
+  final bool showBackButton;
+  final bool showLocation;
+  final bool hasNotification;
+  final bool? showNotificationBell;
+
+  // Dashboard
   final String? greeting;
   final String? userName;
   final String? userImageUrl;
-  final VoidCallback? onNotificationTap;
-  final bool hasNotification;
+
+  // Back button
   final String? title;
   final VoidCallback? onBackPressed;
-  final bool showBackButton;
-  final bool? showNotificationBell;
+
+  // Location
+  final String? location;
+  final VoidCallback? onLocationTap;
+  final VoidCallback? onMenuTap;
+
+  // Notification
+  final VoidCallback? onNotificationTap;
 
   const CustomAppBar({
     super.key,
     this.greeting,
     this.userName,
     this.userImageUrl,
-    this.onNotificationTap,
-    this.hasNotification = false,
     this.title,
     this.onBackPressed,
+    this.location,
+    this.onLocationTap,
+    this.onMenuTap,
+    this.onNotificationTap,
+    this.hasNotification = false,
     this.showBackButton = false,
+    this.showLocation = false,
     this.showNotificationBell,
   });
 
   // Factory constructors for easy usage
   const CustomAppBar.dashboard({
     super.key,
-    required String this.greeting,
-    required String this.userName,
+    required this.greeting,
+    required this.userName,
     this.userImageUrl,
     this.onNotificationTap,
     this.hasNotification = false,
     this.showNotificationBell,
-  }) : title = null,
+  }) : showBackButton = false,
+       showLocation = false,
+       title = null,
        onBackPressed = null,
-       showBackButton = false;
+       location = null,
+       onLocationTap = null,
+       onMenuTap = null;
 
   const CustomAppBar.withBackButton({
     super.key,
     this.title,
-    this.onNotificationTap,
     this.onBackPressed,
+    this.onNotificationTap,
     this.hasNotification = false,
     this.showNotificationBell,
   }) : showBackButton = true,
+       showLocation = false,
        greeting = null,
        userName = null,
-       userImageUrl = null;
+       userImageUrl = null,
+       location = null,
+       onLocationTap = null,
+       onMenuTap = null;
+
+  const CustomAppBar.withLocation({
+    super.key,
+    required this.location,
+    this.onLocationTap,
+    this.onMenuTap,
+    this.onNotificationTap,
+    this.hasNotification = false,
+    this.showNotificationBell = true,
+  }) : showLocation = true,
+       showBackButton = false,
+       greeting = null,
+       userName = null,
+       userImageUrl = null,
+       title = null,
+       onBackPressed = null;
 
   @override
   Widget build(BuildContext context) {
     final appBarTheme = Theme.of(context).extension<AppTopBarTheme>()!;
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final shouldShowNotificationBell = showNotificationBell ?? !showBackButton;
+    final showBell = showNotificationBell ?? !showBackButton;
 
     return Container(
       height: preferredSize.height,
       decoration: BoxDecoration(color: appBarTheme.backgroundColor),
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
-              // Left side - User avatar or back button
-              if (showBackButton) ...[
-                GestureDetector(
-                  onTap: onBackPressed ?? () => Navigator.pop(context),
-                  child: Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.darkPrimaryText,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: AppImages.svgIcon(
-                        context,
-                        Constants.backArrow,
-                        20,
-                        12,
-                      ),
-                    ),
-                  ),
-                ),
-              ] else ...[
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.blue, width: 1),
-                  ),
-                  child: CircleAvatar(
-                    radius: 18,
-                    backgroundColor: appBarTheme.iconColor.withValues(
-                      alpha: 0.1,
-                    ),
-                    backgroundImage: userImageUrl != null
-                        ? NetworkImage(userImageUrl!)
-                        : const AssetImage(Constants.sample) as ImageProvider,
-                  ),
-                ),
-              ],
-
+              _buildLeft(context, appBarTheme),
               const SizedBox(width: 12),
-
-              // Title/Greeting Text
-              Expanded(
-                child: showBackButton
-                    ? AppTexts(text: title ?? '', style: textTheme.semiBold)
-                    : RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '$greeting, ',
-                              style: textTheme.heading.copyWith(
-                                color: appBarTheme.greetingColor,
-                              ),
-                            ),
-                            TextSpan(
-                              text: userName ?? '',
-                              style: textTheme.heading.copyWith(
-                                color: appBarTheme.titleColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-              ),
-
-              if (shouldShowNotificationBell)
+              Expanded(child: _buildCenter(context, textTheme, appBarTheme)),
+              if (showBell)
                 NotificationBell(
                   count: hasNotification ? 3 : 0,
                   onTap: () =>
+                      onNotificationTap ??
                       NotificationHandler.handleNotificationTap(context),
                 ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildLeft(BuildContext context, AppTopBarTheme theme) {
+    if (showLocation) {
+      return GestureDetector(
+        onTap: onMenuTap,
+        child: AppImages.svgIcon(context, Constants.menuIcon, 24, 24),
+      );
+    }
+
+    if (showBackButton) {
+      return GestureDetector(
+        onTap: onBackPressed ?? () => Navigator.pop(context),
+        child: Container(
+          width: 48,
+          height: 48,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: AppColors.darkPrimaryText,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(14),
+            child: AppImages.svgIcon(context, Constants.backArrow, 20, 12),
+          ),
+        ),
+      );
+    }
+
+    return Container(
+      width: 48,
+      height: 48,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: Colors.blue, width: 1),
+      ),
+      child: CircleAvatar(
+        backgroundImage: userImageUrl != null
+            ? NetworkImage(userImageUrl!)
+            : const AssetImage(Constants.sample) as ImageProvider,
+      ),
+    );
+  }
+
+  Widget _buildCenter(
+    BuildContext context,
+    AppTextTheme textTheme,
+    AppTopBarTheme appBarTheme,
+  ) {
+    if (showLocation) {
+      return GestureDetector(
+        onTap: onLocationTap,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AppImages.svgIcon(context, Constants.locationIcon, 24, 24),
+            const SizedBox(width: 6),
+            AppTexts(text: location ?? '', style: textTheme.semiBold),
+            const SizedBox(width: 4),
+            const Icon(Icons.keyboard_arrow_down),
+          ],
+        ),
+      );
+    }
+
+    if (showBackButton) {
+      return AppTexts(text: title ?? '', style: textTheme.semiBold);
+    }
+
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: '$greeting, ',
+            style: textTheme.heading.copyWith(color: appBarTheme.greetingColor),
+          ),
+          TextSpan(
+            text: userName ?? '',
+            style: textTheme.heading.copyWith(color: appBarTheme.titleColor),
+          ),
+        ],
       ),
     );
   }

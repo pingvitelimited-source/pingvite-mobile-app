@@ -11,6 +11,8 @@ class Constants {
   static const createAccountButton = "Create Account";
   static const enterFullName = "Enter Full Name";
 
+  //HomeScreeWithNav
+
   //Reset Password
   static const resetPassword = "Reset Password";
   static const registedEmailOrPhone =
@@ -96,6 +98,7 @@ class Constants {
   static const email = 'assets/svg/email.svg';
   static const deleteIcon = 'assets/svg/deleteIcon.svg';
   static const delete = 'assets/png/delete.png';
+  static const banner = 'assets/png/herobanner.png';
   static const password = 'assets/svg/password.svg';
   static const indianFlag = 'assets/svg/india_flag.svg';
   static const notifybell = 'assets/svg/notifybell.svg';
@@ -114,6 +117,10 @@ class Constants {
   static const call = 'assets/svg/call.svg';
   static const sms = 'assets/svg/sms.svg';
   static const addImage = 'assets/svg/add.svg';
+  static const menuIcon = 'assets/svg/menu.svg';
+  static const arrowIcon = 'assets/svg/arrow.svg';
+  static const locationIcon = 'assets/svg/location.svg';
+  static const searchIcon = 'assets/svg/search.svg';
   static const listedEvent = 'assets/svg/listed_event.svg';
   static const listedVenue = 'assets/svg/listed_venues.svg';
 }
