@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pingvite/core/data/event_card_data.dart';
 import 'package:pingvite/features/auth/signin/presentation/pages/signin_page.dart';
 import 'package:pingvite/features/auth/signup/presentation/pages/signup_screen.dart';
 import 'package:pingvite/features/create_event_screen/presentation/pages/create_event_screen.dart';
 import 'package:pingvite/features/create_venue_screen/presentation/pages/create_venue_screen.dart';
 import 'package:pingvite/features/dashboard/presentation/pages/dashboard.dart';
+import 'package:pingvite/features/event_info_screen/presentation/pages/event_info.dart';
 import 'package:pingvite/features/forgot_password/presentation/pages/forgot_password_screen.dart';
 import 'package:pingvite/features/home/presentation/pages/home_page.dart';
 
@@ -15,6 +17,7 @@ class AppRoutes {
   static const String createVenue = '/createVenue';
   static const String signup = '/signup';
   static const String forgotPassword = '/forgotPassword';
+  static const String eventInfo = '/eventInfo';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -35,6 +38,9 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const CreateVenueScreen());
       case forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
+      case eventInfo:
+        final data = settings.arguments as EventCardData?;
+        return MaterialPageRoute(builder: (_) => EventInfo(data: data));
       default:
         return MaterialPageRoute(
           builder: (_) =>
