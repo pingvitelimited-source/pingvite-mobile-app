@@ -13,6 +13,15 @@ class Constants {
 
   //HomeScreeWithNav
 
+  //EventInfoScreen
+  static const description = "Description";
+  static const agenda = "Agenda";
+  static const tickets = "Tickets";
+  static const bookTicket = "Book Ticket";
+  static const sampleText =
+      "Join us  to connect with like-minded individuals, learn valuable financial concepts, and take control of your investments! Come join us for a fun and informative gathering Whether you're just starting to manage your money or looking to expand your financial knowledge, this event is perfect for you. Learn tips and tricks for personal finance, connect with like-minded individuals, and expand your network. Don/t miss out on this opportunity to grow your financial skills while enjoying a cup of coffee. See you there!";
+  static const sampltext =
+      "Explore various concepts of personal finance and financial markets.Share your experiences and learn from others' journeys in the financial world.Network with like-minded individuals for potential business opportunities. \n Explore various concepts of personal finance and financial markets.Share your experiences and learn from others' journeys in the financial world.Network with like-minded individuals for potential business opportunities.";
   //Reset Password
   static const resetPassword = "Reset Password";
   static const registedEmailOrPhone =
@@ -123,4 +132,6 @@ class Constants {
   static const searchIcon = 'assets/svg/search.svg';
   static const listedEvent = 'assets/svg/listed_event.svg';
   static const listedVenue = 'assets/svg/listed_venues.svg';
+  static const gradientBall = 'assets/svg/gradientball.svg';
+  static const noteText = 'assets/svg/notetext.svg';
 }

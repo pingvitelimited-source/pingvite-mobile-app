@@ -6,6 +6,7 @@ import 'package:pingvite/core/data/event_card_data.dart';
 import 'package:pingvite/core/enums/event_card_type.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
+import 'package:pingvite/core/utils/banner_image.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/custom_appbar.dart';
@@ -14,7 +15,6 @@ import 'package:pingvite/features/home/presentation/widgets/event_catergory_widg
 import 'package:pingvite/features/home/presentation/widgets/event_widgets/event_section.dart';
 import 'package:pingvite/features/home/presentation/widgets/quick_action_widgets/home_quick_actions.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
-import '../../../../core/custom_widgets/app_images.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -57,20 +57,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Gap(sl<SizeConfig>().rpx(5)),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: sl<SizeConfig>().rpx(8),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: AppImages.pngIcon(
-                  context,
-                  Constants.banner,
-                  155,
-                  double.infinity,
-                ),
-              ),
-            ),
+            BannerImage(),
             Gap(15.gap),
             const HomeQuickActions(),
             Gap(15.gap),

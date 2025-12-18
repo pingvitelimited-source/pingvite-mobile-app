@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/data/event_card_data.dart';
 import 'package:pingvite/core/enums/event_card_type.dart';
+import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
 import 'package:pingvite/features/home/presentation/widgets/event_widgets/activity_title.dart';
 import 'package:pingvite/features/home/presentation/widgets/event_widgets/event_details.dart';
@@ -14,15 +15,19 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 220.rpx,
+    return GestureDetector(
+      onTap: () =>
+          Navigator.pushNamed(context, AppRoutes.eventInfo, arguments: data),
+      child: Container(
+        width: 220.rpx,
 
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: type == EventCardType.activity ? _activityCard() : _eventCard(),
       ),
-      clipBehavior: Clip.antiAlias,
-      child: type == EventCardType.activity ? _activityCard() : _eventCard(),
     );
   }
 
