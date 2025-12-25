@@ -3,12 +3,15 @@ import 'package:gap/gap.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/custom_widgets/factory/app_button_factory.dart';
+import 'package:pingvite/core/data/event_card_data.dart';
+import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
 
 class InfoDetails extends StatefulWidget {
-  const InfoDetails({super.key});
+  final EventCardData? data;
+  const InfoDetails({super.key, required this.data});
 
   @override
   State<InfoDetails> createState() => _InfoDetailsState();
@@ -68,7 +71,11 @@ class _InfoDetailsState extends State<InfoDetails> {
               context: context,
               type: ButtonType.gradient,
               title: Constants.bookTicket,
-              onPressed: () {},
+              onPressed: () => Navigator.pushNamed(
+                context,
+                AppRoutes.bookingSelection,
+                arguments: widget.data,
+              ),
             ),
           ),
           Gap(50.gap),

@@ -18,6 +18,15 @@ class Constants {
   static const agenda = "Agenda";
   static const tickets = "Tickets";
   static const bookTicket = "Book Ticket";
+  static const pay = "Pay";
+
+  //PayScreen
+  static const confirmDetails = "Confirm Details";
+  static const taxes = "Taxes";
+  static const total = "Total";
+  static const qty = "Qty";
+  static const rupeeSymbol = "₹";
+
   static const sampleText =
       "Join us  to connect with like-minded individuals, learn valuable financial concepts, and take control of your investments! Come join us for a fun and informative gathering Whether you're just starting to manage your money or looking to expand your financial knowledge, this event is perfect for you. Learn tips and tricks for personal finance, connect with like-minded individuals, and expand your network. Don/t miss out on this opportunity to grow your financial skills while enjoying a cup of coffee. See you there!";
   static const sampltext =

@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:pingvite/core/data/event_card_data.dart';
 import 'package:pingvite/features/auth/signin/presentation/pages/signin_page.dart';
 import 'package:pingvite/features/auth/signup/presentation/pages/signup_screen.dart';
+import 'package:pingvite/features/booking_selection_screen/presentation/pages/booking_selection_page.dart';
 import 'package:pingvite/features/create_event_screen/presentation/pages/create_event_screen.dart';
 import 'package:pingvite/features/create_venue_screen/presentation/pages/create_venue_screen.dart';
 import 'package:pingvite/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:pingvite/features/event_info_screen/presentation/pages/event_info.dart';
 import 'package:pingvite/features/forgot_password/presentation/pages/forgot_password_screen.dart';
+import 'package:pingvite/features/pay_screen/domain/pay_screen_args.dart';
+import 'package:pingvite/features/pay_screen/presentation/pages/pay_screen.dart';
 import 'package:pingvite/features/home/presentation/pages/home_page.dart';
 
 class AppRoutes {
@@ -18,6 +21,8 @@ class AppRoutes {
   static const String signup = '/signup';
   static const String forgotPassword = '/forgotPassword';
   static const String eventInfo = '/eventInfo';
+  static const String bookingSelection = '/bookingSelection';
+  static const String pay = '/pay';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -41,6 +46,14 @@ class AppRoutes {
       case eventInfo:
         final data = settings.arguments as EventCardData?;
         return MaterialPageRoute(builder: (_) => EventInfo(data: data));
+      case bookingSelection:
+        final data = settings.arguments as EventCardData?;
+        return MaterialPageRoute(
+          builder: (_) => BookingSelectionPage(data: data),
+        );
+      case pay:
+        final args = settings.arguments as PayScreenArgs;
+        return MaterialPageRoute(builder: (_) => PayScreen(args: args));
       default:
         return MaterialPageRoute(
           builder: (_) =>
