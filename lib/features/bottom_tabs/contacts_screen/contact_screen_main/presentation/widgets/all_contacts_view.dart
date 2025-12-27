@@ -59,7 +59,30 @@ class AllContactsView extends StatelessWidget {
           isVisible: false,
         );
       },
-      susItemBuilder: (context, index) => const SizedBox.shrink(),
+      susItemBuilder: (context, index) {
+        final model = contactModels[index];
+        return Container(
+          height: 40,
+          width: double.infinity,
+          padding: EdgeInsets.only(left: sl<SizeConfig>().rpx(15)),
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+            color: Theme.of(context).brightness == Brightness.light
+                ? const Color(0xFFF5F5F5)
+                : const Color(0xFF2A2A2A),
+          ),
+          child: Text(
+            model.getSuspensionTag(),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? AppColors.lightPrimaryText
+                  : AppColors.darkPrimaryText,
+            ),
+          ),
+        );
+      },
       indexBarData: _indexLetters,
       indexBarOptions: IndexBarOptions(
         needRebuild: true,
