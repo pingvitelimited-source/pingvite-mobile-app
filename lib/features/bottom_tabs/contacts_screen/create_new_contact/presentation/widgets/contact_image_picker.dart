@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
@@ -148,12 +149,12 @@ class _ContactImagePickerState extends State<ContactImagePicker> {
   Future<void> _pickImageFromFiles() async {
     Navigator.pop(context);
     try {
-      final XFile? image = await _picker.pickImage(
-        source: ImageSource.gallery,
-        imageQuality: 80,
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: false,
       );
-      if (image != null) {
-        widget.onImageSelected(File(image.path));
+      if (result != null && result.files.single.path != null) {
+        widget.onImageSelected(File(result.files.single.path!));
       }
     } catch (e) {
       _showErrorSnackBar('Error picking file: $e');

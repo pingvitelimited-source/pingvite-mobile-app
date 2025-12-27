@@ -112,8 +112,8 @@ class SampleContactsData {
       "image": Constants.sample,
     },
     {
-      "name": "Stave Smith",
-      "email": "stavesmith@gmail.com",
+      "name": "Steve Smith",
+      "email": "stevesmith@gmail.com",
       "tag": "Friend",
       "image": Constants.sample,
     },

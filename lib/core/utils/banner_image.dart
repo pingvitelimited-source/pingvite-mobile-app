@@ -14,7 +14,7 @@ class BannerImage extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: sl<SizeConfig>().rpx(8)),
       child: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, AppRoutes.dashboard);
+          Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
