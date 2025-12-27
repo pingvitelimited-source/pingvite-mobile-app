@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+import 'package:pingvite/core/custom_widgets/factory/app_button_factory.dart';
+import 'package:pingvite/core/theme/app_colors.dart';
+import 'package:pingvite/core/utils/size_extension.dart';
+
+/// Bottom section with the Update Contact List button
+class ContactListBottomButton extends StatelessWidget {
+  final bool isLoading;
+  final VoidCallback onPressed;
+
+  const ContactListBottomButton({
+    super.key,
+    required this.isLoading,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(24.rpx),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, -4),
+          ),
+        ],
+      ),
+      child: SizedBox(
+        width: double.infinity,
+        child: AppButtonFactory.build(
+          context: context,
+          type: ButtonType.gradient,
+          title: 'Update Contact List',
+          isLoading: isLoading,
+          onPressed: onPressed,
+        ),
+      ),
+    );
+  }
+}
