@@ -59,7 +59,24 @@ class AllContactsView extends StatelessWidget {
           isVisible: false,
         );
       },
-      susItemBuilder: (context, index) => const SizedBox.shrink(),
+      susItemBuilder: (context, index) {
+        final tag = contactModels[index].getSuspensionTag();
+        return Container(
+          height: 40,
+          width: double.infinity,
+          padding: EdgeInsets.only(left: sl<SizeConfig>().rpx(15)),
+          color: AppColors.bgColor,
+          alignment: Alignment.centerLeft,
+          child: Text(
+            tag,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textColor1,
+            ),
+          ),
+        );
+      },
       indexBarData: _indexLetters,
       indexBarOptions: IndexBarOptions(
         needRebuild: true,

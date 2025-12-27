@@ -51,7 +51,7 @@ class ContactTypeDropdown extends StatelessWidget {
           .toList(),
       decoration:
           AppInputDecoration.build(
-            hintText: 'Contact Type',
+            hintText: '',
             prefixIcon: Icon(
               Icons.star_border_rounded,
               size: 20.rpx,
