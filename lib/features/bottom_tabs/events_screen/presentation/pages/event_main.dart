@@ -6,7 +6,7 @@ import 'package:pingvite/core/custom_widgets/reusable_tab_widget.dart';
 import 'package:pingvite/core/data/dummy_event_list.dart';
 import 'package:pingvite/core/model/tab_item.dart';
 import 'package:pingvite/core/routes.dart';
-import 'package:pingvite/features/bottom_tabs/events_tab/presentation/widgets/event_card_widget.dart';
+import 'package:pingvite/features/bottom_tabs/events_screen/presentation/widgets/event_card_widget.dart';
 
 class EventMain extends StatefulWidget {
   const EventMain({super.key});

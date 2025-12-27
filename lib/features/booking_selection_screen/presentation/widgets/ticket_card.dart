@@ -84,10 +84,7 @@ class TicketCard extends StatelessWidget {
               if (ticketData.quantity > 0)
                 AppTexts(
                   text: '₹${ticketData.totalPrice}',
-                  style: textTheme.bold.copyWith(
-                    fontSize: 20.rpx,
-                    color: AppColors.blue,
-                  ),
+                  style: textTheme.bold.copyWith(color: AppColors.blue),
                 ),
             ],
           ),

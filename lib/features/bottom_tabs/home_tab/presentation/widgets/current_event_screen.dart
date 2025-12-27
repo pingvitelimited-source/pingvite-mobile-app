@@ -3,7 +3,7 @@ import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/data/dummy_event_list.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
-import 'package:pingvite/features/bottom_tabs/events_tab/presentation/widgets/event_card_widget.dart';
+import 'package:pingvite/features/bottom_tabs/events_screen/presentation/widgets/event_card_widget.dart';
 import 'package:pingvite/features/bottom_tabs/home_tab/presentation/widgets/current_event_header.dart';
 
 class CurrentEventScreen extends StatefulWidget {

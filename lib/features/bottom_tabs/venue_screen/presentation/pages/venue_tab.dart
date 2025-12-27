@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/custom_fab.dart';
 import 'package:pingvite/core/routes.dart';
-import 'package:pingvite/features/bottom_tabs/venue_tab/data/model/venue.dart';
-import 'package:pingvite/features/bottom_tabs/venue_tab/presentation/widgets/venue_card.dart';
+import 'package:pingvite/features/bottom_tabs/venue_screen/data/model/venue.dart';
+import 'package:pingvite/features/bottom_tabs/venue_screen/presentation/widgets/venue_card.dart';
 
 class VenueTab extends StatefulWidget {
   const VenueTab({super.key});

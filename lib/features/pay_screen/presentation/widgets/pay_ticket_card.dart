@@ -63,10 +63,7 @@ class PayTicketCard extends StatelessWidget {
           AppTexts(
             text:
                 '${Constants.rupeeSymbol}${ticket.basePrice * ticket.quantity}',
-            style: textTheme.bold.copyWith(
-              fontSize: 18.rpx,
-              color: AppColors.blue,
-            ),
+            style: textTheme.body2.copyWith(color: AppColors.blue),
           ),
         ],
       ),
