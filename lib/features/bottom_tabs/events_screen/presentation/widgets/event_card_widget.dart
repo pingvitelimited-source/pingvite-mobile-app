@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/custom_widgets/app_card.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
-import 'package:pingvite/features/bottom_tabs/events_tab/data/model/event_model.dart';
+import 'package:pingvite/features/bottom_tabs/events_screen/data/model/event_model.dart';
 
 class EventCardWidget extends StatelessWidget {
   final List<EventModel> dummyEvents;

@@ -48,11 +48,7 @@ class QuantitySelector extends StatelessWidget {
             alignment: Alignment.center,
             child: AppTexts(
               text: quantity.toString().padLeft(2, '0'),
-              style: textTheme.body.copyWith(
-                fontSize: 16.rpx,
-                fontWeight: FontWeight.w600,
-                color: AppColors.black100,
-              ),
+              style: textTheme.semiBold.copyWith(color: AppColors.black100),
             ),
           ),
           InkWell(

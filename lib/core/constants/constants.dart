@@ -100,7 +100,10 @@ class Constants {
 
   //Contacts Tab Screen
   static const allContacts = "All Contacts";
-  static const friends = "Friends";
+  static const allList = "All Lists";
+  static const createNewContact = 'Create New Contact';
+  static const createNewContactList = 'Create New Contact List';
+  static const bulkUpload = 'Bulk Upload';
 
   //InitialScreen
   static const loginWithPhone = "Login with Phone";
@@ -115,6 +118,7 @@ class Constants {
   static const appLogo = 'assets/png/splashscreen.png';
   static const email = 'assets/svg/email.svg';
   static const deleteIcon = 'assets/svg/deleteIcon.svg';
+  static const editIcon = 'assets/svg/edit.svg';
   static const delete = 'assets/png/delete.png';
   static const banner = 'assets/png/herobanner.png';
   static const password = 'assets/svg/password.svg';

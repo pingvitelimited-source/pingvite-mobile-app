@@ -5,7 +5,7 @@ import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
-import 'package:pingvite/features/bottom_tabs/venue_tab/data/model/venue.dart';
+import 'package:pingvite/features/bottom_tabs/venue_screen/data/model/venue.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
 class VenueCard extends StatelessWidget {

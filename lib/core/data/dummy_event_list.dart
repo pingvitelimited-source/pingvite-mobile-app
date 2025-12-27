@@ -1,4 +1,4 @@
-import 'package:pingvite/features/bottom_tabs/events_tab/data/model/event_model.dart';
+import 'package:pingvite/features/bottom_tabs/events_screen/data/model/event_model.dart';
 
 final List<EventModel> dummyEvents = [
   EventModel(
