@@ -61,22 +61,23 @@ class AllContactsView extends StatelessWidget {
       },
       susItemBuilder: (context, index) {
         final model = contactModels[index];
+        final isLightMode = Theme.of(context).brightness == Brightness.light;
         return Container(
           height: 40,
           width: double.infinity,
           padding: EdgeInsets.only(left: sl<SizeConfig>().rpx(15)),
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
-            color: Theme.of(context).brightness == Brightness.light
-                ? const Color(0xFFF5F5F5)
-                : const Color(0xFF2A2A2A),
+            color: isLightMode
+                ? AppColors.lightSectionBackground
+                : AppColors.darkSectionBackground,
           ),
           child: Text(
             model.getSuspensionTag(),
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: Theme.of(context).brightness == Brightness.light
+              color: isLightMode
                   ? AppColors.lightPrimaryText
                   : AppColors.darkPrimaryText,
             ),

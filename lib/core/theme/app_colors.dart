@@ -40,4 +40,8 @@ class AppColors {
 
   //Appbar Color
   static const Color greetingColor = Color(0xFFFECF24);
+
+  // Section header colors
+  static const Color lightSectionBackground = Color(0xFFF5F5F5);
+  static const Color darkSectionBackground = Color(0xFF2A2A2A);
 }
