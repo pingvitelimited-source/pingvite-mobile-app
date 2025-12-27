@@ -12,6 +12,8 @@ import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_mai
 import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/widgets/all_lists_view.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/widgets/contact_options_dialog.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/create_new_contact/presentation/pages/create_new_contacts_page.dart';
+import 'package:pingvite/features/bottom_tabs/contacts_screen/create_new_contact_list/presentation/pages/create_new_contact_list_page.dart';
+import 'package:pingvite/features/bottom_tabs/contacts_screen/bulk_upload_contacts/presentation/pages/bulk_upload_contacts_page.dart';
 
 class ContactsMain extends StatefulWidget {
   const ContactsMain({super.key});
@@ -115,8 +117,14 @@ class _ContactsMainState extends State<ContactsMain> {
         );
         break;
       case ContactAction.createList:
+        navigator.push(
+          MaterialPageRoute(builder: (_) => const CreateNewContactListPage()),
+        );
         break;
       case ContactAction.bulkUpload:
+        navigator.push(
+          MaterialPageRoute(builder: (_) => const BulkUploadContactsPage()),
+        );
         break;
     }
   }
