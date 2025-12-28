@@ -7,6 +7,7 @@ import 'package:pingvite/core/custom_widgets/factory/text_field_factory.dart';
 import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
+import 'package:pingvite/core/utils/session_manager.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
@@ -27,11 +28,15 @@ class _LoginFormState extends State<LoginForm> {
       FocusScope.of(context).unfocus();
       setState(() => isLoading = true);
 
-      //final formData = _formKey.currentState!.value;
-      // final email = formData['email'] as String;
-      // final password = formData['password'] as String;
+      final formData = _formKey.currentState!.value;
+      final email = formData['email_field'] as String?;
+
       try {
         await Future.delayed(const Duration(seconds: 2));
+
+        // Save session for persistent login
+        await SessionManager.saveSession(email: email);
+
         if (mounted) {
           Navigator.pushReplacementNamed(context, AppRoutes.home);
         }

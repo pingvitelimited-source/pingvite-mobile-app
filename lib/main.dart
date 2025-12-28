@@ -3,7 +3,9 @@ import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_theme.dart';
 import 'package:pingvite/core/theme/theme_controller.dart';
+import 'package:pingvite/core/utils/session_manager.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
+import 'package:pingvite/features/home/presentation/pages/home_page.dart';
 import 'package:pingvite/features/inital_screen/presentation/pages/initial_page.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +24,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool? _isLoggedIn;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    final isLoggedIn = await SessionManager.isLoggedIn();
+    setState(() {
+      _isLoggedIn = isLoggedIn;
+    });
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -41,7 +58,13 @@ class _MyAppState extends State<MyApp> {
             darkTheme: AppTheme.darkTheme,
             themeMode: themeController.themeMode,
             onGenerateRoute: AppRoutes.generateRoute,
-            home: InitialPage(),
+            home: _isLoggedIn == null
+                ? const Scaffold(
+                    body: Center(child: CircularProgressIndicator()),
+                  )
+                : _isLoggedIn!
+                ? const HomePage()
+                : InitialPage(),
           );
         },
       ),
