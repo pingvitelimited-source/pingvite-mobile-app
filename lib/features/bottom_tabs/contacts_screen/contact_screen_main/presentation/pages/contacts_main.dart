@@ -14,6 +14,7 @@ import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_mai
 import 'package:pingvite/features/bottom_tabs/contacts_screen/create_new_contact/presentation/pages/create_new_contacts_page.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/create_new_contact_list/presentation/pages/create_new_contact_list_page.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/bulk_upload_contacts/presentation/pages/bulk_upload_contacts_page.dart';
+import 'package:pingvite/features/dashboard/presentation/widgets/custom_appbar.dart';
 
 class ContactsMain extends StatefulWidget {
   const ContactsMain({super.key});
@@ -63,6 +64,7 @@ class _ContactsMainState extends State<ContactsMain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const CustomAppBar.withBackButton(title: 'My Contacts'),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
