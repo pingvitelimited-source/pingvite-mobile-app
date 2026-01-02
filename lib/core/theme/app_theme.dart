@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pingvite/core/theme/app_bottom_nav_theme.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_card_theme.dart';
@@ -9,10 +8,13 @@ import 'package:pingvite/core/theme/app_top_bar_theme.dart';
 import 'app_colors.dart';
 
 class AppTheme {
+  // Define the text theme using bundled Libre Franklin font
+  static const String _fontFamily = 'Libre Franklin';
+
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     scaffoldBackgroundColor: AppColors.lightbackground,
-    textTheme: GoogleFonts.libreFranklinTextTheme(),
+    fontFamily: _fontFamily,
     extensions: <ThemeExtension<dynamic>>[
       AppTextTheme.light,
       AppImageTheme.light,
@@ -26,7 +28,7 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     scaffoldBackgroundColor: AppColors.darkBackground,
-    textTheme: GoogleFonts.libreFranklinTextTheme(),
+    fontFamily: _fontFamily,
     extensions: <ThemeExtension<dynamic>>[
       AppTextTheme.dark,
       AppImageTheme.dark,
