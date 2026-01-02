@@ -4,14 +4,17 @@ import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/session_manager.dart';
-import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/pages/contacts_main.dart';
-import 'package:pingvite/features/bottom_tabs/venue_screen/presentation/pages/venue_tab.dart';
 import 'package:pingvite/features/home/presentation/widgets/app_drawer_widgets/app_drawer_header.dart';
 import 'package:pingvite/features/home/presentation/widgets/app_drawer_widgets/section_items.dart';
 import 'package:pingvite/features/home/presentation/widgets/app_drawer_widgets/section_title.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
+
+  void _navigateTo(BuildContext context, String route) {
+    Navigator.pop(context); // Close drawer
+    Navigator.pushNamed(context, route);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,29 +42,18 @@ class AppDrawer extends StatelessWidget {
 
                     SectionTitle(title: 'Host'),
                     SectionItems(item: 'Create an Invite'),
-                    SectionItems(item: 'Create Event'),
+                    SectionItems(
+                      item: 'Create Event',
+                      onTap: () => _navigateTo(context, AppRoutes.createEvent),
+                    ),
                     SectionItems(item: 'My Events'),
                     SectionItems(
                       item: 'My Contacts',
-                      onTap: () {
-                        Navigator.pop(context); // Close drawer
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const ContactsMain(),
-                          ),
-                        );
-                      },
+                      onTap: () => _navigateTo(context, AppRoutes.myContacts),
                     ),
                     SectionItems(
                       item: 'My Venues',
-                      onTap: () {
-                        Navigator.pop(context); // Close drawer
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const VenueTab()),
-                        );
-                      },
+                      onTap: () => _navigateTo(context, AppRoutes.myVenues),
                     ),
                     SectionItems(item: 'Browse E-Card Templates'),
 
@@ -69,17 +61,14 @@ class AppDrawer extends StatelessWidget {
 
                     SectionTitle(title: 'For Organizers'),
                     SectionItems(item: 'Dashboard'),
-                    SectionItems(item: 'Create Event'),
+                    SectionItems(
+                      item: 'Create Event',
+                      onTap: () => _navigateTo(context, AppRoutes.createEvent),
+                    ),
                     SectionItems(item: 'Manage Events'),
                     SectionItems(
                       item: 'My Venues',
-                      onTap: () {
-                        Navigator.pop(context); // Close drawer
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const VenueTab()),
-                        );
-                      },
+                      onTap: () => _navigateTo(context, AppRoutes.myVenues),
                     ),
                     SectionItems(item: 'Promotion'),
 
@@ -132,10 +121,15 @@ class AppDrawer extends StatelessWidget {
     );
 
     if (shouldLogout == true && context.mounted) {
+      Navigator.pop(context); // Close drawer first
       await SessionManager.clearSession();
-      Navigator.of(
-        context,
-      ).pushNamedAndRemoveUntil(AppRoutes.signin, (route) => false);
+      if (context.mounted) {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          AppRoutes.signin,
+          (route) => false,
+        );
+      }
     }
   }
 }

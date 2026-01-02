@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gap/gap.dart';
-import 'package:pingvite/core/constants/constants.dart';
-import 'package:pingvite/core/custom_widgets/custom_dropdown.dart';
-import 'package:pingvite/core/custom_widgets/factory/text_field_factory.dart';
-import 'package:pingvite/core/theme/app_button_theme.dart';
+import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
+import 'package:pingvite/features/create_venue_screen/presentation/widgets/build_image_upload_card.dart';
+import 'package:pingvite/features/event_creation_tabs/event_details_screen/presentation/widgets/event_dropdowns_section.dart';
+import 'package:pingvite/features/event_creation_tabs/event_details_screen/presentation/widgets/event_location_section.dart';
+import 'package:pingvite/features/event_creation_tabs/event_details_screen/presentation/widgets/event_tags_section.dart';
+import 'package:pingvite/features/event_creation_tabs/event_details_screen/presentation/widgets/event_text_fields_section.dart';
+import 'package:pingvite/features/event_creation_tabs/event_details_screen/presentation/widgets/event_toggle_section.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
 class EventDetailForm extends StatefulWidget {
@@ -18,53 +22,76 @@ class EventDetailForm extends StatefulWidget {
 
 class _EventDetailFormState extends State<EventDetailForm> {
   final _eventDetailsformKey = GlobalKey<FormBuilderState>();
+  File? _selectedImage;
+
+  // Toggle states
+  bool _eventLive = true;
+  bool _promotion = true;
+  bool _registration = true;
+  bool _ticketing = true;
+  bool _rsvp = true;
+
+  // Selected tags
+  final List<String> _selectedTags = [
+    'Business',
+    'Finance',
+    'Mumbai',
+    'Delhi',
+    'Government',
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final buttonTheme = Theme.of(context).extension<AppButtonTheme>()!;
-    return Padding(
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+
+    return SingleChildScrollView(
       padding: EdgeInsets.all(sl<SizeConfig>().rpx(20)),
       child: FormBuilder(
         key: _eventDetailsformKey,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextFieldFactory.name(
-              context: context,
-              buttonTheme: buttonTheme,
-              name: Constants.venueName,
-              hintText: Constants.enterVenueName,
-              requiredError: Constants.venueNameRequired,
-              minLengthError: Constants.venueNameMinChar,
+            // Text Fields Section (Name, Description, Dates)
+            const EventTextFieldsSection(),
+            Gap(sl<SizeConfig>().rpx(20)),
+
+            // Dropdowns Section (Type, Category, Venue, etc.)
+            const EventDropdownsSection(),
+            Gap(sl<SizeConfig>().rpx(24)),
+
+            // Toggle Switches Section
+            EventToggleSection(
+              eventLive: _eventLive,
+              promotion: _promotion,
+              registration: _registration,
+              ticketing: _ticketing,
+              rsvp: _rsvp,
+              onEventLiveChanged: (val) => setState(() => _eventLive = val),
+              onPromotionChanged: (val) => setState(() => _promotion = val),
+              onRegistrationChanged: (val) =>
+                  setState(() => _registration = val),
+              onTicketingChanged: (val) => setState(() => _ticketing = val),
+              onRsvpChanged: (val) => setState(() => _rsvp = val),
             ),
-            Gap(sl<SizeConfig>().rpx(25)),
-            TextFieldFactory.startTimeDate(
-              context: context,
-              buttonTheme: buttonTheme,
-              onChanged: (val) {
-                debugPrint("Picked DateTime: $val");
+            Gap(sl<SizeConfig>().rpx(24)),
+
+            // Upload Image Section
+            BuildImageUploadCard(
+              textTheme: textTheme,
+              initialImage: _selectedImage,
+              onImageSelected: (image) {
+                setState(() => _selectedImage = image);
               },
             ),
-            Gap(sl<SizeConfig>().rpx(25)),
-            TextFieldFactory.endTimeDate(
-              context: context,
-              buttonTheme: buttonTheme,
-              onChanged: (val) {
-                debugPrint("Picked DateTime: $val");
-              },
-            ),
-            Gap(sl<SizeConfig>().rpx(25)),
-            CustomDropdown<String>(
-              name: "eventType",
-              hintText: "Event Type",
-              buttonTheme: buttonTheme,
-              items: ["Conference", "Meetup", "Workshop", "Webinar"],
-              onChanged: (val) => debugPrint("Selected: $val"),
-              validators: [
-                FormBuilderValidators.required(
-                  errorText: "Event type is required",
-                ),
-              ],
-            ),
+            Gap(sl<SizeConfig>().rpx(24)),
+
+            // Tags Section
+            EventTagsSection(selectedTags: _selectedTags),
+            Gap(sl<SizeConfig>().rpx(24)),
+
+            // Location Section
+            const EventLocationSection(),
+            Gap(sl<SizeConfig>().rpx(32)),
           ],
         ),
       ),

@@ -4,8 +4,6 @@ import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/model/tab_item.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
-import 'package:pingvite/core/utils/sizeconfig.dart';
-import 'package:pingvite/service_locator_dependencies.dart';
 
 class ReusableTabWidget extends StatefulWidget {
   final List<TabItem> tabs;
@@ -88,15 +86,14 @@ class _ReusableTabWidgetState extends State<ReusableTabWidget> {
 
   Widget _buildSimpleTabs(AppTextTheme textTheme) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    return Material(
-      elevation: 3,
-      shadowColor: AppColors.black.withValues(alpha: 0.6),
-      child: Container(
-        color: AppColors.darkPrimaryText,
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          scrollDirection: Axis.horizontal,
-          physics: const BouncingScrollPhysics(),
+    return Container(
+      color: AppColors.white,
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           child: Row(
             children: List.generate(widget.tabs.length, (index) {
               final tab = widget.tabs[index];
@@ -110,21 +107,28 @@ class _ReusableTabWidgetState extends State<ReusableTabWidget> {
                       _tabKeys[index].currentContext!,
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeInOut,
-                      alignment: 0.5, // keep it nicely centered
+                      alignment: 0.5,
                     );
                   }
-
                   widget.onTabChanged?.call(index);
                 },
-                child: Container(
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
                   alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: 12),
-                  height: widget.tabHeight ?? sl<SizeConfig>().rpx(54),
+                  margin: EdgeInsets.only(right: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: isSelected ? AppColors.blue : Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   child: AppTexts(
                     text: tab.title,
-                    style: isSelected
-                        ? textTheme.subheading.copyWith(color: AppColors.black)
-                        : textTheme.subheading,
+                    style: textTheme.subheading.copyWith(
+                      color: isSelected ? AppColors.white : AppColors.black,
+                      fontWeight: isSelected
+                          ? FontWeight.w600
+                          : FontWeight.w400,
+                    ),
                   ),
                 ),
               );
