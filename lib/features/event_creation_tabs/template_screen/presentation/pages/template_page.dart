@@ -23,29 +23,24 @@ class _TemplatePageState extends State<TemplatePage> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 12.0,
-            ),
-            child: ReusableTabWidget(
-              style: TabStyle.boxy,
-              showContent: false,
-              tabs: tabs.map((title) => TabItem(title: title)).toList(),
-              onTabChanged: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+          child: ReusableTabWidget(
+            style: TabStyle.boxy,
+            showContent: false,
+            tabs: tabs.map((title) => TabItem(title: title)).toList(),
+            onTabChanged: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
           ),
-          Expanded(child: _buildTabContent(tabs[_selectedIndex])),
-        ],
-      ),
+        ),
+        Expanded(child: _buildTabContent(tabs[_selectedIndex])),
+      ],
     );
   }
 

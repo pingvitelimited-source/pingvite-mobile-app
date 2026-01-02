@@ -32,7 +32,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     return Scaffold(
       appBar: const CustomAppBar.withBackButton(
         title: Constants.createNewEvent,
-        hasNotification: true,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

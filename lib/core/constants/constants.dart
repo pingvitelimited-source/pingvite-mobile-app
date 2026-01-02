@@ -61,11 +61,11 @@ class Constants {
   //Create Event Screen
   static const continueButton = "Continue";
   static const addVenue = "Add Venue";
-  static const saveAsDraft = "Save as draft";
+  static const saveAsDraft = "Save draft";
   static const createNewEvent = 'Create New Event';
   static const eventDetails = 'Event Details';
   static const attendees = 'Attendees';
-  static const location = 'Location';
+  static const location = 'Venue';
   static const template = 'Template';
   static const eventName = "Event name";
   static const startDateAndTime = "Start date and Time";

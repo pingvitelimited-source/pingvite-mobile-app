@@ -3,6 +3,8 @@ import 'package:pingvite/core/data/event_card_data.dart';
 import 'package:pingvite/features/auth/signin/presentation/pages/signin_page.dart';
 import 'package:pingvite/features/auth/signup/presentation/pages/signup_screen.dart';
 import 'package:pingvite/features/booking_selection_screen/presentation/pages/booking_selection_page.dart';
+import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/pages/contacts_main.dart';
+import 'package:pingvite/features/bottom_tabs/venue_screen/presentation/pages/venue_tab.dart';
 import 'package:pingvite/features/create_event_screen/presentation/pages/create_event_screen.dart';
 import 'package:pingvite/features/create_venue_screen/presentation/pages/create_venue_screen.dart';
 import 'package:pingvite/features/dashboard/presentation/pages/dashboard.dart';
@@ -18,6 +20,8 @@ class AppRoutes {
   static const String home = '/home';
   static const String createEvent = '/createEvent';
   static const String createVenue = '/createVenue';
+  static const String myContacts = '/myContacts';
+  static const String myVenues = '/myVenues';
   static const String signup = '/signup';
   static const String forgotPassword = '/forgotPassword';
   static const String eventInfo = '/eventInfo';
@@ -41,6 +45,10 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const CreateEventScreen());
       case createVenue:
         return MaterialPageRoute(builder: (_) => const CreateVenueScreen());
+      case myContacts:
+        return MaterialPageRoute(builder: (_) => const ContactsMain());
+      case myVenues:
+        return MaterialPageRoute(builder: (_) => const VenueTab());
       case forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       case eventInfo:

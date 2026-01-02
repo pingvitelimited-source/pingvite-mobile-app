@@ -62,7 +62,6 @@ class _BulkUploadContactsPageState extends State<BulkUploadContactsPage> {
   }
 
   void _handleUploadFile() {
-    // TODO: Implement file picker for Excel/CSV
     debugPrint('Upload file tapped');
   }
 

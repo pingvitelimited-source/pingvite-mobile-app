@@ -15,52 +15,56 @@ class BottomButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     final buttonTheme = Theme.of(context).extension<AppButtonTheme>()!;
-    return Padding(
-      padding: EdgeInsets.all(sl<SizeConfig>().rpx(20)),
-      child: Row(
-        children: [
-          Expanded(
-            child: AppPrimaryButton(
-              title: Constants.saveAsDraft,
-              textTheme: textTheme,
-              buttonTheme: buttonTheme,
-              onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.createEvent);
-              },
-              backgroundColor: AppColors.unSelectedTabText,
-              buttonTextColor: AppColors.darkPrimaryText,
-              contentPadding: EdgeInsets.symmetric(
-                vertical: sl<SizeConfig>().rpx(15),
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.all(sl<SizeConfig>().rpx(20)),
+        child: IntrinsicHeight(
+          child: Row(
+            children: [
+              Expanded(
+                child: AppPrimaryButton(
+                  title: Constants.saveAsDraft,
+                  textTheme: textTheme,
+                  buttonTheme: buttonTheme,
+                  onPressed: () {
+                    Navigator.pushNamed(context, AppRoutes.createEvent);
+                  },
+                  backgroundColor: AppColors.unSelectedTabText,
+                  buttonTextColor: AppColors.darkPrimaryText,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: sl<SizeConfig>().rpx(15),
+                  ),
+                  textStyle: textTheme.semiBold.copyWith(
+                    color: AppColors.darkPrimaryText,
+                  ),
+                ),
               ),
-              textStyle: textTheme.semiBold.copyWith(
-                color: AppColors.darkPrimaryText,
+              const SizedBox(width: 12),
+              Expanded(
+                child: AppPrimaryButton(
+                  title: Constants.continueButton,
+                  textTheme: textTheme,
+                  buttonTheme: buttonTheme,
+                  onPressed: () {
+                    Navigator.pushNamed(context, AppRoutes.createEvent);
+                  },
+                  gradient: const LinearGradient(
+                    colors: [AppColors.lightGradient, AppColors.darkGradient],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  buttonTextColor: AppColors.darkPrimaryText,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: sl<SizeConfig>().rpx(15),
+                  ),
+                  textStyle: textTheme.semiBold.copyWith(
+                    color: AppColors.darkPrimaryText,
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-          const SizedBox(width: 12), // spacing between buttons
-          Expanded(
-            child: AppPrimaryButton(
-              title: Constants.continueButton,
-              textTheme: textTheme,
-              buttonTheme: buttonTheme,
-              onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.createEvent);
-              },
-              gradient: const LinearGradient(
-                colors: [AppColors.lightGradient, AppColors.darkGradient],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-              buttonTextColor: AppColors.darkPrimaryText,
-              contentPadding: EdgeInsets.symmetric(
-                vertical: sl<SizeConfig>().rpx(15),
-              ),
-              textStyle: textTheme.semiBold.copyWith(
-                color: AppColors.darkPrimaryText,
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
