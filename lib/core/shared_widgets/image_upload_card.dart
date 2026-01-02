@@ -1,0 +1,288 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:pingvite/core/constants/constants.dart';
+import 'package:pingvite/core/custom_widgets/app_card.dart';
+import 'package:pingvite/core/custom_widgets/app_images.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
+import 'package:pingvite/core/theme/app_colors.dart';
+import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/utils/sizeconfig.dart';
+import 'package:pingvite/service_locator_dependencies.dart';
+
+/// Reusable Image Upload Card widget
+class ImageUploadCard extends StatefulWidget {
+  final File? initialImage;
+  final Function(File?)? onImageSelected;
+  final double? height;
+
+  const ImageUploadCard({
+    super.key,
+    this.initialImage,
+    this.onImageSelected,
+    this.height,
+  });
+
+  @override
+  State<ImageUploadCard> createState() => _ImageUploadCardState();
+}
+
+class _ImageUploadCardState extends State<ImageUploadCard> {
+  File? selectedImage;
+  final ImagePicker _picker = ImagePicker();
+
+  @override
+  void initState() {
+    super.initState();
+    selectedImage = widget.initialImage;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+
+    return AppCard(
+      padding: const EdgeInsets.all(16),
+      borderColor: AppColors.imageUploadCardColor,
+      margin: EdgeInsets.zero,
+      borderRadius: 10,
+      elevation: 0,
+      backgroundColor: AppColors.imageUploadCardColor,
+      child: SizedBox(
+        height: widget.height ?? sl<SizeConfig>().rpx(120),
+        width: double.infinity,
+        child: selectedImage != null
+            ? _SelectedImageView(
+                selectedImage: selectedImage!,
+                onRemove: _removeImage,
+              )
+            : _UploadPromptView(
+                textTheme: textTheme,
+                onTap: _showImagePickerBottomSheet,
+              ),
+      ),
+    );
+  }
+
+  void _showImagePickerBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (BuildContext context) {
+        return _ImagePickerBottomSheet(
+          onCameraSelected: _pickImageFromCamera,
+          onGallerySelected: _pickImageFromGallery,
+          onFilesSelected: _pickImageFromFiles,
+        );
+      },
+    );
+  }
+
+  Future<void> _pickImageFromCamera() async {
+    Navigator.pop(context);
+    try {
+      final XFile? image = await _picker.pickImage(
+        source: ImageSource.camera,
+        imageQuality: 80,
+      );
+      if (image != null) {
+        _updateSelectedImage(File(image.path));
+      }
+    } catch (e) {
+      _showErrorSnackBar('Error accessing camera: $e');
+    }
+  }
+
+  Future<void> _pickImageFromGallery() async {
+    Navigator.pop(context);
+    try {
+      final XFile? image = await _picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 80,
+      );
+      if (image != null) {
+        _updateSelectedImage(File(image.path));
+      }
+    } catch (e) {
+      _showErrorSnackBar('Error accessing gallery: $e');
+    }
+  }
+
+  Future<void> _pickImageFromFiles() async {
+    Navigator.pop(context);
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+      );
+      if (result != null && result.files.single.path != null) {
+        _updateSelectedImage(File(result.files.single.path!));
+      }
+    } catch (e) {
+      _showErrorSnackBar('Error picking file: $e');
+    }
+  }
+
+  void _updateSelectedImage(File image) {
+    setState(() {
+      selectedImage = image;
+    });
+    widget.onImageSelected?.call(image);
+  }
+
+  void _removeImage() {
+    setState(() {
+      selectedImage = null;
+    });
+    widget.onImageSelected?.call(null);
+  }
+
+  void _showErrorSnackBar(String message) {
+    if (mounted) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(message)));
+    }
+  }
+}
+
+class _SelectedImageView extends StatelessWidget {
+  final File selectedImage;
+  final VoidCallback onRemove;
+
+  const _SelectedImageView({
+    required this.selectedImage,
+    required this.onRemove,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.file(selectedImage, fit: BoxFit.cover),
+        ),
+        Positioned(
+          top: 8,
+          right: 8,
+          child: GestureDetector(
+            onTap: onRemove,
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.6),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.close, color: Colors.white, size: 16),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _UploadPromptView extends StatelessWidget {
+  final AppTextTheme textTheme;
+  final VoidCallback onTap;
+
+  const _UploadPromptView({required this.textTheme, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          AppImages.svgIcon(context, Constants.imageUpload, 32, 32),
+          SizedBox(height: sl<SizeConfig>().rpx(5)),
+          AppTexts(
+            text: Constants.uploadImage,
+            style: textTheme.accent.copyWith(fontWeight: FontWeight.w400),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ImagePickerBottomSheet extends StatelessWidget {
+  final VoidCallback onCameraSelected;
+  final VoidCallback onGallerySelected;
+  final VoidCallback onFilesSelected;
+
+  const _ImagePickerBottomSheet({
+    required this.onCameraSelected,
+    required this.onGallerySelected,
+    required this.onFilesSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            'Select Image Source',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildOption(
+                icon: Icons.camera_alt,
+                label: 'Camera',
+                onTap: onCameraSelected,
+              ),
+              _buildOption(
+                icon: Icons.photo_library,
+                label: 'Gallery',
+                onTap: onGallerySelected,
+              ),
+              _buildOption(
+                icon: Icons.folder,
+                label: 'Files',
+                onTap: onFilesSelected,
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOption({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: AppColors.blue.withValues(alpha: 0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: AppColors.blue, size: 28),
+          ),
+          const SizedBox(height: 8),
+          Text(label),
+        ],
+      ),
+    );
+  }
+}

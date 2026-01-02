@@ -3,12 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:gap/gap.dart';
-import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/shared_widgets/shared_widgets.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
-import 'package:pingvite/features/create_venue_screen/presentation/widgets/build_image_upload_card.dart';
 import 'package:pingvite/features/event_creation_tabs/event_details_screen/presentation/widgets/event_dropdowns_section.dart';
-import 'package:pingvite/features/event_creation_tabs/event_details_screen/presentation/widgets/event_location_section.dart';
-import 'package:pingvite/features/event_creation_tabs/event_details_screen/presentation/widgets/event_tags_section.dart';
 import 'package:pingvite/features/event_creation_tabs/event_details_screen/presentation/widgets/event_text_fields_section.dart';
 import 'package:pingvite/features/event_creation_tabs/event_details_screen/presentation/widgets/event_toggle_section.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
@@ -42,8 +39,6 @@ class _EventDetailFormState extends State<EventDetailForm> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-
     return SingleChildScrollView(
       padding: EdgeInsets.all(sl<SizeConfig>().rpx(20)),
       child: FormBuilder(
@@ -51,15 +46,12 @@ class _EventDetailFormState extends State<EventDetailForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Text Fields Section (Name, Description, Dates)
             const EventTextFieldsSection(),
             Gap(sl<SizeConfig>().rpx(20)),
 
-            // Dropdowns Section (Type, Category, Venue, etc.)
             const EventDropdownsSection(),
             Gap(sl<SizeConfig>().rpx(24)),
 
-            // Toggle Switches Section
             EventToggleSection(
               eventLive: _eventLive,
               promotion: _promotion,
@@ -75,9 +67,7 @@ class _EventDetailFormState extends State<EventDetailForm> {
             ),
             Gap(sl<SizeConfig>().rpx(24)),
 
-            // Upload Image Section
-            BuildImageUploadCard(
-              textTheme: textTheme,
+            ImageUploadCard(
               initialImage: _selectedImage,
               onImageSelected: (image) {
                 setState(() => _selectedImage = image);
@@ -85,12 +75,17 @@ class _EventDetailFormState extends State<EventDetailForm> {
             ),
             Gap(sl<SizeConfig>().rpx(24)),
 
-            // Tags Section
-            EventTagsSection(selectedTags: _selectedTags),
+            TagsSection(
+              tags: _selectedTags,
+              onTagRemoved: (tag) {
+                setState(() {
+                  _selectedTags.remove(tag);
+                });
+              },
+            ),
             Gap(sl<SizeConfig>().rpx(24)),
 
-            // Location Section
-            const EventLocationSection(),
+            const LocationSection(),
             Gap(sl<SizeConfig>().rpx(32)),
           ],
         ),

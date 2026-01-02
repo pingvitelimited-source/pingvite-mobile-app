@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
-import 'package:pingvite/core/utils/sizeconfig.dart';
-import 'package:pingvite/service_locator_dependencies.dart';
 
 @immutable
 class AppTextTheme extends ThemeExtension<AppTextTheme> {
@@ -65,89 +63,105 @@ class AppTextTheme extends ThemeExtension<AppTextTheme> {
     );
   }
 
-  // Light theme text styles
-  static AppTextTheme light = AppTextTheme(
+  // Light theme text styles - using fixed sizes, scaling handled elsewhere
+  static const AppTextTheme light = AppTextTheme(
     heading: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(24),
+      fontFamily: 'Libre Franklin',
+      fontSize: 24,
       fontWeight: FontWeight.w600,
       color: AppColors.lightPrimaryText,
     ),
     subheading: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(16),
+      fontFamily: 'Libre Franklin',
+      fontSize: 16,
       fontWeight: FontWeight.w500,
       color: AppColors.lightSecondaryText,
     ),
     body: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(14),
+      fontFamily: 'Libre Franklin',
+      fontSize: 14,
       fontWeight: FontWeight.w400,
       color: AppColors.lightPrimaryText,
     ),
     accent: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(12),
+      fontFamily: 'Libre Franklin',
+      fontSize: 12,
       fontWeight: FontWeight.w500,
       color: AppColors.lightSecondaryText,
     ),
     body1: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(10),
+      fontFamily: 'Libre Franklin',
+      fontSize: 10,
       fontWeight: FontWeight.w500,
       color: AppColors.darkPrimaryText,
     ),
     body2: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(18),
+      fontFamily: 'Libre Franklin',
+      fontSize: 18,
       fontWeight: FontWeight.w500,
       color: AppColors.lightPrimaryText,
     ),
     semiBold: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(16),
+      fontFamily: 'Libre Franklin',
+      fontSize: 16,
       fontWeight: FontWeight.w600,
       color: AppColors.lightPrimaryText,
     ),
     bold: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(20),
+      fontFamily: 'Libre Franklin',
+      fontSize: 20,
       fontWeight: FontWeight.bold,
       color: AppColors.darkPrimaryText,
     ),
   );
 
   // Dark theme text styles
-  static AppTextTheme dark = AppTextTheme(
+  static const AppTextTheme dark = AppTextTheme(
     heading: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(24),
+      fontFamily: 'Libre Franklin',
+      fontSize: 24,
       fontWeight: FontWeight.w600,
       color: AppColors.darkPrimaryText,
     ),
     subheading: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(16),
+      fontFamily: 'Libre Franklin',
+      fontSize: 16,
       fontWeight: FontWeight.w500,
       color: AppColors.darkSecondaryText,
     ),
     body: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(14),
+      fontFamily: 'Libre Franklin',
+      fontSize: 14,
       fontWeight: FontWeight.w400,
       color: AppColors.darkPrimaryText,
     ),
     accent: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(16),
+      fontFamily: 'Libre Franklin',
+      fontSize: 16,
       fontWeight: FontWeight.w600,
       color: AppColors.darkAccentText,
     ),
     body1: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(10),
+      fontFamily: 'Libre Franklin',
+      fontSize: 10,
       fontWeight: FontWeight.w500,
       color: AppColors.darkPrimaryText,
     ),
     body2: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(18),
+      fontFamily: 'Libre Franklin',
+      fontSize: 18,
       fontWeight: FontWeight.w500,
       color: AppColors.darkPrimaryText,
     ),
     semiBold: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(16),
+      fontFamily: 'Libre Franklin',
+      fontSize: 16,
       fontWeight: FontWeight.w600,
       color: AppColors.darkPrimaryText,
     ),
     bold: TextStyle(
-      fontSize: sl<SizeConfig>().rpx(20),
+      fontFamily: 'Libre Franklin',
+      fontSize: 20,
       fontWeight: FontWeight.bold,
       color: AppColors.darkPrimaryText,
     ),

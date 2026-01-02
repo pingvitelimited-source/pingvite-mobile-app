@@ -24,10 +24,7 @@ class VenueCard extends StatelessWidget {
 
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
 
-    // Estimate menu height (3 items * ~48px each + padding)
     final estimatedMenuHeight = 160.rpx;
-
-    // Check if menu would go outside screen at bottom
     final spaceBelow = screenHeight - offset.dy - size.height - 8.rpx;
     final showAbove = spaceBelow < estimatedMenuHeight;
 

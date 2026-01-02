@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_theme.dart';
@@ -12,6 +13,10 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Disable Google Fonts network fetching - use bundled fonts or system fallback
+  GoogleFonts.config.allowRuntimeFetching = false;
+
   await initDependecies();
   runApp(const MyApp());
 }
