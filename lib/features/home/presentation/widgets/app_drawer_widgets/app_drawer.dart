@@ -19,8 +19,9 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Drawer(
-      backgroundColor: AppColors.darkPrimaryText,
+      backgroundColor: isDarkMode ? AppColors.darkBackground : AppColors.white,
       child: SafeArea(
         child: Column(
           children: [

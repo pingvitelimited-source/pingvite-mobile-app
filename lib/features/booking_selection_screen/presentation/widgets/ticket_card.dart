@@ -55,9 +55,19 @@ class TicketCard extends StatelessWidget {
             ],
           ),
           Gap(15.gap),
-          InfoRow(leading: Constants.locationIcon, text: ticketData.venue),
+          InfoRow(
+            leading: Constants.locationIcon,
+            text: ticketData.venue,
+            textColor: AppColors.lightPrimaryText,
+            iconColor: AppColors.lightPrimaryText,
+          ),
           Gap(12.gap),
-          InfoRow(leading: Constants.noteText, text: ticketData.dateTime),
+          InfoRow(
+            leading: Constants.noteText,
+            text: ticketData.dateTime,
+            textColor: AppColors.lightPrimaryText,
+            iconColor: AppColors.lightPrimaryText,
+          ),
           Gap(12.gap),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -9,8 +9,9 @@ class EventCategoryStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      color: AppColors.darkPrimaryText,
+      color: isDarkMode ? AppColors.darkBackground : AppColors.white,
       child: SizedBox(
         height: 100.rpx,
         child: ListView.separated(

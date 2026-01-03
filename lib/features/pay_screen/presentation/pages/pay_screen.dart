@@ -27,8 +27,11 @@ class PayScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: AppColors.homebackground,
+      backgroundColor: isDarkMode
+          ? AppColors.darkBackground
+          : AppColors.homebackground,
       appBar: const CustomAppBar.withBackButton(),
       body: SingleChildScrollView(
         child: Padding(
@@ -47,7 +50,7 @@ class PayScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    EventTitle(args.event?.title ?? ''),
+                    EventTitle(args.event?.title ?? '', forceLight: true),
                     Gap(16.gap),
                     PayTicketList(tickets: args.tickets),
                     Gap(12.gap),
