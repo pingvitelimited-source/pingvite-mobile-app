@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
@@ -79,6 +80,7 @@ class _ToggleRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
     final screenWidth = MediaQuery.of(context).size.width;
     final toggleWidth = screenWidth * 0.6; // 60% of screen width for alignment
 
@@ -94,7 +96,7 @@ class _ToggleRow extends StatelessWidget {
                 label,
                 style: textTheme.body2.copyWith(
                   fontWeight: FontWeight.w500,
-                  color: AppColors.black,
+                  color: cardTheme.sectionLabelColor,
                 ),
               ),
               Transform.scale(

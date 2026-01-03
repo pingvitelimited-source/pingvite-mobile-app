@@ -130,7 +130,7 @@ class TextFieldFactory {
       buttonTheme: buttonTheme,
       enabled: isEnabled ?? true,
       suffixIcon: suffixIcon,
-      prefixIcon: AppImages.svgIcon(context, Constants.call, 16, 12),
+      prefixIcon: AppImages.svgIcon(context, Constants.call, 16, 12, AppColors.grey),
       keyboardType: TextInputType.phone,
       textInputAction: TextInputAction.next,
       validators: [

@@ -7,6 +7,7 @@ import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_card.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
+import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
@@ -67,9 +68,11 @@ class _ImageUploadCardState extends State<ImageUploadCard> {
   }
 
   void _showImagePickerBottomSheet() {
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
+
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.white,
+      backgroundColor: cardTheme.backgroundColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -226,30 +229,39 @@ class _ImagePickerBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
+
     return Container(
       padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
+          Text(
             'Select Image Source',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: textTheme.semiBold.copyWith(
+              fontSize: 18,
+              color: cardTheme.sectionLabelColor,
+            ),
           ),
           const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildOption(
+                context: context,
                 icon: Icons.camera_alt,
                 label: 'Camera',
                 onTap: onCameraSelected,
               ),
               _buildOption(
+                context: context,
                 icon: Icons.photo_library,
                 label: 'Gallery',
                 onTap: onGallerySelected,
               ),
               _buildOption(
+                context: context,
                 icon: Icons.folder,
                 label: 'Files',
                 onTap: onFilesSelected,
@@ -263,10 +275,13 @@ class _ImagePickerBottomSheet extends StatelessWidget {
   }
 
   Widget _buildOption({
+    required BuildContext context,
     required IconData icon,
     required String label,
     required VoidCallback onTap,
   }) {
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
+
     return GestureDetector(
       onTap: onTap,
       child: Column(
@@ -280,7 +295,7 @@ class _ImagePickerBottomSheet extends StatelessWidget {
             child: Icon(icon, color: AppColors.blue, size: 28),
           ),
           const SizedBox(height: 8),
-          Text(label),
+          Text(label, style: TextStyle(color: cardTheme.sectionLabelColor)),
         ],
       ),
     );

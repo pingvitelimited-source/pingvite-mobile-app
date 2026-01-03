@@ -22,6 +22,8 @@ class _InitialPageState extends State<InitialPage> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       body: Center(
         child: Padding(
@@ -46,7 +48,11 @@ class _InitialPageState extends State<InitialPage> {
                 onTap: () => Navigator.pushNamed(context, AppRoutes.signup),
                 child: AppTexts(
                   text: Constants.signup,
-                  style: textTheme.semiBold.copyWith(color: AppColors.blue),
+                  style: textTheme.semiBold.copyWith(
+                    color: isDarkMode
+                        ? AppColors.darkAccentText
+                        : AppColors.blue,
+                  ),
                 ),
               ),
             ],

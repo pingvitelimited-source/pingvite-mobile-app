@@ -52,6 +52,15 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     final isLocked = !enabled || readOnly;
+
+    // Text fields have white background, so text must always be dark
+    final inputTextStyle = (textStyle ?? textTheme.body).copyWith(
+      color: AppColors.lightPrimaryText,
+    );
+    final inputHintStyle = (hintStyle ?? textTheme.body).copyWith(
+      color: AppColors.lightSecondaryText,
+    );
+
     return FormBuilderTextField(
       name: name,
       readOnly: readOnly,
@@ -61,7 +70,7 @@ class CustomTextField extends StatelessWidget {
       textInputAction: textInputAction,
       maxLines: maxLines,
       enabled: enabled,
-      style: textStyle,
+      style: inputTextStyle,
       decoration:
           AppInputDecoration.build(
             hintText: hintText,
@@ -72,7 +81,7 @@ class CustomTextField extends StatelessWidget {
             buttonTheme: buttonTheme,
             textTheme: textTheme,
           ).copyWith(
-            hintStyle: hintStyle,
+            hintStyle: inputHintStyle,
             filled: true,
             fillColor: isLocked
                 ? AppColors.grey.withValues(alpha: 0.08) // 🔒 muted background

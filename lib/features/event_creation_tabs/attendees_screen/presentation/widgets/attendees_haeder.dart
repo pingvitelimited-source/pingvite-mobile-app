@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
+import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 
@@ -13,6 +14,8 @@ class AttendeesHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -21,7 +24,9 @@ class AttendeesHeader extends StatelessWidget {
           children: [
             AppTexts(
               text: Constants.eventAttendees,
-              style: textTheme.subheading.copyWith(color: AppColors.black),
+              style: textTheme.subheading.copyWith(
+                color: cardTheme.sectionLabelColor,
+              ),
             ),
             const SizedBox(width: 5),
             Container(

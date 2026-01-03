@@ -126,7 +126,7 @@ class AppDrawer extends StatelessWidget {
       if (context.mounted) {
         Navigator.pushNamedAndRemoveUntil(
           context,
-          AppRoutes.signin,
+          AppRoutes.initial,
           (route) => false,
         );
       }

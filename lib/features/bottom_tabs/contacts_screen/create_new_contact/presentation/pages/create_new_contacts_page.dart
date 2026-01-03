@@ -6,7 +6,7 @@ import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/factory/app_button_factory.dart';
 import 'package:pingvite/core/custom_widgets/factory/text_field_factory.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
-import 'package:pingvite/core/theme/app_colors.dart';
+import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/create_new_contact/presentation/widgets/contact_image_picker.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/create_new_contact/presentation/widgets/contact_type_dropdown.dart';
@@ -28,9 +28,10 @@ class _CreateNewContactsPageState extends State<CreateNewContactsPage> {
   @override
   Widget build(BuildContext context) {
     final buttonTheme = Theme.of(context).extension<AppButtonTheme>()!;
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
 
     return Scaffold(
-      backgroundColor: AppColors.homebackground,
+      backgroundColor: cardTheme.screenBackgroundColor,
       appBar: CustomAppBar.withBackButton(title: Constants.createNewContact),
       body: SafeArea(
         child: SingleChildScrollView(

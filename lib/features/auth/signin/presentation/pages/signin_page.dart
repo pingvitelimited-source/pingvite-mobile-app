@@ -122,7 +122,14 @@ class _SigninPageState extends State<SigninPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            AppImages.svgIcon(context, Constants.indianFlag, 20, 20),
+            AppImages.svgIcon(
+              context,
+              Constants.indianFlag,
+              20,
+              20,
+              null,
+              false,
+            ),
             SizedBox(width: 10),
             AppTexts(text: Constants.madeInIndia, style: textTheme.accent),
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pingvite/core/theme/app_image_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
@@ -19,19 +20,25 @@ class AppImages {
   }
 
   // For SVG icons that need theme-based color
+  // Now automatically uses theme iconColor when no color is specified
   static Widget svgIcon(
     BuildContext context,
     String svgPath,
     double height,
     double width, [
     Color? color,
+    bool applyThemeColor = true,
   ]) {
+    final imageTheme = Theme.of(context).extension<AppImageTheme>()!;
+    final effectiveColor =
+        color ?? (applyThemeColor ? imageTheme.iconColor : null);
+
     return SvgPicture.asset(
       svgPath,
       height: sl<SizeConfig>().isz(height),
       width: sl<SizeConfig>().isz(width),
-      colorFilter: color != null
-          ? ColorFilter.mode(color, BlendMode.srcIn)
+      colorFilter: effectiveColor != null
+          ? ColorFilter.mode(effectiveColor, BlendMode.srcIn)
           : null,
     );
   }

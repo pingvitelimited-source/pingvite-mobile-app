@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pingvite/core/constants/enum_tabs.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/model/tab_item.dart';
+import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 
@@ -86,8 +87,10 @@ class _ReusableTabWidgetState extends State<ReusableTabWidget> {
 
   Widget _buildSimpleTabs(AppTextTheme textTheme) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
+
     return Container(
-      color: AppColors.white,
+      color: cardTheme.backgroundColor,
       child: SingleChildScrollView(
         controller: _scrollController,
         scrollDirection: Axis.horizontal,
@@ -124,7 +127,9 @@ class _ReusableTabWidgetState extends State<ReusableTabWidget> {
                   child: AppTexts(
                     text: tab.title,
                     style: textTheme.subheading.copyWith(
-                      color: isSelected ? AppColors.white : AppColors.black,
+                      color: isSelected
+                          ? AppColors.white
+                          : cardTheme.sectionLabelColor,
                       fontWeight: isSelected
                           ? FontWeight.w600
                           : FontWeight.w400,

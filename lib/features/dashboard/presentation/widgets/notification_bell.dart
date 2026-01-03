@@ -4,6 +4,7 @@ import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/theme/app_top_bar_theme.dart';
 
 class NotificationBell extends StatelessWidget {
   final int count;
@@ -14,14 +15,16 @@ class NotificationBell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final appBarTheme = Theme.of(context).extension<AppTopBarTheme>()!;
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(50),
       child: Container(
         width: 48,
         height: 48,
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration: BoxDecoration(
+          color: appBarTheme.bellBackgroundColor,
           shape: BoxShape.circle,
         ),
         child: Center(
