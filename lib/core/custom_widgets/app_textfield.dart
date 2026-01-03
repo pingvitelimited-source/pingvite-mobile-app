@@ -51,15 +51,28 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final isLocked = !enabled || readOnly;
 
-    // Text fields have white background, so text must always be dark
+    // When field is enabled (white background), use dark text
+    // When field is disabled in dark mode, use light text for visibility
+    final textColor = isLocked && isDarkMode
+        ? AppColors.darkPrimaryText
+        : AppColors.lightPrimaryText;
+
     final inputTextStyle = (textStyle ?? textTheme.body).copyWith(
-      color: AppColors.lightPrimaryText,
+      color: textColor,
     );
     final inputHintStyle = (hintStyle ?? textTheme.body).copyWith(
-      color: AppColors.lightSecondaryText,
+      color: isLocked && isDarkMode
+          ? AppColors.darkSecondaryText
+          : AppColors.lightSecondaryText,
     );
+
+    // Background color for disabled fields
+    final disabledFillColor = isDarkMode
+        ? AppColors.grey.withValues(alpha: 0.3)
+        : AppColors.grey.withValues(alpha: 0.08);
 
     return FormBuilderTextField(
       name: name,
@@ -83,9 +96,7 @@ class CustomTextField extends StatelessWidget {
           ).copyWith(
             hintStyle: inputHintStyle,
             filled: true,
-            fillColor: isLocked
-                ? AppColors.grey.withValues(alpha: 0.08) // 🔒 muted background
-                : Colors.white,
+            fillColor: isLocked ? disabledFillColor : Colors.white,
           ),
       validator: validators != null
           ? FormBuilderValidators.compose(validators!)
