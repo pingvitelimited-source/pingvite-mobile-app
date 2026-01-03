@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/data/event_card_data.dart';
-import 'package:pingvite/core/theme/app_colors.dart';
+import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/utils/event_header_info.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/custom_appbar.dart';
@@ -17,8 +17,10 @@ class EventInfo extends StatefulWidget {
 class _EventInfoPageState extends State<EventInfo> {
   @override
   Widget build(BuildContext context) {
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
+
     return Scaffold(
-      backgroundColor: AppColors.homebackground,
+      backgroundColor: cardTheme.screenBackgroundColor,
       appBar: CustomAppBar.withBackButton(),
       body: SingleChildScrollView(
         child: Padding(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
-import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/theme/app_top_bar_theme.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/notification_bell.dart';
@@ -118,9 +117,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               if (showBell)
                 NotificationBell(
                   count: hasNotification ? 3 : 0,
-                  onTap: () =>
-                      onNotificationTap ??
-                      NotificationHandler.handleNotificationTap(context),
+                  onTap: () {
+                    if (onNotificationTap != null) {
+                      onNotificationTap!();
+                    } else {
+                      NotificationHandler.handleNotificationTap(context);
+                    }
+                  },
                 ),
             ],
           ),
@@ -138,18 +141,34 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     }
 
     if (showBackButton) {
+      final isDarkMode = Theme.of(context).brightness == Brightness.dark;
       return GestureDetector(
         onTap: onBackPressed ?? () => Navigator.pop(context),
         child: Container(
           width: 48,
           height: 48,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColors.darkPrimaryText,
+            color: theme.backButtonColor,
+            boxShadow: isDarkMode
+                ? null
+                : [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
           ),
           child: Padding(
             padding: const EdgeInsets.all(14),
-            child: AppImages.svgIcon(context, Constants.backArrow, 20, 12),
+            child: AppImages.svgIcon(
+              context,
+              Constants.backArrow,
+              20,
+              12,
+              theme.backButtonIconColor,
+            ),
           ),
         ),
       );

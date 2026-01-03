@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
+import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
@@ -31,6 +32,7 @@ class SelectableContactTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
 
     return Column(
       children: [
@@ -67,7 +69,7 @@ class SelectableContactTile extends StatelessWidget {
                       AppTexts(
                         text: contact["name"] ?? "",
                         style: textTheme.subheading.copyWith(
-                          color: AppColors.black,
+                          color: cardTheme.sectionLabelColor,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -75,7 +77,9 @@ class SelectableContactTile extends StatelessWidget {
                       AppTexts(
                         text: contact["email"] ?? "",
                         style: textTheme.accent.copyWith(
-                          color: AppColors.lightPrimaryText,
+                          color: cardTheme.sectionLabelColor.withValues(
+                            alpha: 0.7,
+                          ),
                         ),
                       ),
                     ],

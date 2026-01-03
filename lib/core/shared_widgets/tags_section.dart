@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
@@ -24,6 +25,7 @@ class TagsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +35,7 @@ class TagsSection extends StatelessWidget {
             title,
             style: textTheme.body2.copyWith(
               fontWeight: FontWeight.w600,
-              color: AppColors.black,
+              color: cardTheme.sectionLabelColor,
             ),
           ),
           SizedBox(height: sl<SizeConfig>().rpx(12)),

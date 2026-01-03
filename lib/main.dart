@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_theme.dart';
@@ -13,10 +12,6 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Disable Google Fonts network fetching - use bundled fonts or system fallback
-  GoogleFonts.config.allowRuntimeFetching = false;
-
   await initDependecies();
   runApp(const MyApp());
 }
@@ -63,16 +58,19 @@ class _MyAppState extends State<MyApp> {
             darkTheme: AppTheme.darkTheme,
             themeMode: themeController.themeMode,
             onGenerateRoute: AppRoutes.generateRoute,
-            home: _isLoggedIn == null
-                ? const Scaffold(
-                    body: Center(child: CircularProgressIndicator()),
-                  )
-                : _isLoggedIn!
-                ? const HomePage()
-                : InitialPage(),
+            home: _buildHome(themeController),
           );
         },
       ),
     );
+  }
+
+  Widget _buildHome(ThemeController themeController) {
+    // Show empty scaffold while loading (native splash still visible)
+    if (!themeController.isInitialized || _isLoggedIn == null) {
+      return const Scaffold(body: SizedBox.shrink());
+    }
+
+    return _isLoggedIn! ? const HomePage() : InitialPage();
   }
 }

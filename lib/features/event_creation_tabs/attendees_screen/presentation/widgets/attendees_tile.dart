@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
+import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
@@ -22,6 +23,8 @@ class AttendeeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
+
     return Column(
       children: [
         Row(
@@ -44,14 +47,14 @@ class AttendeeTile extends StatelessWidget {
                   AppTexts(
                     text: attendee["name"]!,
                     style: textTheme.subheading.copyWith(
-                      color: AppColors.black,
+                      color: cardTheme.sectionLabelColor,
                     ),
                   ),
                   const SizedBox(height: 4),
                   AppTexts(
                     text: attendee["email"]!,
                     style: textTheme.accent.copyWith(
-                      color: AppColors.lightPrimaryText,
+                      color: cardTheme.sectionLabelColor.withValues(alpha: 0.7),
                     ),
                   ),
                 ],

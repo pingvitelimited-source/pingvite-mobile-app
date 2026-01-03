@@ -8,6 +8,9 @@ class AppTopBarTheme extends ThemeExtension<AppTopBarTheme> {
     required this.titleColor,
     required this.greetingColor,
     required this.iconColor,
+    required this.bellBackgroundColor,
+    required this.backButtonColor,
+    required this.backButtonIconColor,
     required this.elevation,
   });
 
@@ -15,6 +18,9 @@ class AppTopBarTheme extends ThemeExtension<AppTopBarTheme> {
   final Color titleColor;
   final Color greetingColor;
   final Color iconColor;
+  final Color bellBackgroundColor;
+  final Color backButtonColor;
+  final Color backButtonIconColor;
   final double elevation;
 
   static const AppTopBarTheme light = AppTopBarTheme(
@@ -22,6 +28,9 @@ class AppTopBarTheme extends ThemeExtension<AppTopBarTheme> {
     titleColor: AppColors.darkBackground,
     greetingColor: AppColors.greetingColor,
     iconColor: AppColors.darkBackground,
+    bellBackgroundColor: AppColors.white,
+    backButtonColor: AppColors.white,
+    backButtonIconColor: AppColors.darkBackground,
     elevation: 0,
   );
 
@@ -30,6 +39,9 @@ class AppTopBarTheme extends ThemeExtension<AppTopBarTheme> {
     titleColor: AppColors.lightbackground,
     greetingColor: AppColors.greetingColor,
     iconColor: AppColors.lightbackground,
+    bellBackgroundColor: AppColors.grey,
+    backButtonColor: AppColors.darkBackground,
+    backButtonIconColor: AppColors.white,
     elevation: 0,
   );
 
@@ -39,6 +51,9 @@ class AppTopBarTheme extends ThemeExtension<AppTopBarTheme> {
     Color? titleColor,
     Color? greetingColor,
     Color? iconColor,
+    Color? bellBackgroundColor,
+    Color? backButtonColor,
+    Color? backButtonIconColor,
     double? elevation,
   }) {
     return AppTopBarTheme(
@@ -46,6 +61,9 @@ class AppTopBarTheme extends ThemeExtension<AppTopBarTheme> {
       titleColor: titleColor ?? this.titleColor,
       greetingColor: greetingColor ?? this.greetingColor,
       iconColor: iconColor ?? this.iconColor,
+      bellBackgroundColor: bellBackgroundColor ?? this.bellBackgroundColor,
+      backButtonColor: backButtonColor ?? this.backButtonColor,
+      backButtonIconColor: backButtonIconColor ?? this.backButtonIconColor,
       elevation: elevation ?? this.elevation,
     );
   }
@@ -58,6 +76,17 @@ class AppTopBarTheme extends ThemeExtension<AppTopBarTheme> {
       titleColor: Color.lerp(titleColor, other.titleColor, t)!,
       greetingColor: Color.lerp(greetingColor, other.greetingColor, t)!,
       iconColor: Color.lerp(iconColor, other.iconColor, t)!,
+      bellBackgroundColor: Color.lerp(
+        bellBackgroundColor,
+        other.bellBackgroundColor,
+        t,
+      )!,
+      backButtonColor: Color.lerp(backButtonColor, other.backButtonColor, t)!,
+      backButtonIconColor: Color.lerp(
+        backButtonIconColor,
+        other.backButtonIconColor,
+        t,
+      )!,
       elevation: lerpDouble(elevation, other.elevation, t) ?? elevation,
     );
   }

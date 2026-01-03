@@ -116,6 +116,8 @@ class Constants {
 
   //Image URL from Assets
   static const appLogo = 'assets/png/splashscreen.png';
+  static const appLogoIcon = 'assets/png/app_logo.png';
+  static const appLogoNew = 'assets/png/app_logo_new.png';
   static const email = 'assets/svg/email.svg';
   static const deleteIcon = 'assets/svg/deleteIcon.svg';
   static const editIcon = 'assets/svg/edit.svg';
@@ -126,7 +128,6 @@ class Constants {
   static const notifybell = 'assets/svg/notifybell.svg';
   static const imageUpload = 'assets/svg/imageupload.svg';
   static const noEvent = 'assets/png/noevents.png';
-  static const emptyEvent = 'assets/jpg/events.jpg';
   static const home = 'assets/svg/home.svg';
   static const profile = 'assets/svg/profile.svg';
   static const venue = 'assets/svg/venue.svg';

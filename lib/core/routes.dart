@@ -10,11 +10,13 @@ import 'package:pingvite/features/create_venue_screen/presentation/pages/create_
 import 'package:pingvite/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:pingvite/features/event_info_screen/presentation/pages/event_info.dart';
 import 'package:pingvite/features/forgot_password/presentation/pages/forgot_password_screen.dart';
+import 'package:pingvite/features/inital_screen/presentation/pages/initial_page.dart';
 import 'package:pingvite/features/pay_screen/domain/pay_screen_args.dart';
 import 'package:pingvite/features/pay_screen/presentation/pages/pay_screen.dart';
 import 'package:pingvite/features/home/presentation/pages/home_page.dart';
 
 class AppRoutes {
+  static const String initial = '/initial';
   static const String signin = '/signin';
   static const String dashboard = '/dashboard';
   static const String home = '/home';
@@ -30,6 +32,8 @@ class AppRoutes {
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case initial:
+        return MaterialPageRoute(builder: (_) => const InitialPage());
       case signin:
         final authType = settings.arguments as int?;
         return MaterialPageRoute(

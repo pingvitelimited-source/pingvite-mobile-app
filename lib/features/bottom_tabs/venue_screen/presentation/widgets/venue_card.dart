@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
+import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
@@ -23,6 +24,7 @@ class VenueCard extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
 
     final estimatedMenuHeight = 160.rpx;
     final spaceBelow = screenHeight - offset.dy - size.height - 8.rpx;
@@ -41,7 +43,7 @@ class VenueCard extends StatelessWidget {
               bottom: showAbove ? screenHeight - offset.dy + 8.rpx : null,
               right: screenWidth - offset.dx - size.width,
               child: Material(
-                color: Colors.white,
+                color: cardTheme.backgroundColor,
                 borderRadius: BorderRadius.circular(12.rpx),
                 elevation: 8,
                 child: IntrinsicWidth(
@@ -60,26 +62,26 @@ class VenueCard extends StatelessWidget {
                           action: VenueCardAction.edit,
                         ),
                         Divider(
-                          color: AppColors.black100.withValues(alpha: 0.1),
+                          color: cardTheme.borderColor.withValues(alpha: 0.2),
                           height: 1,
                         ),
                         _buildMenuItem(
                           context: context,
                           text: 'Duplicate',
                           textStyle: textTheme.semiBold.copyWith(
-                            color: AppColors.black100,
+                            color: cardTheme.sectionLabelColor,
                           ),
                           action: VenueCardAction.duplicate,
                         ),
                         Divider(
-                          color: AppColors.black100.withValues(alpha: 0.1),
+                          color: cardTheme.borderColor.withValues(alpha: 0.2),
                           height: 1,
                         ),
                         _buildMenuItem(
                           context: context,
                           text: 'Delete',
                           textStyle: textTheme.semiBold.copyWith(
-                            color: AppColors.black100,
+                            color: cardTheme.sectionLabelColor,
                           ),
                           action: VenueCardAction.delete,
                         ),
@@ -129,16 +131,17 @@ class VenueCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
     final GlobalKey menuKey = GlobalKey();
 
     return Container(
       margin: EdgeInsets.only(bottom: 16.rpx),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: cardTheme.backgroundColor,
         borderRadius: BorderRadius.circular(16.rpx),
         boxShadow: [
           BoxShadow(
-            color: AppColors.black.withValues(alpha: 0.05),
+            color: cardTheme.borderColor.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),

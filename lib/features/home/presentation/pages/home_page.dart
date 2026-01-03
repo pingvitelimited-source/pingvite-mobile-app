@@ -5,7 +5,7 @@ import 'package:pingvite/core/custom_widgets/factory/text_field_factory.dart';
 import 'package:pingvite/core/data/event_card_data.dart';
 import 'package:pingvite/core/enums/event_card_type.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
-import 'package:pingvite/core/theme/app_colors.dart';
+import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/utils/banner_image.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
@@ -27,8 +27,10 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
+
     return Scaffold(
-      backgroundColor: AppColors.homebackground,
+      backgroundColor: cardTheme.screenBackgroundColor,
       key: _scaffoldKey,
       appBar: CustomAppBar.withLocation(
         location: 'Mumbai',
