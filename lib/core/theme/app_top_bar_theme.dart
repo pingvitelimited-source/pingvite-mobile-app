@@ -40,8 +40,8 @@ class AppTopBarTheme extends ThemeExtension<AppTopBarTheme> {
     greetingColor: AppColors.greetingColor,
     iconColor: AppColors.lightbackground,
     bellBackgroundColor: AppColors.grey,
-    backButtonColor: AppColors.darkBackground,
-    backButtonIconColor: AppColors.white,
+    backButtonColor: AppColors.white,
+    backButtonIconColor: AppColors.darkBackground,
     elevation: 0,
   );
 

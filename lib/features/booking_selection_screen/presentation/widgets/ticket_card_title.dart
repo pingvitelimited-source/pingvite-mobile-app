@@ -12,13 +12,14 @@ class TicketCardTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    // Card has white background, so always use dark text
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppTexts(
           text: title,
-          style: textTheme.bold.copyWith(color: AppColors.black100),
+          style: textTheme.bold.copyWith(color: AppColors.lightPrimaryText),
         ),
         Gap(5.gap),
         Container(

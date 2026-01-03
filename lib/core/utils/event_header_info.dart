@@ -23,6 +23,7 @@ class EventHeaderInfo extends StatelessWidget {
           leading: Constants.gradientBall,
           text: "By Religare Finance",
           fontWeight: FontWeight.w700,
+          useOriginalIconColor: true,
         ),
         Gap(15.gap),
         InfoRow(leading: Constants.locationIcon, text: data?.venue ?? ""),

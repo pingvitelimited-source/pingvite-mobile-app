@@ -14,6 +14,7 @@ class CategoryItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -38,7 +39,12 @@ class CategoryItemCard extends StatelessWidget {
             text: data.title,
             textAlign: TextAlign.center,
             maxLines: 2,
-            style: textTheme.semiBold.copyWith(fontSize: 12.sp),
+            style: textTheme.semiBold.copyWith(
+              fontSize: 12.sp,
+              color: isDarkMode
+                  ? AppColors.darkPrimaryText
+                  : AppColors.lightPrimaryText,
+            ),
           ),
         ),
       ],

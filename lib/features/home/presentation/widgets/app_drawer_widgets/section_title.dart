@@ -10,11 +10,16 @@ class SectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.only(top: 20, bottom: 8),
       child: AppTexts(
         text: title,
-        style: textTheme.bold.copyWith(color: AppColors.lightPrimaryText),
+        style: textTheme.bold.copyWith(
+          color: isDarkMode
+              ? AppColors.darkPrimaryText
+              : AppColors.lightPrimaryText,
+        ),
       ),
     );
   }

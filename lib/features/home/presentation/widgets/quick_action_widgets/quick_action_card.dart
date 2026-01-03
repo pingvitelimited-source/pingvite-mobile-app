@@ -16,6 +16,10 @@ class QuickActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    // Card has white background, so always use dark text
+    final titleStyle = textTheme.semiBold.copyWith(
+      color: AppColors.lightPrimaryText,
+    );
 
     return Container(
       constraints: const BoxConstraints(minWidth: 180, maxWidth: 300),
@@ -33,10 +37,10 @@ class QuickActionCard extends StatelessWidget {
             child: AppRichText(
               maxLines: 2,
               spans: [
-                TextSpanItem(text: '${data.title} ', style: textTheme.semiBold),
+                TextSpanItem(text: '${data.title} ', style: titleStyle),
                 TextSpanItem(
                   text: data.highlight,
-                  style: textTheme.semiBold.copyWith(color: AppColors.blue),
+                  style: titleStyle.copyWith(color: AppColors.blue),
                 ),
               ],
             ),
@@ -45,7 +49,13 @@ class QuickActionCard extends StatelessWidget {
           Gap(sl<SizeConfig>().rpx(15)),
           Align(
             alignment: Alignment.topRight,
-            child: AppImages.svgIcon(context, Constants.arrowIcon, 16, 16),
+            child: AppImages.svgIcon(
+              context,
+              Constants.arrowIcon,
+              16,
+              16,
+              AppColors.lightPrimaryText,
+            ),
           ),
         ],
       ),

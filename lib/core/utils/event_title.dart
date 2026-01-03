@@ -7,11 +7,20 @@ import 'package:pingvite/core/utils/size_extension.dart';
 
 class EventTitle extends StatelessWidget {
   final String title;
-  const EventTitle(this.title, {super.key});
+  final bool forceLight;
+  const EventTitle(this.title, {super.key, this.forceLight = false});
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    // If forceLight is true, always use dark text (for white card backgrounds)
+    // Otherwise, use theme-aware colors
+    final textColor = forceLight
+        ? AppColors.lightPrimaryText
+        : (isDarkMode ? AppColors.darkPrimaryText : AppColors.black100);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -20,7 +29,7 @@ class EventTitle extends StatelessWidget {
         children: [
           AppTexts(
             text: title,
-            style: textTheme.bold.copyWith(color: AppColors.black100),
+            style: textTheme.bold.copyWith(color: textColor),
           ),
           Gap(5.gap),
           Container(
