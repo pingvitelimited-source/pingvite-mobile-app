@@ -23,6 +23,11 @@ class TextFieldFactory {
     Widget? suffixIcon,
   }) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final isDisabled = !(isEnabled ?? true);
+    final prefixIconColor = isDisabled && isDarkMode
+        ? AppColors.darkSecondaryText
+        : AppColors.grey;
     return CustomTextField(
       name: 'email_field',
       hintText: 'Registered email ID',
@@ -34,7 +39,7 @@ class TextFieldFactory {
         Constants.email,
         16,
         12,
-        AppColors.grey,
+        prefixIconColor,
       ),
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
@@ -124,13 +129,24 @@ class TextFieldFactory {
     Widget? suffixIcon,
   }) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final isDisabled = !(isEnabled ?? true);
+    final prefixIconColor = isDisabled && isDarkMode
+        ? AppColors.darkSecondaryText
+        : AppColors.grey;
     return CustomTextField(
       name: 'phone_field',
       hintText: 'Phone Number',
       buttonTheme: buttonTheme,
       enabled: isEnabled ?? true,
       suffixIcon: suffixIcon,
-      prefixIcon: AppImages.svgIcon(context, Constants.call, 16, 12, AppColors.grey),
+      prefixIcon: AppImages.svgIcon(
+        context,
+        Constants.call,
+        16,
+        12,
+        prefixIconColor,
+      ),
       keyboardType: TextInputType.phone,
       textInputAction: TextInputAction.next,
       validators: [

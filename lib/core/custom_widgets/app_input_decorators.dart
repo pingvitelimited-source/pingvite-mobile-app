@@ -34,11 +34,16 @@ class AppInputDecoration {
             )
           : null,
       prefixIconConstraints: const BoxConstraints(minWidth: 24, minHeight: 24),
+      suffixIconConstraints: const BoxConstraints(minWidth: 24, minHeight: 24),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
         borderSide: BorderSide(color: buttonTheme.borderColor),
       ),
       enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
+        borderSide: BorderSide(color: buttonTheme.borderColor),
+      ),
+      disabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
         borderSide: BorderSide(color: buttonTheme.borderColor),
       ),
