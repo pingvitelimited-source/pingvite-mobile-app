@@ -175,6 +175,7 @@ class VenueCard extends StatelessWidget {
                         text: venue.name,
                         style: textTheme.body2.copyWith(
                           fontWeight: FontWeight.w600,
+                          color: AppColors.lightPrimaryText,
                         ),
                       ),
                     ),
@@ -206,42 +207,56 @@ class VenueCard extends StatelessWidget {
                 ),
                 SizedBox(height: 12.rpx),
 
-                // Location and Capacity row
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
+                // Location and Capacity row with divider
+                IntrinsicHeight(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppTexts(
+                              text: 'Location',
+                              style: textTheme.accent.copyWith(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            SizedBox(height: 2.rpx),
+                            AppTexts(
+                              text: venue.address,
+                              style: textTheme.subheading.copyWith(
+                                color: AppColors.lightPrimaryText,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Vertical divider
+                      Container(
+                        width: 1,
+                        margin: EdgeInsets.symmetric(horizontal: 16.rpx),
+                        color: Colors.grey.withValues(alpha: 0.3),
+                      ),
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AppTexts(
-                            text: 'Location',
+                            text: 'Capacity',
                             style: textTheme.accent.copyWith(
                               color: Colors.grey,
                             ),
                           ),
                           SizedBox(height: 2.rpx),
                           AppTexts(
-                            text: venue.address,
-                            style: textTheme.subheading,
+                            text: venue.capacity,
+                            style: textTheme.subheading.copyWith(
+                              color: AppColors.lightPrimaryText,
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppTexts(
-                          text: 'Capacity',
-                          style: textTheme.accent.copyWith(color: Colors.grey),
-                        ),
-                        SizedBox(height: 2.rpx),
-                        AppTexts(
-                          text: venue.capacity,
-                          style: textTheme.subheading,
-                        ),
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

@@ -4,6 +4,7 @@ import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/theme/app_top_bar_theme.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/notification_bell.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/notification_handler.dart';
 
@@ -141,7 +142,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     }
 
     if (showBackButton) {
-      final isDarkMode = Theme.of(context).brightness == Brightness.dark;
       return GestureDetector(
         onTap: onBackPressed ?? () => Navigator.pop(context),
         child: Container(
@@ -150,11 +150,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: theme.backButtonColor,
-            boxShadow: isDarkMode
+            boxShadow: ThemeHelper.isDarkMode(context)
                 ? null
                 : [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withValues(alpha: 0.1),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),

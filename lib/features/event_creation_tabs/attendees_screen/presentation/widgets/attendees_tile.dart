@@ -13,17 +13,32 @@ import 'package:pingvite/service_locator_dependencies.dart';
 class AttendeeTile extends StatelessWidget {
   final Map<String, String> attendee;
   final bool isVisible;
+  final bool
+  forceLight; // When true, uses dark text (for white card backgrounds)
 
   const AttendeeTile({
     super.key,
     required this.attendee,
     required this.isVisible,
+    this.forceLight = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    // When forceLight is true (on white cards), always use dark text
+    // Otherwise, use theme-aware colors based on dark/light mode
+    final textColor = forceLight
+        ? AppColors.lightPrimaryText
+        : (isDark ? AppColors.darkPrimaryText : cardTheme.sectionLabelColor);
+    final secondaryTextColor = forceLight
+        ? AppColors.lightSecondaryText
+        : (isDark
+              ? AppColors.darkSecondaryText
+              : cardTheme.sectionLabelColor.withValues(alpha: 0.7));
 
     return Column(
       children: [
@@ -46,16 +61,12 @@ class AttendeeTile extends StatelessWidget {
                   const SizedBox(height: 6),
                   AppTexts(
                     text: attendee["name"]!,
-                    style: textTheme.subheading.copyWith(
-                      color: cardTheme.sectionLabelColor,
-                    ),
+                    style: textTheme.subheading.copyWith(color: textColor),
                   ),
                   const SizedBox(height: 4),
                   AppTexts(
                     text: attendee["email"]!,
-                    style: textTheme.accent.copyWith(
-                      color: cardTheme.sectionLabelColor.withValues(alpha: 0.7),
-                    ),
+                    style: textTheme.accent.copyWith(color: secondaryTextColor),
                   ),
                 ],
               ),

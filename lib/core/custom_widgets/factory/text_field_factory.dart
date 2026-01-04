@@ -10,6 +10,7 @@ import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/date_time_picker_util.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
 class TextFieldFactory {
@@ -23,6 +24,10 @@ class TextFieldFactory {
     Widget? suffixIcon,
   }) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final isDisabled = !(isEnabled ?? true);
+    final prefixIconColor = isDisabled && ThemeHelper.isDarkMode(context)
+        ? AppColors.darkSecondaryText
+        : AppColors.grey;
     return CustomTextField(
       name: 'email_field',
       hintText: 'Registered email ID',
@@ -34,7 +39,7 @@ class TextFieldFactory {
         Constants.email,
         16,
         12,
-        AppColors.grey,
+        prefixIconColor,
       ),
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
@@ -124,13 +129,23 @@ class TextFieldFactory {
     Widget? suffixIcon,
   }) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final isDisabled = !(isEnabled ?? true);
+    final prefixIconColor = isDisabled && ThemeHelper.isDarkMode(context)
+        ? AppColors.darkSecondaryText
+        : AppColors.grey;
     return CustomTextField(
       name: 'phone_field',
       hintText: 'Phone Number',
       buttonTheme: buttonTheme,
       enabled: isEnabled ?? true,
       suffixIcon: suffixIcon,
-      prefixIcon: AppImages.svgIcon(context, Constants.call, 16, 12, AppColors.grey),
+      prefixIcon: AppImages.svgIcon(
+        context,
+        Constants.call,
+        16,
+        12,
+        prefixIconColor,
+      ),
       keyboardType: TextInputType.phone,
       textInputAction: TextInputAction.next,
       validators: [
@@ -207,7 +222,13 @@ class TextFieldFactory {
             onChanged?.call(result);
           }
         },
-        child: AppImages.svgIcon(context, Constants.calendar, 16, 12),
+        child: AppImages.svgIcon(
+          context,
+          Constants.calendar,
+          16,
+          12,
+          AppColors.grey,
+        ),
       ),
       keyboardType: TextInputType.name,
 
@@ -250,7 +271,13 @@ class TextFieldFactory {
             onChanged?.call(result);
           }
         },
-        child: AppImages.svgIcon(context, Constants.calendar, 16, 12),
+        child: AppImages.svgIcon(
+          context,
+          Constants.calendar,
+          16,
+          12,
+          AppColors.grey,
+        ),
       ),
       keyboardType: TextInputType.name,
 

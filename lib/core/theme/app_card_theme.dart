@@ -81,11 +81,11 @@ class AppCardTheme extends ThemeExtension<AppCardTheme> {
   );
 
   static const dark = AppCardTheme(
-    backgroundColor: Color(0xFF2C2C2C),
+    backgroundColor: Colors.white, // White cards in dark mode too
     borderColor: AppColors.darkSecondaryText,
     borderRadius: 18,
     elevation: 2,
-    sectionLabelColor: AppColors.darkPrimaryText,
+    sectionLabelColor: AppColors.lightPrimaryText, // Dark text on white cards
     mapBackgroundColor: Color(0xFF3A3A3A),
     screenBackgroundColor: AppColors.darkBackground,
   );

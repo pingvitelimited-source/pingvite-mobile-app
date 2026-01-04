@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pingvite/core/data/event_category.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 import 'package:pingvite/features/home/presentation/widgets/event_catergory_widgets/category_item_card.dart';
 
 class EventCategoryStrip extends StatelessWidget {
@@ -10,7 +11,9 @@ class EventCategoryStrip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.darkPrimaryText,
+      color: ThemeHelper.isDarkMode(context)
+          ? AppColors.darkBackground
+          : AppColors.white,
       child: SizedBox(
         height: 100.rpx,
         child: ListView.separated(

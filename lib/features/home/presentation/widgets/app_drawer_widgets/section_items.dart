@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 
 class SectionItems extends StatelessWidget {
   final String item;
@@ -16,7 +17,12 @@ class SectionItems extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
-        child: AppTexts(text: item, style: textTheme.body),
+        child: AppTexts(
+          text: item,
+          style: textTheme.body.copyWith(
+            color: ThemeHelper.primaryTextColor(context),
+          ),
+        ),
       ),
     );
   }

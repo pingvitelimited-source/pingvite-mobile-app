@@ -33,6 +33,7 @@ class ContactListView extends StatelessWidget {
           showSelection: true,
           showDeleteIcon: true,
           showDivider: true,
+          forceLight: false,
           onTap: () => onContactTap(index),
           onDelete: () => onContactDelete(index),
         );

@@ -4,7 +4,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pingvite/core/constants/constants.dart';
-import 'package:pingvite/core/custom_widgets/app_card.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_card_theme.dart';
@@ -44,26 +43,29 @@ class _ImageUploadCardState extends State<ImageUploadCard> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
 
-    return AppCard(
-      padding: const EdgeInsets.all(16),
-      borderColor: AppColors.imageUploadCardColor,
-      margin: EdgeInsets.zero,
-      borderRadius: 10,
-      elevation: 0,
-      backgroundColor: AppColors.imageUploadCardColor,
-      child: SizedBox(
-        height: widget.height ?? sl<SizeConfig>().rpx(120),
-        width: double.infinity,
-        child: selectedImage != null
-            ? _SelectedImageView(
+    return Container(
+      height: widget.height ?? sl<SizeConfig>().rpx(140),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: AppColors.grey.withValues(alpha: 0.3),
+          width: 1,
+        ),
+      ),
+      child: selectedImage != null
+          ? ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: _SelectedImageView(
                 selectedImage: selectedImage!,
                 onRemove: _removeImage,
-              )
-            : _UploadPromptView(
-                textTheme: textTheme,
-                onTap: _showImagePickerBottomSheet,
               ),
-      ),
+            )
+          : _UploadPromptView(
+              textTheme: textTheme,
+              onTap: _showImagePickerBottomSheet,
+            ),
     );
   }
 
@@ -201,14 +203,31 @@ class _UploadPromptView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+      behavior: HitTestBehavior.opaque,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AppImages.svgIcon(context, Constants.imageUpload, 32, 32),
-          SizedBox(height: sl<SizeConfig>().rpx(5)),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: AppColors.grey.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: AppImages.svgIcon(
+              context,
+              Constants.imageUpload,
+              36,
+              36,
+              AppColors.grey,
+            ),
+          ),
+          SizedBox(height: sl<SizeConfig>().rpx(12)),
           AppTexts(
             text: Constants.uploadImage,
-            style: textTheme.accent.copyWith(fontWeight: FontWeight.w400),
+            style: textTheme.body.copyWith(
+              fontWeight: FontWeight.w500,
+              color: AppColors.blue,
+            ),
           ),
         ],
       ),

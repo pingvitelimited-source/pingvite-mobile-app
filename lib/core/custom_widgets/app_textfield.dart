@@ -5,6 +5,7 @@ import 'package:pingvite/core/custom_widgets/app_input_decorators.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 
 class CustomTextField extends StatelessWidget {
   final String name;
@@ -51,15 +52,34 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final isLocked = !enabled || readOnly;
+    final isDisabled = !enabled;
+    final isDark = ThemeHelper.isDarkMode(context);
 
-    // Text fields have white background, so text must always be dark
+    // All text fields (including readonly) should use dark text on white background
+    // Only truly disabled fields get special treatment
+    final textColor = isDisabled && isDark
+        ? AppColors.white
+        : AppColors.lightPrimaryText;
+
     final inputTextStyle = (textStyle ?? textTheme.body).copyWith(
-      color: AppColors.lightPrimaryText,
+      color: textColor,
     );
+
+    // Disabled fields on dark background should have white hint text
+    final hintColor = isDisabled && isDark
+        ? AppColors.white
+        : AppColors.lightSecondaryText;
     final inputHintStyle = (hintStyle ?? textTheme.body).copyWith(
-      color: AppColors.lightSecondaryText,
+      color: hintColor,
     );
+
+    // Background color - white for all enabled fields (including readonly)
+    // Only truly disabled fields get grey background
+    final fieldFillColor = isDisabled
+        ? (isDark
+              ? AppColors.grey.withValues(alpha: 0.3)
+              : AppColors.grey.withValues(alpha: 0.08))
+        : Colors.white;
 
     return FormBuilderTextField(
       name: name,
@@ -83,9 +103,7 @@ class CustomTextField extends StatelessWidget {
           ).copyWith(
             hintStyle: inputHintStyle,
             filled: true,
-            fillColor: isLocked
-                ? AppColors.grey.withValues(alpha: 0.08) // 🔒 muted background
-                : Colors.white,
+            fillColor: fieldFillColor,
           ),
       validator: validators != null
           ? FormBuilderValidators.compose(validators!)

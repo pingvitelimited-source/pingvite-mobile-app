@@ -6,6 +6,7 @@ import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/data/contact_list_data.dart';
 
 class ContactListTile extends StatelessWidget {
@@ -23,6 +24,8 @@ class ContactListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final primaryTextColor = ThemeHelper.primaryTextColor(context);
+    final secondaryTextColor = ThemeHelper.secondaryTextColor(context);
 
     return Column(
       children: [
@@ -71,7 +74,7 @@ class ContactListTile extends StatelessWidget {
                     AppTexts(
                       text: listData.name,
                       style: textTheme.semiBold.copyWith(
-                        color: AppColors.black100,
+                        color: primaryTextColor,
                       ),
                     ),
                     SizedBox(height: 4.rpx),
@@ -83,7 +86,7 @@ class ContactListTile extends StatelessWidget {
                           child: AppTexts(
                             text: 'Created: ${listData.createdDate}',
                             style: textTheme.accent.copyWith(
-                              color: AppColors.lightPrimaryText,
+                              color: secondaryTextColor,
                             ),
                           ),
                         ),
@@ -91,7 +94,7 @@ class ContactListTile extends StatelessWidget {
                         AppTexts(
                           text: '${listData.contactCount} Contacts',
                           style: textTheme.accent.copyWith(
-                            color: AppColors.lightPrimaryText,
+                            color: ThemeHelper.accentTextColor(context),
                           ),
                         ),
                       ],

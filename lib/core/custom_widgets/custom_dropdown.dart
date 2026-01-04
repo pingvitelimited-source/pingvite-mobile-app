@@ -5,6 +5,7 @@ import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_input_decorators.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
@@ -37,13 +38,16 @@ class CustomDropdown<T> extends StatelessWidget {
       initialValue: initialValue,
       isExpanded: true,
       icon: const SizedBox.shrink(),
+      dropdownColor: Colors.white,
       items: items
           .map(
             (e) => DropdownMenuItem<T>(
               value: e,
               child: Text(
                 e.toString(),
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: AppColors.lightPrimaryText,
+                ),
               ),
             ),
           )
@@ -56,6 +60,8 @@ class CustomDropdown<T> extends StatelessWidget {
             buttonTheme: buttonTheme,
           ).copyWith(
             isDense: true,
+            filled: true,
+            fillColor: Colors.white,
             contentPadding: EdgeInsets.symmetric(
               horizontal: sl<SizeConfig>().rpx(16),
               vertical: sl<SizeConfig>().rpx(14),
@@ -64,7 +70,13 @@ class CustomDropdown<T> extends StatelessWidget {
               angle: -math.pi / 2,
               child: Padding(
                 padding: EdgeInsets.all(sl<SizeConfig>().rpx(18)),
-                child: AppImages.svgIcon(context, Constants.backArrow, 15, 12),
+                child: AppImages.svgIcon(
+                  context,
+                  Constants.backArrow,
+                  15,
+                  12,
+                  AppColors.lightPrimaryText,
+                ),
               ),
             ),
           ),
@@ -74,7 +86,7 @@ class CustomDropdown<T> extends StatelessWidget {
           hintText,
           style: Theme.of(
             context,
-          ).textTheme.bodyLarge?.copyWith(color: Theme.of(context).hintColor),
+          ).textTheme.bodyLarge?.copyWith(color: AppColors.lightSecondaryText),
         ),
       ),
 

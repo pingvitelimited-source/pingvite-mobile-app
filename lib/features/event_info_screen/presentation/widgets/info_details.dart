@@ -5,9 +5,9 @@ import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/custom_widgets/factory/app_button_factory.dart';
 import 'package:pingvite/core/data/event_card_data.dart';
 import 'package:pingvite/core/routes.dart';
-import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 
 class InfoDetails extends StatefulWidget {
   final EventCardData? data;
@@ -21,6 +21,8 @@ class _InfoDetailsState extends State<InfoDetails> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final textColor = ThemeHelper.primaryTextColor(context);
+
     return Padding(
       padding: EdgeInsets.only(left: 20.rpx, right: 20.rpx),
       child: Column(
@@ -30,40 +32,40 @@ class _InfoDetailsState extends State<InfoDetails> {
           AppTexts(
             text: Constants.description,
             style: textTheme.body.copyWith(
-              color: AppColors.lightPrimaryText,
+              color: textColor,
               fontWeight: FontWeight.bold,
             ),
           ),
           Gap(15.gap),
           AppTexts(
             text: Constants.sampleText,
-            style: textTheme.accent.copyWith(color: AppColors.lightPrimaryText),
+            style: textTheme.accent.copyWith(color: textColor),
           ),
           Gap(15.gap),
           AppTexts(
             text: Constants.agenda,
             style: textTheme.body.copyWith(
-              color: AppColors.lightPrimaryText,
+              color: textColor,
               fontWeight: FontWeight.bold,
             ),
           ),
           Gap(15.gap),
           AppTexts(
             text: Constants.sampltext,
-            style: textTheme.accent.copyWith(color: AppColors.lightPrimaryText),
+            style: textTheme.accent.copyWith(color: textColor),
           ),
           Gap(25.gap),
           AppTexts(
             text: Constants.tickets,
             style: textTheme.body.copyWith(
-              color: AppColors.lightPrimaryText,
+              color: textColor,
               fontWeight: FontWeight.bold,
             ),
           ),
           Gap(15.gap),
           AppTexts(
             text: "₹100 to  ₹10,000",
-            style: textTheme.accent.copyWith(color: AppColors.lightPrimaryText),
+            style: textTheme.accent.copyWith(color: textColor),
           ),
           Gap(30.gap),
           Center(
