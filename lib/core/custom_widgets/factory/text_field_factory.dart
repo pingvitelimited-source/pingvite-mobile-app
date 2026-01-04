@@ -222,7 +222,13 @@ class TextFieldFactory {
             onChanged?.call(result);
           }
         },
-        child: AppImages.svgIcon(context, Constants.calendar, 16, 12),
+        child: AppImages.svgIcon(
+          context,
+          Constants.calendar,
+          16,
+          12,
+          AppColors.grey,
+        ),
       ),
       keyboardType: TextInputType.name,
 
@@ -265,7 +271,13 @@ class TextFieldFactory {
             onChanged?.call(result);
           }
         },
-        child: AppImages.svgIcon(context, Constants.calendar, 16, 12),
+        child: AppImages.svgIcon(
+          context,
+          Constants.calendar,
+          16,
+          12,
+          AppColors.grey,
+        ),
       ),
       keyboardType: TextInputType.name,
 

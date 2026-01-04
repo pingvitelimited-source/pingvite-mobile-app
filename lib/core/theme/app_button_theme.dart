@@ -71,6 +71,6 @@ class AppButtonTheme extends ThemeExtension<AppButtonTheme> {
     primaryButtonTextColor: Colors.white,
     borderColor: Color(0xFF404040),
     focusedBorderColor: Color(0xFF8B5CF6),
-    fillColor: Color(0xFF1F1F1F),
+    fillColor: Colors.white, // White background for text fields in dark mode
   );
 }
