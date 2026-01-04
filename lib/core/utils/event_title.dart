@@ -4,6 +4,7 @@ import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 
 class EventTitle extends StatelessWidget {
   final String title;
@@ -13,13 +14,12 @@ class EventTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     // If forceLight is true, always use dark text (for white card backgrounds)
     // Otherwise, use theme-aware colors
     final textColor = forceLight
-        ? AppColors.lightPrimaryText
-        : (isDarkMode ? AppColors.darkPrimaryText : AppColors.black100);
+        ? ThemeHelper.cardPrimaryTextColor()
+        : ThemeHelper.primaryTextColor(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),

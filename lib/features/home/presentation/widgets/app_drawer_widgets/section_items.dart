@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
-import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 
 class SectionItems extends StatelessWidget {
   final String item;
@@ -12,7 +12,6 @@ class SectionItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
@@ -21,9 +20,7 @@ class SectionItems extends StatelessWidget {
         child: AppTexts(
           text: item,
           style: textTheme.body.copyWith(
-            color: isDarkMode
-                ? AppColors.darkPrimaryText
-                : AppColors.lightPrimaryText,
+            color: ThemeHelper.primaryTextColor(context),
           ),
         ),
       ),

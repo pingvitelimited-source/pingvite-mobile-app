@@ -5,6 +5,7 @@ import 'package:pingvite/core/custom_widgets/factory/app_button_factory.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/utils/event_title.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/custom_appbar.dart';
 import 'package:pingvite/features/pay_screen/domain/pay_screen_args.dart';
 import 'package:pingvite/features/pay_screen/presentation/widgets/pay_summary_row.dart';
@@ -27,11 +28,8 @@ class PayScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: isDarkMode
-          ? AppColors.darkBackground
-          : AppColors.homebackground,
+      backgroundColor: ThemeHelper.backgroundColor(context),
       appBar: const CustomAppBar.withBackButton(),
       body: SingleChildScrollView(
         child: Padding(

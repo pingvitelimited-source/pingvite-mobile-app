@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_rich_text.dart';
 import 'package:pingvite/core/custom_widgets/factory/app_text_factory.dart';
-import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 
 class TermAndCondition extends StatelessWidget {
   const TermAndCondition({super.key});
@@ -11,9 +11,8 @@ class TermAndCondition extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDarkMode ? AppColors.darkSecondaryText : AppColors.grey;
-    final linkColor = isDarkMode ? AppColors.darkAccentText : AppColors.blue;
+    final textColor = ThemeHelper.secondaryTextColor(context);
+    final linkColor = ThemeHelper.accentTextColor(context);
 
     return Padding(
       padding: const EdgeInsets.all(30.0),

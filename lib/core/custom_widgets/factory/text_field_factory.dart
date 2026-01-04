@@ -10,6 +10,7 @@ import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/date_time_picker_util.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
 class TextFieldFactory {
@@ -23,9 +24,8 @@ class TextFieldFactory {
     Widget? suffixIcon,
   }) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final isDisabled = !(isEnabled ?? true);
-    final prefixIconColor = isDisabled && isDarkMode
+    final prefixIconColor = isDisabled && ThemeHelper.isDarkMode(context)
         ? AppColors.darkSecondaryText
         : AppColors.grey;
     return CustomTextField(
@@ -129,9 +129,8 @@ class TextFieldFactory {
     Widget? suffixIcon,
   }) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final isDisabled = !(isEnabled ?? true);
-    final prefixIconColor = isDisabled && isDarkMode
+    final prefixIconColor = isDisabled && ThemeHelper.isDarkMode(context)
         ? AppColors.darkSecondaryText
         : AppColors.grey;
     return CustomTextField(
