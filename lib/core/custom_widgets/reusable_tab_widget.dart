@@ -5,6 +5,7 @@ import 'package:pingvite/core/model/tab_item.dart';
 import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 
 class ReusableTabWidget extends StatefulWidget {
   final List<TabItem> tabs;
@@ -145,6 +146,8 @@ class _ReusableTabWidgetState extends State<ReusableTabWidget> {
   }
 
   Widget _buildBoxyTabs(AppTextTheme textTheme) {
+    final isDark = ThemeHelper.isDarkMode(context);
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -152,6 +155,16 @@ class _ReusableTabWidgetState extends State<ReusableTabWidget> {
           final index = entry.key;
           final tab = entry.value;
           final isSelected = selectedIndex == index;
+
+          // Colors for dark mode support
+          final selectedBorderColor = widget.selectedColor ?? AppColors.blue;
+          final unselectedBorderColor = isDark
+              ? AppColors.darkSecondaryText
+              : (widget.borderColor ?? Colors.grey.shade300);
+          final selectedTextColor = widget.selectedTextColor ?? AppColors.blue;
+          final unselectedTextColor = isDark
+              ? AppColors.darkSecondaryText
+              : (widget.unselectedTextColor ?? Colors.grey.shade600);
 
           return Container(
             margin: EdgeInsets.only(
@@ -167,23 +180,18 @@ class _ReusableTabWidgetState extends State<ReusableTabWidget> {
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(
                     color: isSelected
-                        ? (widget.selectedColor ??
-                              Theme.of(context).primaryColor)
-                        : (widget.borderColor ?? Colors.grey.shade300),
+                        ? selectedBorderColor
+                        : unselectedBorderColor,
                     width: 1.5,
                   ),
                   color: isSelected
-                      ? (widget.selectedColor ?? Theme.of(context).primaryColor)
-                            .withValues(alpha: 0.1)
+                      ? selectedBorderColor.withValues(alpha: 0.1)
                       : Colors.transparent,
                 ),
                 child: Text(
                   tab.title,
                   style: textTheme.body.copyWith(
-                    color: isSelected
-                        ? (widget.selectedTextColor ??
-                              Theme.of(context).primaryColor)
-                        : (widget.unselectedTextColor ?? Colors.grey.shade600),
+                    color: isSelected ? selectedTextColor : unselectedTextColor,
                     fontWeight: isSelected
                         ? FontWeight.w600
                         : FontWeight.normal,

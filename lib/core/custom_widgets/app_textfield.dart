@@ -52,27 +52,26 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final isLocked = !enabled || readOnly;
+    final isDisabled = !enabled;
 
-    // When field is enabled (white background), use dark text
-    // When field is disabled in dark mode, use light text for visibility
-    final textColor = isLocked && ThemeHelper.isDarkMode(context)
-        ? AppColors.darkPrimaryText
-        : AppColors.lightPrimaryText;
+    // All text fields (including readonly) should use dark text on white background
+    // Only truly disabled fields get special treatment
+    final textColor = AppColors.lightPrimaryText;
 
     final inputTextStyle = (textStyle ?? textTheme.body).copyWith(
       color: textColor,
     );
     final inputHintStyle = (hintStyle ?? textTheme.body).copyWith(
-      color: isLocked && ThemeHelper.isDarkMode(context)
-          ? AppColors.darkSecondaryText
-          : AppColors.lightSecondaryText,
+      color: AppColors.lightSecondaryText,
     );
 
-    // Background color for disabled fields
-    final disabledFillColor = ThemeHelper.isDarkMode(context)
-        ? AppColors.grey.withValues(alpha: 0.3)
-        : AppColors.grey.withValues(alpha: 0.08);
+    // Background color - white for all enabled fields (including readonly)
+    // Only truly disabled fields get grey background
+    final fieldFillColor = isDisabled
+        ? (ThemeHelper.isDarkMode(context)
+              ? AppColors.grey.withValues(alpha: 0.3)
+              : AppColors.grey.withValues(alpha: 0.08))
+        : Colors.white;
 
     return FormBuilderTextField(
       name: name,
@@ -96,7 +95,7 @@ class CustomTextField extends StatelessWidget {
           ).copyWith(
             hintStyle: inputHintStyle,
             filled: true,
-            fillColor: isLocked ? disabledFillColor : Colors.white,
+            fillColor: fieldFillColor,
           ),
       validator: validators != null
           ? FormBuilderValidators.compose(validators!)
