@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/custom_fab.dart';
 import 'package:pingvite/core/routes.dart';
+import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 import 'package:pingvite/features/bottom_tabs/venue_screen/data/model/venue.dart';
 import 'package:pingvite/features/bottom_tabs/venue_screen/presentation/widgets/venue_card.dart';
 import 'package:pingvite/features/bottom_tabs/venue_screen/presentation/widgets/venue_options_dialog.dart';
@@ -82,19 +84,20 @@ class _VenueTabState extends State<VenueTab> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
 
     return Scaffold(
-      backgroundColor: AppColors.homebackground,
+      backgroundColor: ThemeHelper.backgroundColor(context),
       appBar: const CustomAppBar.withBackButton(title: 'My Venues'),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Full width tabs
+          // Full width tabs - white background in both modes for consistency
           Container(
             margin: EdgeInsets.symmetric(vertical: 2.rpx),
             padding: EdgeInsets.all(4.rpx),
             decoration: BoxDecoration(
-              color: AppColors.white,
+              color: cardTheme.backgroundColor,
               borderRadius: BorderRadius.circular(8.rpx),
             ),
             child: Row(
@@ -107,7 +110,9 @@ class _VenueTabState extends State<VenueTab> {
                       duration: const Duration(milliseconds: 200),
                       padding: EdgeInsets.symmetric(vertical: 10.rpx),
                       decoration: BoxDecoration(
-                        color: isSelected ? AppColors.blue : AppColors.white,
+                        color: isSelected
+                            ? AppColors.blue
+                            : cardTheme.backgroundColor,
                         borderRadius: BorderRadius.circular(6.rpx),
                         boxShadow: isSelected
                             ? [
@@ -128,7 +133,9 @@ class _VenueTabState extends State<VenueTab> {
                                 : FontWeight.w400,
                             color: isSelected
                                 ? AppColors.white
-                                : AppColors.grey.withValues(alpha: 0.8),
+                                : cardTheme.sectionLabelColor.withValues(
+                                    alpha: 0.8,
+                                  ),
                           ),
                         ),
                       ),
