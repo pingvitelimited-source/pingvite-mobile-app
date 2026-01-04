@@ -5,6 +5,7 @@ import 'package:pingvite/core/data/event_category.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 
 class CategoryItemCard extends StatelessWidget {
   final EventCategory data;
@@ -14,7 +15,6 @@ class CategoryItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -24,7 +24,7 @@ class CategoryItemCard extends StatelessWidget {
           height: 50.rpx,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColors.blue, // match your design
+            color: AppColors.blue,
           ),
           child: Icon(
             data.icon,
@@ -41,9 +41,7 @@ class CategoryItemCard extends StatelessWidget {
             maxLines: 2,
             style: textTheme.semiBold.copyWith(
               fontSize: 12.sp,
-              color: isDarkMode
-                  ? AppColors.darkPrimaryText
-                  : AppColors.lightPrimaryText,
+              color: ThemeHelper.primaryTextColor(context),
             ),
           ),
         ),

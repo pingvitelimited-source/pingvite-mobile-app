@@ -4,6 +4,7 @@ import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/session_manager.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 import 'package:pingvite/features/home/presentation/widgets/app_drawer_widgets/app_drawer_header.dart';
 import 'package:pingvite/features/home/presentation/widgets/app_drawer_widgets/section_items.dart';
 import 'package:pingvite/features/home/presentation/widgets/app_drawer_widgets/section_title.dart';
@@ -19,9 +20,10 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Drawer(
-      backgroundColor: isDarkMode ? AppColors.darkBackground : AppColors.white,
+      backgroundColor: ThemeHelper.isDarkMode(context)
+          ? AppColors.darkBackground
+          : AppColors.white,
       child: SafeArea(
         child: Column(
           children: [

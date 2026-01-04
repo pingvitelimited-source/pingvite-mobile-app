@@ -5,6 +5,7 @@ import 'package:pingvite/core/custom_widgets/app_input_decorators.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 
 class CustomTextField extends StatelessWidget {
   final String name;
@@ -51,12 +52,11 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final isLocked = !enabled || readOnly;
 
     // When field is enabled (white background), use dark text
     // When field is disabled in dark mode, use light text for visibility
-    final textColor = isLocked && isDarkMode
+    final textColor = isLocked && ThemeHelper.isDarkMode(context)
         ? AppColors.darkPrimaryText
         : AppColors.lightPrimaryText;
 
@@ -64,13 +64,13 @@ class CustomTextField extends StatelessWidget {
       color: textColor,
     );
     final inputHintStyle = (hintStyle ?? textTheme.body).copyWith(
-      color: isLocked && isDarkMode
+      color: isLocked && ThemeHelper.isDarkMode(context)
           ? AppColors.darkSecondaryText
           : AppColors.lightSecondaryText,
     );
 
     // Background color for disabled fields
-    final disabledFillColor = isDarkMode
+    final disabledFillColor = ThemeHelper.isDarkMode(context)
         ? AppColors.grey.withValues(alpha: 0.3)
         : AppColors.grey.withValues(alpha: 0.08);
 

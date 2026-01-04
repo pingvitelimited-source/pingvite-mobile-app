@@ -7,6 +7,7 @@ import 'package:pingvite/core/data/quickactions.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
 class QuickActionCard extends StatelessWidget {
@@ -18,14 +19,14 @@ class QuickActionCard extends StatelessWidget {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     // Card has white background, so always use dark text
     final titleStyle = textTheme.semiBold.copyWith(
-      color: AppColors.lightPrimaryText,
+      color: ThemeHelper.cardPrimaryTextColor(),
     );
 
     return Container(
       constraints: const BoxConstraints(minWidth: 180, maxWidth: 300),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ThemeHelper.cardBackgroundColor(),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.circleColor1),
       ),
@@ -54,7 +55,7 @@ class QuickActionCard extends StatelessWidget {
               Constants.arrowIcon,
               16,
               16,
-              AppColors.lightPrimaryText,
+              ThemeHelper.cardIconColor(),
             ),
           ),
         ],

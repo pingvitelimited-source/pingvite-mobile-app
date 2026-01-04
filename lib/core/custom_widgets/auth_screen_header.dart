@@ -5,6 +5,7 @@ import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
@@ -14,7 +15,6 @@ class AuthScreenHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Column(
       children: [
@@ -32,7 +32,9 @@ class AuthScreenHeader extends StatelessWidget {
               style: textTheme.heading.copyWith(
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
-                color: isDarkMode ? AppColors.white : const Color(0xFF2C3E50),
+                color: ThemeHelper.isDarkMode(context)
+                    ? AppColors.white
+                    : const Color(0xFF2C3E50),
               ),
             ),
           ],
@@ -44,9 +46,7 @@ class AuthScreenHeader extends StatelessWidget {
           style: textTheme.subheading.copyWith(
             fontStyle: FontStyle.italic,
             fontSize: 16,
-            color: isDarkMode
-                ? AppColors.darkSecondaryText
-                : AppColors.lightSecondaryText,
+            color: ThemeHelper.secondaryTextColor(context),
           ),
         ),
       ],
