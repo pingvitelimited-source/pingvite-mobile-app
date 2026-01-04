@@ -53,22 +53,30 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
     final isDisabled = !enabled;
+    final isDark = ThemeHelper.isDarkMode(context);
 
     // All text fields (including readonly) should use dark text on white background
     // Only truly disabled fields get special treatment
-    final textColor = AppColors.lightPrimaryText;
+    final textColor = isDisabled && isDark
+        ? AppColors.white
+        : AppColors.lightPrimaryText;
 
     final inputTextStyle = (textStyle ?? textTheme.body).copyWith(
       color: textColor,
     );
+
+    // Disabled fields on dark background should have white hint text
+    final hintColor = isDisabled && isDark
+        ? AppColors.white
+        : AppColors.lightSecondaryText;
     final inputHintStyle = (hintStyle ?? textTheme.body).copyWith(
-      color: AppColors.lightSecondaryText,
+      color: hintColor,
     );
 
     // Background color - white for all enabled fields (including readonly)
     // Only truly disabled fields get grey background
     final fieldFillColor = isDisabled
-        ? (ThemeHelper.isDarkMode(context)
+        ? (isDark
               ? AppColors.grey.withValues(alpha: 0.3)
               : AppColors.grey.withValues(alpha: 0.08))
         : Colors.white;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/custom_widgets/factory/app_button_factory.dart';
-import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 
 /// Bottom section with the Update Contact List button
 class ContactListBottomButton extends StatelessWidget {
@@ -19,7 +19,7 @@ class ContactListBottomButton extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(24.rpx),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: ThemeHelper.backgroundColor(context),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),

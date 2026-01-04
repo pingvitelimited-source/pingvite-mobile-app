@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/constants/constants.dart';
-import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/bulk_upload_contacts/presentation/widgets/bulk_upload_bottom_button.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/bulk_upload_contacts/presentation/widgets/bulk_upload_contact_list_view.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/bulk_upload_contacts/presentation/widgets/bulk_upload_header.dart';
@@ -28,10 +28,8 @@ class _BulkUploadContactsPageState extends State<BulkUploadContactsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
-
     return Scaffold(
-      backgroundColor: cardTheme.backgroundColor,
+      backgroundColor: ThemeHelper.backgroundColor(context),
       appBar: const CustomAppBar.withBackButton(title: Constants.bulkUpload),
       body: SafeArea(
         child: Column(
