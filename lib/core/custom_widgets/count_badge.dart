@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
-import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 
 /// A widget that displays a count badge with a label
 class CountBadge extends StatelessWidget {
@@ -21,7 +21,6 @@ class CountBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -29,7 +28,7 @@ class CountBadge extends StatelessWidget {
         AppTexts(
           text: label,
           style: textTheme.subheading.copyWith(
-            color: cardTheme.sectionLabelColor,
+            color: ThemeHelper.primaryTextColor(context),
             fontWeight: FontWeight.w600,
           ),
         ),

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pingvite/core/custom_widgets/factory/app_button_factory.dart';
 import 'package:pingvite/core/custom_widgets/factory/text_field_factory.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
+import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 
 /// Header section with upload excel field and upload button
 class BulkUploadHeader extends StatelessWidget {
@@ -13,6 +15,8 @@ class BulkUploadHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final buttonTheme = Theme.of(context).extension<AppButtonTheme>()!;
+    final isDark = ThemeHelper.isDarkMode(context);
+    final iconColor = isDark ? AppColors.white : Colors.grey;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.rpx),
@@ -29,7 +33,7 @@ class BulkUploadHeader extends StatelessWidget {
             prefixIcon: Icon(
               Icons.upload_file_outlined,
               size: 20.rpx,
-              color: Colors.grey,
+              color: iconColor,
             ),
             enabled: false,
           ),

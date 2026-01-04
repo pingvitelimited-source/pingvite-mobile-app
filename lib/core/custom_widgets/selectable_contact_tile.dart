@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
-import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
@@ -15,6 +14,7 @@ class SelectableContactTile extends StatelessWidget {
   final bool showSelection;
   final bool showDeleteIcon;
   final bool showDivider;
+  final bool forceLight; // When true, uses dark text (for white backgrounds)
   final VoidCallback? onTap;
   final VoidCallback? onDelete;
 
@@ -25,6 +25,8 @@ class SelectableContactTile extends StatelessWidget {
     this.showSelection = false,
     this.showDeleteIcon = false,
     this.showDivider = true,
+    this.forceLight =
+        true, // Default true since mostly used on white backgrounds
     this.onTap,
     this.onDelete,
   });
@@ -32,7 +34,18 @@ class SelectableContactTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
+
+    // Use dark text for white backgrounds (forceLight), otherwise theme-aware
+    final textColor = forceLight
+        ? AppColors.lightPrimaryText
+        : (Theme.of(context).brightness == Brightness.dark
+              ? AppColors.darkPrimaryText
+              : AppColors.lightPrimaryText);
+    final secondaryTextColor = forceLight
+        ? AppColors.lightSecondaryText
+        : (Theme.of(context).brightness == Brightness.dark
+              ? AppColors.darkSecondaryText
+              : AppColors.lightSecondaryText);
 
     return Column(
       children: [
@@ -46,7 +59,7 @@ class SelectableContactTile extends StatelessWidget {
               children: [
                 // Selection indicator
                 if (showSelection) ...[
-                  _buildSelectionIndicator(),
+                  _buildSelectionIndicator(context),
                   SizedBox(width: 12.rpx),
                 ],
 
@@ -69,7 +82,7 @@ class SelectableContactTile extends StatelessWidget {
                       AppTexts(
                         text: contact["name"] ?? "",
                         style: textTheme.subheading.copyWith(
-                          color: cardTheme.sectionLabelColor,
+                          color: textColor,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -77,9 +90,7 @@ class SelectableContactTile extends StatelessWidget {
                       AppTexts(
                         text: contact["email"] ?? "",
                         style: textTheme.accent.copyWith(
-                          color: cardTheme.sectionLabelColor.withValues(
-                            alpha: 0.7,
-                          ),
+                          color: secondaryTextColor,
                         ),
                       ),
                     ],
@@ -122,16 +133,19 @@ class SelectableContactTile extends StatelessWidget {
     );
   }
 
-  Widget _buildSelectionIndicator() {
+  Widget _buildSelectionIndicator(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final unselectedBorderColor = isDark
+        ? AppColors.white.withValues(alpha: 0.6)
+        : AppColors.grey.withValues(alpha: 0.4);
+
     return Container(
       width: 20.rpx,
       height: 20.rpx,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: isSelected
-              ? AppColors.blue
-              : AppColors.grey.withValues(alpha: 0.4),
+          color: isSelected ? AppColors.blue : unselectedBorderColor,
           width: 2,
         ),
         color: isSelected

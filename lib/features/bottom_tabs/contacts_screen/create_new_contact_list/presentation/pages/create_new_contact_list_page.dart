@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:pingvite/core/theme/app_card_theme.dart';
+import 'package:pingvite/core/utils/theme_helper.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/data/sample_contacts_data.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/create_new_contact_list/presentation/widgets/contact_list_bottom_button.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/create_new_contact_list/presentation/widgets/contact_list_header.dart';
@@ -29,10 +29,8 @@ class _CreateNewContactListPageState extends State<CreateNewContactListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final cardTheme = Theme.of(context).extension<AppCardTheme>()!;
-
     return Scaffold(
-      backgroundColor: cardTheme.backgroundColor,
+      backgroundColor: ThemeHelper.backgroundColor(context),
       appBar: const CustomAppBar.withBackButton(title: 'Contact List'),
       body: SafeArea(
         child: Column(

@@ -28,6 +28,7 @@ class BulkUploadContactListView extends StatelessWidget {
           showSelection: false,
           showDeleteIcon: true,
           showDivider: true,
+          forceLight: false,
           onDelete: () => onContactDelete(index),
         );
       },
