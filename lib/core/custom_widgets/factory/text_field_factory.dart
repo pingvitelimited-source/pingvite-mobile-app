@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
@@ -29,7 +30,7 @@ class TextFieldFactory {
         ? AppColors.darkSecondaryText
         : AppColors.grey;
     return CustomTextField(
-      name: 'email_field',
+      name: Constants.emailField,
       hintText: 'Registered email ID',
       buttonTheme: buttonTheme,
       enabled: isEnabled ?? true,
@@ -64,17 +65,18 @@ class TextFieldFactory {
     VoidCallback? onSubmitted,
     String? initialValue,
     ValueChanged<String?>? onChanged,
-    String fieldKey = 'password',
+    String? fieldKey,
     String? hintText,
   }) {
+    final key = fieldKey ?? Constants.passwordField;
     final textTheme = Theme.of(context).extension<AppTextTheme>()!;
-    _passwordVisibilityNotifiers[fieldKey] ??= ValueNotifier<bool>(true);
-    final obscureNotifier = _passwordVisibilityNotifiers[fieldKey]!;
+    _passwordVisibilityNotifiers[key] ??= ValueNotifier<bool>(true);
+    final obscureNotifier = _passwordVisibilityNotifiers[key]!;
     return ValueListenableBuilder(
       valueListenable: obscureNotifier,
       builder: (context, isObscure, child) {
         return CustomTextField(
-          name: fieldKey,
+          name: key,
           hintText: hintText ?? 'Password',
           buttonTheme: buttonTheme,
           prefixIcon: AppImages.svgIcon(
@@ -97,9 +99,23 @@ class TextFieldFactory {
           validators: [
             FormBuilderValidators.required(errorText: 'Password is required'),
             FormBuilderValidators.minLength(
-              6,
-              errorText: 'Password must be at least 6 characters',
+              8,
+              errorText: 'Password must be at least 8 characters',
             ),
+            (value) {
+              if (value == null || value.isEmpty) return null;
+              if (!RegExp(r'[0-9]').hasMatch(value)) {
+                return 'Password must contain at least 1 number';
+              }
+              return null;
+            },
+            (value) {
+              if (value == null || value.isEmpty) return null;
+              if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+                return 'Password must contain at least 1 special character';
+              }
+              return null;
+            },
           ],
           onSubmitted: onSubmitted,
           initialValue: initialValue,
@@ -134,7 +150,7 @@ class TextFieldFactory {
         ? AppColors.darkSecondaryText
         : AppColors.grey;
     return CustomTextField(
-      name: 'phone_field',
+      name: Constants.phoneField,
       hintText: 'Phone Number',
       buttonTheme: buttonTheme,
       enabled: isEnabled ?? true,
@@ -148,10 +164,24 @@ class TextFieldFactory {
       ),
       keyboardType: TextInputType.phone,
       textInputAction: TextInputAction.next,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(
+          15,
+        ), // Max 15 digits (international standard)
+      ],
       validators: [
         FormBuilderValidators.required(errorText: 'Phone number is required'),
         FormBuilderValidators.numeric(
           errorText: 'Please enter valid phone number',
+        ),
+        FormBuilderValidators.minLength(
+          7,
+          errorText: 'Phone number must be at least 7 digits',
+        ),
+        FormBuilderValidators.maxLength(
+          15,
+          errorText: 'Phone number cannot exceed 15 digits',
         ),
       ],
       onSubmitted: onSubmitted,
@@ -193,6 +223,39 @@ class TextFieldFactory {
         FormBuilderValidators.required(errorText: requiredError),
         FormBuilderValidators.minLength(minLength, errorText: minLengthError),
       ],
+      onSubmitted: onSubmitted,
+      initialValue: initialValue,
+      onChanged: onChanged,
+      textStyle: textTheme.body,
+      hintStyle: textTheme.body,
+    );
+  }
+
+  // Optional Name Field (no validation required)
+  static Widget optionalName({
+    required BuildContext context,
+    required AppButtonTheme buttonTheme,
+    required String name,
+    required String hintText,
+    VoidCallback? onSubmitted,
+    String? initialValue,
+    ValueChanged<String?>? onChanged,
+  }) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    return CustomTextField(
+      name: name,
+      hintText: hintText,
+      buttonTheme: buttonTheme,
+      keyboardType: TextInputType.name,
+      prefixIcon: AppImages.svgIcon(
+        context,
+        Constants.profile,
+        16,
+        12,
+        AppColors.black,
+      ),
+      textInputAction: TextInputAction.next,
+      validators: const [],
       onSubmitted: onSubmitted,
       initialValue: initialValue,
       onChanged: onChanged,

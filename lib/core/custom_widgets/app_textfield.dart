@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pingvite/core/custom_widgets/app_input_decorators.dart';
@@ -26,6 +27,8 @@ class CustomTextField extends StatelessWidget {
   final bool readOnly;
   final TextStyle? textStyle;
   final TextStyle? hintStyle;
+  final List<TextInputFormatter>? inputFormatters;
+  final AutovalidateMode? autovalidateMode;
 
   const CustomTextField({
     super.key,
@@ -47,6 +50,8 @@ class CustomTextField extends StatelessWidget {
     this.readOnly = false,
     this.textStyle,
     this.hintStyle,
+    this.inputFormatters,
+    this.autovalidateMode,
   });
 
   @override
@@ -91,6 +96,8 @@ class CustomTextField extends StatelessWidget {
       maxLines: maxLines,
       enabled: enabled,
       style: inputTextStyle,
+      autovalidateMode: autovalidateMode ?? AutovalidateMode.onUserInteraction,
+      inputFormatters: inputFormatters,
       decoration:
           AppInputDecoration.build(
             hintText: hintText,

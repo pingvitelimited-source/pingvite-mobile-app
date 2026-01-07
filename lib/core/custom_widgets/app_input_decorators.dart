@@ -16,7 +16,8 @@ class AppInputDecoration {
     return InputDecoration(
       hintText: hintText,
       isDense: true,
-      errorStyle: textTheme?.body.copyWith(color: AppColors.lightGradient),
+      errorStyle: textTheme?.body.copyWith(color: AppColors.red, fontSize: 12),
+      errorMaxLines: 2,
       prefixIcon: prefixIcon != null
           ? Padding(
               padding: EdgeInsets.symmetric(
@@ -50,6 +51,14 @@ class AppInputDecoration {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
         borderSide: BorderSide(color: buttonTheme.focusedBorderColor, width: 2),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
+        borderSide: const BorderSide(color: AppColors.red, width: 1),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
+        borderSide: const BorderSide(color: AppColors.red, width: 2),
       ),
       filled: true,
       fillColor: buttonTheme.fillColor,

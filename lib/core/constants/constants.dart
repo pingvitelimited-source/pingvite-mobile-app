@@ -9,7 +9,14 @@ class Constants {
 
   //Signup Screen
   static const createAccountButton = "Create Account";
-  static const enterFullName = "Enter Full Name";
+  static const firstName = "First Name";
+  static const middleName = "Middle Name (Optional)";
+  static const lastName = "Last Name";
+
+  // Form Field Keys (for FormBuilder)
+  static const emailField = "email_field";
+  static const phoneField = "phone_field";
+  static const passwordField = "password";
 
   //HomeScreeWithNav
 
