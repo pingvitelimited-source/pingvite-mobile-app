@@ -1,4 +1,17 @@
 import 'package:get_it/get_it.dart';
+import 'package:pingvite/core/network/dio_client.dart';
+import 'package:pingvite/core/services/secure_storage_service.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
+import 'package:pingvite/features/auth/signin/data/repository/login_repository_impl.dart';
+import 'package:pingvite/features/auth/signin/data/source/login_api_service.dart';
+import 'package:pingvite/features/auth/signin/domain/repository/login_repository.dart';
+import 'package:pingvite/features/auth/signin/domain/usecases/user_login_with_email.dart';
+import 'package:pingvite/features/auth/signin/domain/usecases/user_login_with_phone.dart';
+import 'package:pingvite/features/auth/signin/presentation/bloc/signin_bloc.dart';
+import 'package:pingvite/features/auth/signup/data/repository/signup_repository_impl.dart';
+import 'package:pingvite/features/auth/signup/data/source/signup_api_service.dart';
+import 'package:pingvite/features/auth/signup/domain/repository/signup_repository.dart';
+import 'package:pingvite/features/auth/signup/domain/usecases/user_signup.dart';
+import 'package:pingvite/features/auth/signup/presentation/bloc/signup_bloc.dart';
 
 part 'service_locator.dart';
