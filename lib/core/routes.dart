@@ -14,6 +14,7 @@ import 'package:pingvite/features/inital_screen/presentation/pages/initial_page.
 import 'package:pingvite/features/pay_screen/domain/pay_screen_args.dart';
 import 'package:pingvite/features/pay_screen/presentation/pages/pay_screen.dart';
 import 'package:pingvite/features/home/presentation/pages/home_page.dart';
+import 'package:pingvite/features/location_selection/presentation/pages/location_selection_screen.dart';
 
 class AppRoutes {
   static const String initial = '/initial';
@@ -29,6 +30,7 @@ class AppRoutes {
   static const String eventInfo = '/eventInfo';
   static const String bookingSelection = '/bookingSelection';
   static const String pay = '/pay';
+  static const String locationSelection = '/locationSelection';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -66,6 +68,10 @@ class AppRoutes {
       case pay:
         final args = settings.arguments as PayScreenArgs;
         return MaterialPageRoute(builder: (_) => PayScreen(args: args));
+      case locationSelection:
+        return MaterialPageRoute(
+          builder: (_) => const LocationSelectionScreen(),
+        );
       default:
         return MaterialPageRoute(
           builder: (_) =>

@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pingvite/core/network/dio_client.dart';
 import 'package:pingvite/core/services/secure_storage_service.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
@@ -13,5 +14,7 @@ import 'package:pingvite/features/auth/signup/data/source/signup_api_service.dar
 import 'package:pingvite/features/auth/signup/domain/repository/signup_repository.dart';
 import 'package:pingvite/features/auth/signup/domain/usecases/user_signup.dart';
 import 'package:pingvite/features/auth/signup/presentation/bloc/signup_bloc.dart';
+import 'package:pingvite/features/location_selection/data/repositories/location_repository.dart';
+import 'package:pingvite/features/location_selection/presentation/bloc/location_bloc.dart';
 
 part 'service_locator.dart';
