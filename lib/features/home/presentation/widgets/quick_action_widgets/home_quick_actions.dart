@@ -5,7 +5,9 @@ import 'package:pingvite/features/home/presentation/widgets/quick_action_widgets
 import 'package:pingvite/service_locator_dependencies.dart';
 
 class HomeQuickActions extends StatelessWidget {
-  const HomeQuickActions({super.key});
+  final String? selectedCity;
+
+  const HomeQuickActions({super.key, this.selectedCity});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,15 @@ class HomeQuickActions extends StatelessWidget {
         itemCount: quickActions.length,
         separatorBuilder: (_, __) => const SizedBox(width: 14),
         itemBuilder: (context, index) {
+          // For the first quick action, replace highlight with selected city
+          if (index == 0 && selectedCity != null) {
+            return QuickActionCard(
+              data: HomeQuickAction(
+                title: 'Events in',
+                highlight: selectedCity!,
+              ),
+            );
+          }
           return QuickActionCard(data: quickActions[index]);
         },
       ),

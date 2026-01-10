@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_theme.dart';
@@ -7,6 +8,7 @@ import 'package:pingvite/core/utils/session_manager.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/features/home/presentation/pages/home_page.dart';
 import 'package:pingvite/features/inital_screen/presentation/pages/initial_page.dart';
+import 'package:pingvite/features/location_selection/presentation/bloc/location_bloc.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 import 'package:provider/provider.dart';
 
@@ -51,14 +53,17 @@ class _MyAppState extends State<MyApp> {
       create: (context) => ThemeController(),
       child: Consumer<ThemeController>(
         builder: (context, themeController, child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: Constants.appTitle,
-            theme: AppTheme.lightTheme,
-            darkTheme: AppTheme.darkTheme,
-            themeMode: themeController.themeMode,
-            onGenerateRoute: AppRoutes.generateRoute,
-            home: _buildHome(themeController),
+          return BlocProvider(
+            create: (context) => sl<LocationBloc>(),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: Constants.appTitle,
+              theme: AppTheme.lightTheme,
+              darkTheme: AppTheme.darkTheme,
+              themeMode: themeController.themeMode,
+              onGenerateRoute: AppRoutes.generateRoute,
+              home: _buildHome(themeController),
+            ),
           );
         },
       ),
