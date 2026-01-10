@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
 import 'package:pingvite/core/utils/theme_helper.dart';
@@ -73,9 +74,9 @@ class _BulkUploadContactsPageState extends State<BulkUploadContactsPage> {
 
   void _handleImportContacts() {
     if (_contacts.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('No contacts to import')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: AppTexts(text: 'No contacts to import')),
+      );
       return;
     }
 

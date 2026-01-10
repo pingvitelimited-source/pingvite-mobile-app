@@ -108,16 +108,16 @@ class AppDrawer extends StatelessWidget {
     final shouldLogout = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Log Out'),
-        content: const Text('Are you sure you want to log out?'),
+        title: const AppTexts(text: 'Log Out'),
+        content: const AppTexts(text: 'Are you sure you want to log out?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: const AppTexts(text: 'Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Log Out'),
+            child: const AppTexts(text: 'Log Out'),
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 
 void showSnackBar(
@@ -10,7 +11,7 @@ void showSnackBar(
     ..hideCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
-        content: Text(content),
+        content: AppTexts(text: content),
         backgroundColor: backgroundColor ?? AppColors.circleColor1,
       ),
     );

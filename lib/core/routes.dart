@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/data/event_card_data.dart';
+import 'package:pingvite/core/enums/event_card_type.dart';
 import 'package:pingvite/features/auth/signin/presentation/pages/signin_page.dart';
 import 'package:pingvite/features/auth/signup/presentation/pages/signup_screen.dart';
 import 'package:pingvite/features/booking_selection_screen/presentation/pages/booking_selection_page.dart';
@@ -14,6 +16,7 @@ import 'package:pingvite/features/inital_screen/presentation/pages/initial_page.
 import 'package:pingvite/features/pay_screen/domain/pay_screen_args.dart';
 import 'package:pingvite/features/pay_screen/presentation/pages/pay_screen.dart';
 import 'package:pingvite/features/home/presentation/pages/home_page.dart';
+import 'package:pingvite/features/events_list/presentation/pages/events_list_page.dart';
 import 'package:pingvite/features/location_selection/presentation/pages/location_selection_screen.dart';
 
 class AppRoutes {
@@ -28,6 +31,7 @@ class AppRoutes {
   static const String signup = '/signup';
   static const String forgotPassword = '/forgotPassword';
   static const String eventInfo = '/eventInfo';
+  static const String eventsList = '/eventsList';
   static const String bookingSelection = '/bookingSelection';
   static const String pay = '/pay';
   static const String locationSelection = '/locationSelection';
@@ -60,6 +64,15 @@ class AppRoutes {
       case eventInfo:
         final data = settings.arguments as EventCardData?;
         return MaterialPageRoute(builder: (_) => EventInfo(data: data));
+      case eventsList:
+        final args = settings.arguments as Map<String, dynamic>?;
+        return MaterialPageRoute(
+          builder: (_) => EventsListPage(
+            title: args?['title'] ?? 'Events',
+            events: args?['events'] ?? [],
+            type: args?['type'] ?? EventCardType.event,
+          ),
+        );
       case bookingSelection:
         final data = settings.arguments as EventCardData?;
         return MaterialPageRoute(
@@ -74,8 +87,9 @@ class AppRoutes {
         );
       default:
         return MaterialPageRoute(
-          builder: (_) =>
-              const Scaffold(body: Center(child: Text('Route not found'))),
+          builder: (_) => const Scaffold(
+            body: Center(child: AppTexts(text: 'Route not found')),
+          ),
         );
     }
   }

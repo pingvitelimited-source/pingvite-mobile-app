@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_input_decorators.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
@@ -43,8 +44,8 @@ class CustomDropdown<T> extends StatelessWidget {
           .map(
             (e) => DropdownMenuItem<T>(
               value: e,
-              child: Text(
-                e.toString(),
+              child: AppTexts(
+                text: e.toString(),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: AppColors.lightPrimaryText,
                 ),
@@ -82,8 +83,8 @@ class CustomDropdown<T> extends StatelessWidget {
           ),
       hint: Align(
         alignment: Alignment.centerLeft,
-        child: Text(
-          hintText,
+        child: AppTexts(
+          text: hintText,
           style: Theme.of(
             context,
           ).textTheme.bodyLarge?.copyWith(color: AppColors.lightSecondaryText),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
@@ -29,8 +30,8 @@ class LocationSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (showTitle) ...[
-          Text(
-            title,
+          AppTexts(
+            text: title,
             style: textTheme.body2.copyWith(
               fontWeight: FontWeight.w600,
               color: cardTheme.sectionLabelColor,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 
 class ImagePickerBottomSheet extends StatelessWidget {
   final VoidCallback onCameraSelected;
@@ -30,8 +31,8 @@ class ImagePickerBottomSheet extends StatelessWidget {
             ),
           ),
           // Title
-          Text(
-            'Select Image',
+          AppTexts(
+            text: 'Select Image',
             style: Theme.of(
               context,
             ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -67,7 +68,7 @@ class ImagePickerBottomSheet extends StatelessWidget {
             width: double.infinity,
             child: OutlinedButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
+              child: const AppTexts(text: 'Cancel'),
             ),
           ),
         ],
@@ -93,7 +94,10 @@ class ImagePickerBottomSheet extends StatelessWidget {
           children: [
             Icon(icon, size: 32, color: Theme.of(context).primaryColor),
             const SizedBox(height: 8),
-            Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
+            AppTexts(
+              text: label,
+              style: const TextStyle(fontWeight: FontWeight.w500),
+            ),
           ],
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:gap/gap.dart';
 import 'package:pingvite/core/constants/constants.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/custom_widgets/factory/app_button_factory.dart';
 import 'package:pingvite/core/custom_widgets/factory/text_field_factory.dart';
 import 'package:pingvite/core/routes.dart';
@@ -50,7 +51,7 @@ class _SignupFormState extends State<SignupForm> {
         if (state is SignupSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.message),
+              content: AppTexts(text: state.message),
               backgroundColor: Colors.green,
             ),
           );
@@ -59,7 +60,7 @@ class _SignupFormState extends State<SignupForm> {
         } else if (state is SignupFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.message),
+              content: AppTexts(text: state.message),
               backgroundColor: AppColors.red,
             ),
           );

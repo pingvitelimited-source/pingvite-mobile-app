@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pingvite/core/custom_widgets/app_card.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/features/bottom_tabs/events_screen/data/model/event_model.dart';
 
@@ -81,8 +82,8 @@ class EventCardWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                          child: Text(
-                            event.title,
+                          child: AppTexts(
+                            text: event.title,
                             style: Theme.of(context).textTheme.titleMedium
                                 ?.copyWith(fontWeight: FontWeight.bold),
                           ),
@@ -107,8 +108,8 @@ class EventCardWidget extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Expanded(
-                          child: Text(
-                            event.location,
+                          child: AppTexts(
+                            text: event.location,
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(color: Colors.pink),
                             overflow: TextOverflow.ellipsis,
@@ -126,27 +127,27 @@ class EventCardWidget extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "Start",
+                            const AppTexts(
+                              text: "Start",
                               style: TextStyle(
                                 fontSize: 12,
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
-                            Text(_formatDateTime(event.startDate)),
+                            AppTexts(text: _formatDateTime(event.startDate)),
                           ],
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "End",
+                            const AppTexts(
+                              text: "End",
                               style: TextStyle(
                                 fontSize: 12,
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
-                            Text(_formatDateTime(event.endDate)),
+                            AppTexts(text: _formatDateTime(event.endDate)),
                           ],
                         ),
                       ],

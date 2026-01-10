@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:pingvite/core/constants/constants.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/custom_widgets/factory/text_field_factory.dart';
 import 'package:pingvite/core/data/event_card_data.dart';
 import 'package:pingvite/core/enums/event_card_type.dart';
@@ -136,30 +137,61 @@ class _HomePageState extends State<HomePage> {
                 title: 'Discover Events',
                 type: EventCardType.event,
                 events: discoverEvents,
-                onViewMore: () {},
+                onViewMore: () => _navigateToEventsList(
+                  'Discover Events',
+                  discoverEvents,
+                  EventCardType.event,
+                ),
               ),
               Gap(20.gap),
               EventSection(
                 title: 'Discover Activities',
                 type: EventCardType.activity,
                 events: discoverActivities,
+                onViewMore: () => _navigateToEventsList(
+                  'Discover Activities',
+                  discoverActivities,
+                  EventCardType.activity,
+                ),
               ),
               Gap(20.gap),
               EventSection(
                 title: 'Free Events',
                 type: EventCardType.event,
                 events: freeEvents,
+                onViewMore: () => _navigateToEventsList(
+                  'Free Events',
+                  freeEvents,
+                  EventCardType.event,
+                ),
               ),
               Gap(20.gap),
               EventSection(
                 title: 'Conferences',
                 type: EventCardType.event,
                 events: conferenceEvents,
+                onViewMore: () => _navigateToEventsList(
+                  'Conferences',
+                  conferenceEvents,
+                  EventCardType.event,
+                ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _navigateToEventsList(
+    String title,
+    List<EventCardData> events,
+    EventCardType type,
+  ) {
+    Navigator.pushNamed(
+      context,
+      AppRoutes.eventsList,
+      arguments: {'title': title, 'events': events, 'type': type},
     );
   }
 
@@ -171,8 +203,8 @@ class _HomePageState extends State<HomePage> {
             const Icon(Icons.location_on, color: Colors.white, size: 20),
             const SizedBox(width: 12),
             Expanded(
-              child: Text(
-                'Your location is updated to $cityName',
+              child: AppTexts(
+                text: 'Your location is updated to $cityName',
                 style: const TextStyle(color: Colors.white),
               ),
             ),

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:pingvite/core/custom_widgets/app_primary_buttons.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
+import 'package:pingvite/core/theme/app_button_theme.dart';
+import 'package:pingvite/core/theme/app_text_theme.dart';
 
 class TemplateGrid extends StatefulWidget {
   final List<Map<String, dynamic>> templates;
@@ -13,6 +17,9 @@ class _TemplateGridState extends State<TemplateGrid> {
   int? selectedIndex;
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final buttonTheme = Theme.of(context).extension<AppButtonTheme>()!;
+
     return MasonryGridView.count(
       padding: const EdgeInsets.all(12),
       crossAxisCount: 2,
@@ -65,26 +72,28 @@ class _TemplateGridState extends State<TemplateGrid> {
                   left: 0,
                   right: 0,
                   child: Center(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                      ),
+                    child: AppPrimaryButton(
+                      title: "Edit Template",
+                      textTheme: textTheme,
+                      buttonTheme: buttonTheme,
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Edit ${template['title']}")),
+                          SnackBar(
+                            content: AppTexts(
+                              text: "Edit ${template['title']}",
+                            ),
+                          ),
                         );
                       },
-                      child: const Text(
-                        "Edit Template",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      backgroundColor: Colors.white,
+                      buttonTextColor: Colors.blue,
+                      textStyle: textTheme.body.copyWith(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
                       ),
                     ),
                   ),

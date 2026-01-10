@@ -45,8 +45,8 @@ class _DashboardState extends State<Dashboard> {
     themeController.toggleTheme();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          themeController.isDarkMode
+        content: AppTexts(
+          text: themeController.isDarkMode
               ? 'Switched to Dark Theme'
               : 'Switched to Light Theme',
         ),

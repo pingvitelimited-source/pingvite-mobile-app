@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
@@ -19,8 +20,8 @@ class EventLocationSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Location",
+        AppTexts(
+          text: "Location",
           style: textTheme.body2.copyWith(
             fontWeight: FontWeight.w600,
             color: cardTheme.sectionLabelColor,

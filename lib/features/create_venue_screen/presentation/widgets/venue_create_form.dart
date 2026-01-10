@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/custom_widgets/custom_dropdown.dart';
 import 'package:pingvite/core/custom_widgets/factory/text_field_factory.dart';
 import 'package:pingvite/core/shared_widgets/shared_widgets.dart';
@@ -183,8 +184,8 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
             // Add More Link
             GestureDetector(
               onTap: () {},
-              child: Text(
-                "+ Add More",
+              child: AppTexts(
+                text: "+ Add More",
                 style: textTheme.body2.copyWith(
                   color: AppColors.blue,
                   fontWeight: FontWeight.w500,

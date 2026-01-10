@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/custom_fab.dart';
 import 'package:pingvite/core/routes.dart';
@@ -125,8 +126,8 @@ class _VenueTabState extends State<VenueTab> {
                             : null,
                       ),
                       child: Center(
-                        child: Text(
-                          _tabs[index],
+                        child: AppTexts(
+                          text: _tabs[index],
                           style: textTheme.body2.copyWith(
                             fontWeight: isSelected
                                 ? FontWeight.w600
@@ -168,7 +169,7 @@ class _VenueTabState extends State<VenueTab> {
 
   Widget _buildVenueList(List<Venue> venues) {
     if (venues.isEmpty) {
-      return const Center(child: Text('No venues found'));
+      return const Center(child: AppTexts(text: 'No venues found'));
     }
     return ListView.builder(
       padding: EdgeInsets.symmetric(horizontal: 16.rpx, vertical: 16.rpx),

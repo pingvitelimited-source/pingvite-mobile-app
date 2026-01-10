@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
@@ -91,8 +92,8 @@ class _CityListWidgetState extends State<CityListWidget> {
                         color: AppColors.lightSecondaryText,
                       ),
                       SizedBox(height: sizeConfig.rpx(12)),
-                      Text(
-                        'No cities found',
+                      AppTexts(
+                        text: 'No cities found',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: isDarkMode
                               ? AppColors.darkSecondaryText
@@ -164,8 +165,8 @@ class _CityListWidgetState extends State<CityListWidget> {
                                   padding: EdgeInsets.symmetric(
                                     horizontal: sizeConfig.rpx(8),
                                   ),
-                                  child: Text(
-                                    city.name,
+                                  child: AppTexts(
+                                    text: city.name,
                                     textAlign: TextAlign.center,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,

@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
-import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
@@ -164,7 +164,10 @@ class _ContactImagePickerState extends State<ContactImagePicker> {
   void _showErrorSnackBar(String message) {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), backgroundColor: AppColors.red),
+      SnackBar(
+        content: AppTexts(text: message),
+        backgroundColor: AppColors.red,
+      ),
     );
   }
 }
