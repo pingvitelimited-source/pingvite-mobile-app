@@ -188,8 +188,8 @@ class _ReusableTabWidgetState extends State<ReusableTabWidget> {
                       ? selectedBorderColor.withValues(alpha: 0.1)
                       : Colors.transparent,
                 ),
-                child: Text(
-                  tab.title,
+                child: AppTexts(
+                  text: tab.title,
                   style: textTheme.body.copyWith(
                     color: isSelected ? selectedTextColor : unselectedTextColor,
                     fontWeight: isSelected

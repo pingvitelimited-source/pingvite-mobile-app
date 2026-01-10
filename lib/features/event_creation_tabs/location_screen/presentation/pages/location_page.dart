@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 
 class LocationPage extends StatefulWidget {
   const LocationPage({super.key});
@@ -10,6 +11,6 @@ class LocationPage extends StatefulWidget {
 class _LocationPageState extends State<LocationPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Location Page"));
+    return Center(child: AppTexts(text: "Location Page"));
   }
 }

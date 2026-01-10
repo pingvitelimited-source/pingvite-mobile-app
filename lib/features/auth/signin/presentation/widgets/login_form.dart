@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:gap/gap.dart';
 import 'package:pingvite/core/constants/constants.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/custom_widgets/factory/app_button_factory.dart';
 import 'package:pingvite/core/custom_widgets/factory/text_field_factory.dart';
 import 'package:pingvite/core/routes.dart';
@@ -36,20 +37,14 @@ class _LoginFormState extends State<LoginForm> {
         // Login with phone
         final mobile = formData[Constants.phoneField] as String;
         context.read<SigninBloc>().add(
-              SigninWithPhoneEvent(
-                mobile: mobile,
-                password: password,
-              ),
-            );
+          SigninWithPhoneEvent(mobile: mobile, password: password),
+        );
       } else {
         // Login with email
         final email = formData[Constants.emailField] as String;
         context.read<SigninBloc>().add(
-              SigninWithEmailEvent(
-                email: email,
-                password: password,
-              ),
-            );
+          SigninWithEmailEvent(email: email, password: password),
+        );
       }
     }
   }
@@ -64,7 +59,7 @@ class _LoginFormState extends State<LoginForm> {
           if (state is SigninSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
+                content: AppTexts(text: state.message),
                 backgroundColor: Colors.green,
               ),
             );
@@ -72,7 +67,7 @@ class _LoginFormState extends State<LoginForm> {
           } else if (state is SigninFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
+                content: AppTexts(text: state.message),
                 backgroundColor: Colors.red,
               ),
             );

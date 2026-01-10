@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pingvite/core/custom_widgets/app_primary_buttons.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
+import 'package:pingvite/core/theme/app_button_theme.dart';
+import 'package:pingvite/core/theme/app_colors.dart';
+import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PermissionManager {
@@ -51,6 +56,9 @@ class _LocationPermissionDialogState extends State<LocationPermissionDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final buttonTheme = Theme.of(context).extension<AppButtonTheme>()!;
+
     return PopScope(
       canPop: false,
       child: Dialog(
@@ -66,16 +74,17 @@ class _LocationPermissionDialogState extends State<LocationPermissionDialog> {
                 color: Theme.of(context).primaryColor,
               ),
               const SizedBox(height: 16),
-              Text(
-                'Location Permission',
+              AppTexts(
+                text: 'Location Permission',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
-              Text(
-                'We need access to your location to provide location-based services and find nearby features.',
+              AppTexts(
+                text:
+                    'We need access to your location to provide location-based services and find nearby features.',
                 style: Theme.of(context).textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),
@@ -85,20 +94,23 @@ class _LocationPermissionDialogState extends State<LocationPermissionDialog> {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: _isRequesting ? null : _handleDeny,
-                      child: const Text('Not Now'),
+                      child: const AppTexts(text: 'Not Now'),
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: ElevatedButton(
-                      onPressed: _isRequesting ? null : _handleAllow,
-                      child: _isRequesting
-                          ? const SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : const Text('Allow'),
+                    child: AppPrimaryButton(
+                      title: 'Allow',
+                      textTheme: textTheme,
+                      buttonTheme: buttonTheme,
+                      onPressed: _handleAllow,
+                      isLoading: _isRequesting,
+                      backgroundColor: AppColors.blue,
+                      buttonTextColor: Colors.white,
+                      textStyle: textTheme.body.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],
@@ -147,6 +159,9 @@ class _CameraPermissionDialogState extends State<CameraPermissionDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final buttonTheme = Theme.of(context).extension<AppButtonTheme>()!;
+
     return PopScope(
       canPop: false,
       child: Dialog(
@@ -162,16 +177,17 @@ class _CameraPermissionDialogState extends State<CameraPermissionDialog> {
                 color: Theme.of(context).primaryColor,
               ),
               const SizedBox(height: 16),
-              Text(
-                'Camera & Gallery Permission',
+              AppTexts(
+                text: 'Camera & Gallery Permission',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
-              Text(
-                'We need access to your camera and gallery to take photos, scan documents, and select images.',
+              AppTexts(
+                text:
+                    'We need access to your camera and gallery to take photos, scan documents, and select images.',
                 style: Theme.of(context).textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),
@@ -181,20 +197,23 @@ class _CameraPermissionDialogState extends State<CameraPermissionDialog> {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: _isRequesting ? null : _handleDeny,
-                      child: const Text('Not Now'),
+                      child: const AppTexts(text: 'Not Now'),
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: ElevatedButton(
-                      onPressed: _isRequesting ? null : _handleAllow,
-                      child: _isRequesting
-                          ? const SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : const Text('Allow'),
+                    child: AppPrimaryButton(
+                      title: 'Allow',
+                      textTheme: textTheme,
+                      buttonTheme: buttonTheme,
+                      onPressed: _handleAllow,
+                      isLoading: _isRequesting,
+                      backgroundColor: AppColors.blue,
+                      buttonTextColor: Colors.white,
+                      textStyle: textTheme.body.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],

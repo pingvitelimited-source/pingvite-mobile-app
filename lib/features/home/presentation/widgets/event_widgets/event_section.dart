@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:pingvite/core/custom_widgets/app_primary_buttons.dart';
 import 'package:pingvite/core/data/event_card_data.dart';
 import 'package:pingvite/core/enums/event_card_type.dart';
+import 'package:pingvite/core/theme/app_button_theme.dart';
+import 'package:pingvite/core/theme/app_colors.dart';
+import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
+import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/features/home/presentation/widgets/event_widgets/event_card.dart';
 import 'package:pingvite/core/utils/event_title.dart';
+import 'package:pingvite/service_locator_dependencies.dart';
 
 class EventSection extends StatelessWidget {
   final String title;
@@ -22,6 +28,10 @@ class EventSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sizeConfig = sl<SizeConfig>();
+    final textTheme = Theme.of(context).extension<AppTextTheme>()!;
+    final buttonTheme = Theme.of(context).extension<AppButtonTheme>()!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,6 +47,27 @@ class EventSection extends StatelessWidget {
             itemBuilder: (context, index) {
               return EventCard(data: events[index], type: type);
             },
+          ),
+        ),
+        Gap(30.gap),
+        Center(
+          child: AppPrimaryButton(
+            title: 'View More',
+            textTheme: textTheme,
+            buttonTheme: buttonTheme,
+            onPressed: onViewMore ?? () {},
+            backgroundColor: AppColors.blue,
+            buttonTextColor: Colors.white,
+            textStyle:
+                Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ) ??
+                const TextStyle(),
+            contentPadding: EdgeInsets.symmetric(
+              vertical: sizeConfig.rpx(10),
+              horizontal: sizeConfig.rpx(40),
+            ),
           ),
         ),
         Gap(12.gap),

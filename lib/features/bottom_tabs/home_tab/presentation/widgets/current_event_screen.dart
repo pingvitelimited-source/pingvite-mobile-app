@@ -42,16 +42,16 @@ class _CurrentEventScreenState extends State<CurrentEventScreen> {
                     children: [
                       Row(
                         children: const [
-                          Text(
-                            "Accepted",
+                          AppTexts(
+                            text: "Accepted",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(width: 6),
                           CircleAvatar(
                             radius: 10,
                             backgroundColor: Colors.green,
-                            child: Text(
-                              "10",
+                            child: AppTexts(
+                              text: "10",
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.white,
@@ -62,16 +62,16 @@ class _CurrentEventScreenState extends State<CurrentEventScreen> {
                       ),
                       Row(
                         children: const [
-                          Text(
-                            "Pending",
+                          AppTexts(
+                            text: "Pending",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(width: 6),
                           CircleAvatar(
                             radius: 10,
                             backgroundColor: Colors.orange,
-                            child: Text(
-                              "10",
+                            child: AppTexts(
+                              text: "10",
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.white,
@@ -99,7 +99,10 @@ class _CurrentEventScreenState extends State<CurrentEventScreen> {
                             radius: 24,
                           ),
                           const SizedBox(height: 6),
-                          Text("Stave Smith", style: TextStyle(fontSize: 12)),
+                          AppTexts(
+                            text: "Stave Smith",
+                            style: TextStyle(fontSize: 12),
+                          ),
                         ],
                       ),
                     ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
@@ -57,8 +58,8 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
             ),
             onPressed: () => Navigator.pop(context, false),
           ),
-          title: Text(
-            'Select Your City',
+          title: AppTexts(
+            text: 'Select Your City',
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: isDarkMode ? AppColors.white : AppColors.black,
@@ -85,8 +86,8 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
 
               if (state is LocationError) {
                 return Center(
-                  child: Text(
-                    'Error: ${state.message}',
+                  child: AppTexts(
+                    text: 'Error: ${state.message}',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 );
@@ -179,8 +180,8 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
               ),
               Gap(sizeConfig.rpx(12)),
               Expanded(
-                child: Text(
-                  'Find Events Near You',
+                child: AppTexts(
+                  text: 'Find Events Near You',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: isDarkMode
@@ -192,8 +193,9 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
             ],
           ),
           Gap(sizeConfig.rpx(12)),
-          Text(
-            'Select your state and city to discover amazing events happening in your area.',
+          AppTexts(
+            text:
+                'Select your state and city to discover amazing events happening in your area.',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: isDarkMode
                   ? AppColors.darkSecondaryText
@@ -216,8 +218,8 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Select State',
+        AppTexts(
+          text: 'Select State',
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
             fontWeight: FontWeight.w600,
             color: isDarkMode ? AppColors.white : AppColors.black,
@@ -246,8 +248,8 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Select City',
+        AppTexts(
+          text: 'Select City',
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
             fontWeight: FontWeight.w600,
             color: isDarkMode ? AppColors.white : AppColors.black,

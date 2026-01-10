@@ -150,7 +150,7 @@ class _ImageUploadCardState extends State<ImageUploadCard> {
     if (mounted) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(message)));
+      ).showSnackBar(SnackBar(content: AppTexts(text: message)));
     }
   }
 }
@@ -256,8 +256,8 @@ class _ImagePickerBottomSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            'Select Image Source',
+          AppTexts(
+            text: 'Select Image Source',
             style: textTheme.semiBold.copyWith(
               fontSize: 18,
               color: cardTheme.sectionLabelColor,
@@ -314,7 +314,10 @@ class _ImagePickerBottomSheet extends StatelessWidget {
             child: Icon(icon, color: AppColors.blue, size: 28),
           ),
           const SizedBox(height: 8),
-          Text(label, style: TextStyle(color: cardTheme.sectionLabelColor)),
+          AppTexts(
+            text: label,
+            style: TextStyle(color: cardTheme.sectionLabelColor),
+          ),
         ],
       ),
     );

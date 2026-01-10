@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
@@ -83,7 +84,7 @@ class _StateDropdownWidgetState extends State<StateDropdownWidget> {
                         itemBuilder: (context, index) {
                           final state = filteredStates[index];
                           return ListTile(
-                            title: Text(state.name),
+                            title: AppTexts(text: state.name),
                             onTap: () {
                               widget.onStateSelected(state.id, state.name);
                               Navigator.pop(context);
@@ -122,8 +123,8 @@ class _StateDropdownWidgetState extends State<StateDropdownWidget> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              widget.selectedStateName ?? 'Choose a state',
+            AppTexts(
+              text: widget.selectedStateName ?? 'Choose a state',
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: widget.selectedStateName != null
                     ? AppColors.black

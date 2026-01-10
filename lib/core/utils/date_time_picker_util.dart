@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 
 class DateTimePickerUtil {
@@ -46,16 +47,16 @@ class DateTimePickerUtil {
                     children: [
                       CupertinoButton(
                         padding: EdgeInsets.zero,
-                        child: Text(
-                          "Cancel",
+                        child: AppTexts(
+                          text: "Cancel",
                           style: TextStyle(color: AppColors.grey),
                         ),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       CupertinoButton(
                         padding: EdgeInsets.zero,
-                        child: Text(
-                          "Done",
+                        child: AppTexts(
+                          text: "Done",
                           style: TextStyle(
                             color: AppColors.blue,
                             fontWeight: FontWeight.w600,

@@ -6,6 +6,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_input_decorators.dart';
+import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
@@ -45,7 +46,7 @@ class ContactTypeDropdown extends StatelessWidget {
           .map(
             (type) => DropdownMenuItem<String>(
               value: type,
-              child: Text(type, style: textTheme.body),
+              child: AppTexts(text: type, style: textTheme.body),
             ),
           )
           .toList(),
@@ -76,8 +77,8 @@ class ContactTypeDropdown extends StatelessWidget {
           ),
       hint: Row(
         children: [
-          Text(
-            'Contact Type',
+          AppTexts(
+            text: 'Contact Type',
             style: textTheme.body.copyWith(
               color: AppColors.grey.withValues(alpha: 0.6),
             ),
