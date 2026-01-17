@@ -21,6 +21,9 @@ Future<void> initDependecies() async {
 
   // Location Feature
   _initLocation();
+
+  // Contact Feature
+  _initContact();
 }
 
 void _initSignup() {
@@ -64,5 +67,27 @@ void _initLocation() {
   // Bloc
   sl.registerFactory<LocationBloc>(
     () => LocationBloc(locationRepository: sl()),
+  );
+}
+
+void _initContact() {
+  // Data Source
+  sl.registerLazySingleton<ContactRemoteDataSource>(
+    () => ContactRemoteDataSourceImpl(dioClient: sl()),
+  );
+
+  // Repository
+  sl.registerLazySingleton<ContactRepository>(
+    () => ContactRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  // UseCase
+  sl.registerLazySingleton<CreateContactUseCase>(
+    () => CreateContactUseCase(sl()),
+  );
+
+  // Bloc
+  sl.registerFactory<CreateContactBloc>(
+    () => CreateContactBloc(createContactUseCase: sl()),
   );
 }

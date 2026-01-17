@@ -1,23 +1,31 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pingvite/core/network/auth_interceptor.dart';
 import 'package:pingvite/core/network/connectivity_interceptor.dart';
 import 'package:pingvite/core/network/logger_interceptor.dart';
 
 class DioClient {
   late final Dio _dio;
 
-  DioClient()
-      : _dio = Dio(
-          BaseOptions(
-            headers: {'Content-Type': 'application/json; charset=UTF-8'},
-            responseType: ResponseType.json,
-            sendTimeout: const Duration(minutes: 1),
-            receiveTimeout: const Duration(minutes: 1),
-          ),
-        )..interceptors.addAll([
-            ConnectivityInterceptor(Connectivity()),
-            LoggerInterceptor(),
-          ]);
+  DioClient({FlutterSecureStorage? secureStorage})
+    : _dio =
+          Dio(
+              BaseOptions(
+                headers: {'Content-Type': 'application/json; charset=UTF-8'},
+                responseType: ResponseType.json,
+                sendTimeout: const Duration(minutes: 1),
+                receiveTimeout: const Duration(minutes: 1),
+              ),
+            )
+            ..interceptors.addAll([
+              ConnectivityInterceptor(Connectivity()),
+              LoggerInterceptor(),
+              AuthInterceptor(
+                dio: Dio(),
+                secureStorage: secureStorage ?? const FlutterSecureStorage(),
+              ),
+            ]);
 
   // GET METHOD
   Future<Response> get(

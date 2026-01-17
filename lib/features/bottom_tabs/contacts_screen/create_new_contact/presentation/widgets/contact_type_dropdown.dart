@@ -24,14 +24,7 @@ class ContactTypeDropdown extends StatelessWidget {
     this.onChanged,
   });
 
-  static const List<String> _contactTypes = [
-    'Family',
-    'Friend',
-    'Work',
-    'Business',
-    'VIP',
-    'Other',
-  ];
+  static const List<String> _contactTypes = ['Family', 'Friend', 'Business'];
 
   @override
   Widget build(BuildContext context) {

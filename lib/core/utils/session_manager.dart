@@ -1,3 +1,4 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Manages user session state for persistent login
@@ -5,6 +6,7 @@ class SessionManager {
   static const String _isLoggedInKey = 'is_logged_in';
   static const String _userIdKey = 'user_id';
   static const String _userEmailKey = 'user_email';
+  static const _secureStorage = FlutterSecureStorage();
 
   /// Check if user is logged in
   static Future<bool> isLoggedIn() async {
@@ -26,6 +28,10 @@ class SessionManager {
     await prefs.setBool(_isLoggedInKey, false);
     await prefs.remove(_userIdKey);
     await prefs.remove(_userEmailKey);
+
+    // Clear tokens from secure storage
+    await _secureStorage.delete(key: 'access_token');
+    await _secureStorage.delete(key: 'refresh_token');
   }
 
   /// Get stored user email
