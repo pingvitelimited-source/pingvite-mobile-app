@@ -14,6 +14,11 @@ import 'package:pingvite/features/auth/signup/data/source/signup_api_service.dar
 import 'package:pingvite/features/auth/signup/domain/repository/signup_repository.dart';
 import 'package:pingvite/features/auth/signup/domain/usecases/user_signup.dart';
 import 'package:pingvite/features/auth/signup/presentation/bloc/signup_bloc.dart';
+import 'package:pingvite/features/contacts/data/datasources/contact_remote_datasource.dart';
+import 'package:pingvite/features/contacts/data/repository/contact_repository_impl.dart';
+import 'package:pingvite/features/contacts/domain/repository/contact_repository.dart';
+import 'package:pingvite/features/contacts/domain/usecases/create_contact.dart';
+import 'package:pingvite/features/contacts/presentation/bloc/create_contact_bloc.dart';
 import 'package:pingvite/features/location_selection/data/repositories/location_repository.dart';
 import 'package:pingvite/features/location_selection/presentation/bloc/location_bloc.dart';
 
