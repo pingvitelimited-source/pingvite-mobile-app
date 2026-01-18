@@ -11,6 +11,8 @@ import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
+import 'package:pingvite/features/location_search/domain/entities/location_suggestion.dart';
+import 'package:pingvite/features/location_search/presentation/widgets/location_autocomplete_field.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
 class VenueCreateForm extends StatefulWidget {
@@ -23,6 +25,15 @@ class VenueCreateForm extends StatefulWidget {
 class _VenueCreateFormState extends State<VenueCreateForm> {
   final _venueformKey = GlobalKey<FormBuilderState>();
   File? _selectedImage;
+
+  // Location selections
+  LocationSuggestion? _selectedCountry;
+  LocationSuggestion? _selectedState;
+
+  // Validation errors
+  String? _countryError;
+  String? _stateError;
+  String? _cityError;
 
   // Selected tags
   final List<String> _selectedTags = [
@@ -93,43 +104,55 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
             ),
             SizedBox(height: sl<SizeConfig>().rpx(16)),
 
-            // City Dropdown
-            CustomDropdown<String>(
-              name: "city",
-              hintText: "City",
-              buttonTheme: buttonTheme,
-              items: const [
-                "Mumbai",
-                "Delhi",
-                "Bangalore",
-                "Chennai",
-                "Kolkata",
-                "Hyderabad",
-              ],
-              onChanged: (val) => debugPrint("City: $val"),
-              validators: [
-                FormBuilderValidators.required(errorText: "City is required"),
-              ],
+            // Country Autocomplete
+            LocationAutocompleteField(
+              name: "country",
+              hintText: "Country",
+              locationType: 'country',
+              errorText: _countryError,
+              onSelected: (country) {
+                setState(() {
+                  _selectedCountry = country;
+                  _selectedState = null;
+                  _countryError = null;
+                  _stateError = null;
+                  _cityError = null;
+                });
+              },
             ),
             SizedBox(height: sl<SizeConfig>().rpx(16)),
 
-            // State Dropdown
-            CustomDropdown<String>(
+            // State Autocomplete
+            LocationAutocompleteField(
               name: "state",
               hintText: "State",
-              buttonTheme: buttonTheme,
-              items: const [
-                "Maharashtra",
-                "Delhi",
-                "Karnataka",
-                "Tamil Nadu",
-                "West Bengal",
-                "Telangana",
-              ],
-              onChanged: (val) => debugPrint("State: $val"),
-              validators: [
-                FormBuilderValidators.required(errorText: "State is required"),
-              ],
+              locationType: 'state',
+              parentId: _selectedCountry?.id,
+              enabled: _selectedCountry != null,
+              errorText: _stateError,
+              onSelected: (state) {
+                setState(() {
+                  _selectedState = state;
+                  _stateError = null;
+                  _cityError = null;
+                });
+              },
+            ),
+            SizedBox(height: sl<SizeConfig>().rpx(16)),
+
+            // City Autocomplete
+            LocationAutocompleteField(
+              name: "city",
+              hintText: "City",
+              locationType: 'city',
+              parentId: _selectedState?.id,
+              enabled: _selectedState != null,
+              errorText: _cityError,
+              onSelected: (city) {
+                setState(() {
+                  _cityError = null;
+                });
+              },
             ),
             SizedBox(height: sl<SizeConfig>().rpx(16)),
 

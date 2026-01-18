@@ -24,6 +24,9 @@ Future<void> initDependecies() async {
 
   // Contact Feature
   _initContact();
+
+  // Location Search Feature
+  _initLocationSearch();
 }
 
 void _initSignup() {
@@ -89,5 +92,37 @@ void _initContact() {
   // Bloc
   sl.registerFactory<CreateContactBloc>(
     () => CreateContactBloc(createContactUseCase: sl()),
+  );
+}
+
+void _initLocationSearch() {
+  // Data Source
+  sl.registerLazySingleton<LocationSearchDataSource>(
+    () => LocationSearchDataSourceImpl(),
+  );
+
+  // Repository
+  sl.registerLazySingleton<LocationSearchRepository>(
+    () => LocationSearchRepositoryImpl(dataSource: sl()),
+  );
+
+  // UseCases
+  sl.registerLazySingleton<SearchCountriesUseCase>(
+    () => SearchCountriesUseCase(sl()),
+  );
+  sl.registerLazySingleton<SearchStatesUseCase>(
+    () => SearchStatesUseCase(sl()),
+  );
+  sl.registerLazySingleton<SearchCitiesUseCase>(
+    () => SearchCitiesUseCase(sl()),
+  );
+
+  // Bloc
+  sl.registerFactory<LocationSearchBloc>(
+    () => LocationSearchBloc(
+      searchCountriesUseCase: sl(),
+      searchStatesUseCase: sl(),
+      searchCitiesUseCase: sl(),
+    ),
   );
 }

@@ -57,18 +57,24 @@ class _LoginFormState extends State<LoginForm> {
       child: BlocConsumer<SigninBloc, SigninState>(
         listener: (context, state) {
           if (state is SigninSuccess) {
+            // Clear any existing snackbars before showing success message
+            ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: AppTexts(text: state.message),
                 backgroundColor: Colors.green,
+                duration: const Duration(seconds: 2),
               ),
             );
+            // Navigate to home - no async gap
             Navigator.pushReplacementNamed(context, AppRoutes.home);
           } else if (state is SigninFailure) {
+            ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: AppTexts(text: state.message),
                 backgroundColor: Colors.red,
+                duration: const Duration(seconds: 3),
               ),
             );
           }

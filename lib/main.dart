@@ -11,6 +11,7 @@ import 'package:pingvite/features/auth/signup/presentation/bloc/signup_bloc.dart
 import 'package:pingvite/features/contacts/presentation/bloc/create_contact_bloc.dart';
 import 'package:pingvite/features/home/presentation/pages/home_page.dart';
 import 'package:pingvite/features/inital_screen/presentation/pages/initial_page.dart';
+import 'package:pingvite/features/location_search/presentation/bloc/location_search_bloc.dart';
 import 'package:pingvite/features/location_selection/presentation/bloc/location_bloc.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 import 'package:provider/provider.dart';
@@ -62,6 +63,7 @@ class _MyAppState extends State<MyApp> {
               BlocProvider(create: (context) => sl<SigninBloc>()),
               BlocProvider(create: (context) => sl<SignupBloc>()),
               BlocProvider(create: (context) => sl<CreateContactBloc>()),
+              BlocProvider(create: (context) => sl<LocationSearchBloc>()),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

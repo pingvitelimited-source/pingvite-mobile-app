@@ -21,5 +21,12 @@ import 'package:pingvite/features/contacts/domain/usecases/create_contact.dart';
 import 'package:pingvite/features/contacts/presentation/bloc/create_contact_bloc.dart';
 import 'package:pingvite/features/location_selection/data/repositories/location_repository.dart';
 import 'package:pingvite/features/location_selection/presentation/bloc/location_bloc.dart';
+import 'package:pingvite/features/location_search/data/datasources/location_search_datasource.dart';
+import 'package:pingvite/features/location_search/data/repository/location_search_repository_impl.dart';
+import 'package:pingvite/features/location_search/domain/repository/location_search_repository.dart';
+import 'package:pingvite/features/location_search/domain/usecases/search_cities.dart';
+import 'package:pingvite/features/location_search/domain/usecases/search_countries.dart';
+import 'package:pingvite/features/location_search/domain/usecases/search_states.dart';
+import 'package:pingvite/features/location_search/presentation/bloc/location_search_bloc.dart';
 
 part 'service_locator.dart';
