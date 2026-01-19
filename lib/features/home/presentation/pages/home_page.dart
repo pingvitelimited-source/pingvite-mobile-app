@@ -36,6 +36,12 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _selectedCity = null;
+    // Clear any pending snackbars when entering home
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+      }
+    });
     _checkLocationAndNavigate();
   }
 

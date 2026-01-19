@@ -67,6 +67,27 @@ class AuthInterceptor extends Interceptor {
       }
     }
 
+    // Handle 422 Unprocessable Entity - validation error
+    if (err.response?.statusCode == 422) {
+      // Log validation errors for debugging
+      final responseData = err.response?.data;
+      if (responseData is Map) {
+        // Extract validation error messages if available
+        final errors =
+            responseData['errors'] ??
+            responseData['message'] ??
+            'Validation failed';
+        // Create a more descriptive error
+        final newError = DioException(
+          requestOptions: err.requestOptions,
+          response: err.response,
+          type: DioExceptionType.badResponse,
+          error: 'Validation Error: $errors',
+        );
+        return handler.next(newError);
+      }
+    }
+
     return handler.next(err);
   }
 
