@@ -2,10 +2,7 @@ class ForgotPasswordResponseParams {
   final int status;
   final String message;
 
-  ForgotPasswordResponseParams({
-    required this.status,
-    required this.message,
-  });
+  ForgotPasswordResponseParams({required this.status, required this.message});
 
   factory ForgotPasswordResponseParams.fromJson(Map<String, dynamic> json) {
     return ForgotPasswordResponseParams(

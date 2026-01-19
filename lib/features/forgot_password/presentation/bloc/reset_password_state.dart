@@ -16,15 +16,16 @@ final class ResetPasswordFailure extends ResetPasswordState {
   final String message;
 
   ResetPasswordFailure(dynamic failure)
-      : message = switch (failure) {
-          DioException dio => dio.type == DioExceptionType.connectionError ||
+    : message = switch (failure) {
+        DioException dio =>
+          dio.type == DioExceptionType.connectionError ||
                   dio.type == DioExceptionType.connectionTimeout
               ? "No internet connection!"
               : (dio.response?.data?['message'] as String?) ??
-                  dio.message ??
-                  "Something went wrong!",
-          Failure f => f.message,
-          String s => s,
-          _ => "An unknown error occurred.",
-        };
+                    dio.message ??
+                    "Something went wrong!",
+        Failure f => f.message,
+        String s => s,
+        _ => "An unknown error occurred.",
+      };
 }

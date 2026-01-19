@@ -47,12 +47,12 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
       }
 
       context.read<ResetPasswordBloc>().add(
-            ResetPasswordSubmitted(
-              type: widget.type,
-              value: widget.value,
-              password: newPassword,
-            ),
-          );
+        ResetPasswordSubmitted(
+          type: widget.type,
+          value: widget.value,
+          password: newPassword,
+        ),
+      );
     }
   }
 
