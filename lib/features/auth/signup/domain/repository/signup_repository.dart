@@ -3,7 +3,5 @@ import 'package:pingvite/features/auth/signup/data/models/signup_request_params.
 import 'package:pingvite/features/auth/signup/data/models/signup_response_params.dart';
 
 abstract class SignupRepository {
-  Future<Either<dynamic, SignupResult>> signup(
-    SignupRequestParams params,
-  );
+  Future<Either<dynamic, SignupResult>> signup(SignupRequestParams params);
 }

@@ -52,9 +52,7 @@ class _EventTypeDropdown extends StatelessWidget {
       items: const ["Conference", "Meetup", "Workshop", "Webinar", "Concert"],
       onChanged: (val) => debugPrint("Event Type: $val"),
       validators: [
-        FormBuilderValidators.required(
-          errorText: "Event type is required",
-        ),
+        FormBuilderValidators.required(errorText: "Event type is required"),
       ],
     );
   }
@@ -74,9 +72,7 @@ class _EventCategoryDropdown extends StatelessWidget {
       items: const ["Business", "Social", "Educational", "Entertainment"],
       onChanged: (val) => debugPrint("Event Category: $val"),
       validators: [
-        FormBuilderValidators.required(
-          errorText: "Event category is required",
-        ),
+        FormBuilderValidators.required(errorText: "Event category is required"),
       ],
     );
   }

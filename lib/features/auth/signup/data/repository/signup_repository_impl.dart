@@ -7,9 +7,7 @@ import 'package:pingvite/service_locator_dependencies.dart';
 
 class SignupRepositoryImpl implements SignupRepository {
   @override
-  Future<Either<dynamic, SignupResult>> signup(
-    SignupRequestParams params,
-  ) {
+  Future<Either<dynamic, SignupResult>> signup(SignupRequestParams params) {
     return sl<SignupApiService>().signup(params);
   }
 }

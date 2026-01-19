@@ -10,10 +10,7 @@ class SigninSuccess extends SigninState {
   final LoginUser user;
   final String message;
 
-  SigninSuccess({
-    required this.user,
-    required this.message,
-  });
+  SigninSuccess({required this.user, required this.message});
 }
 
 class SigninFailure extends SigninState {

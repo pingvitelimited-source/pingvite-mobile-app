@@ -9,7 +9,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
   final UserLoginWithPhone _userLoginWithPhone;
 
   SigninBloc(this._userLoginWithEmail, this._userLoginWithPhone)
-      : super(SigninInitial()) {
+    : super(SigninInitial()) {
     on<SigninWithEmailEvent>(_onSigninWithEmail);
     on<SigninWithPhoneEvent>(_onSigninWithPhone);
   }

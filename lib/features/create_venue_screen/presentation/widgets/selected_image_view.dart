@@ -71,6 +71,4 @@ class SelectedImageView extends StatelessWidget {
   }
 }
 
-
-
 //AppColors.black.withValues(alpha: 0.7),
