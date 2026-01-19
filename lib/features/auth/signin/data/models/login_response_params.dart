@@ -36,8 +36,5 @@ class LoginResult {
   final LoginUser user;
   final String message;
 
-  LoginResult({
-    required this.user,
-    required this.message,
-  });
+  LoginResult({required this.user, required this.message});
 }

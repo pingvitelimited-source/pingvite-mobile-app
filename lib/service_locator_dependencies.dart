@@ -28,5 +28,15 @@ import 'package:pingvite/features/location_search/domain/usecases/search_cities.
 import 'package:pingvite/features/location_search/domain/usecases/search_countries.dart';
 import 'package:pingvite/features/location_search/domain/usecases/search_states.dart';
 import 'package:pingvite/features/location_search/presentation/bloc/location_search_bloc.dart';
+import 'package:pingvite/features/forgot_password/data/datasources/verify_user_api_service.dart';
+import 'package:pingvite/features/forgot_password/data/datasources/forgot_password_api_service.dart';
+import 'package:pingvite/features/forgot_password/data/repository/verify_user_repository_impl.dart';
+import 'package:pingvite/features/forgot_password/data/repository/forgot_password_repository_impl.dart';
+import 'package:pingvite/features/forgot_password/domain/repository/verify_user_repository.dart';
+import 'package:pingvite/features/forgot_password/domain/repository/forgot_password_repository.dart';
+import 'package:pingvite/features/forgot_password/domain/usecases/verify_user_usecase.dart';
+import 'package:pingvite/features/forgot_password/domain/usecases/reset_password_usecase.dart';
+import 'package:pingvite/features/forgot_password/presentation/bloc/verify_user_bloc.dart';
+import 'package:pingvite/features/forgot_password/presentation/bloc/reset_password_bloc.dart';
 
 part 'service_locator.dart';

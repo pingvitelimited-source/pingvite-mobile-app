@@ -5,10 +5,7 @@ class SignupResult extends Equatable {
   final String message;
   final SignupResponseParams user;
 
-  const SignupResult({
-    required this.message,
-    required this.user,
-  });
+  const SignupResult({required this.message, required this.user});
 
   @override
   List<Object?> get props => [message, user];
@@ -75,16 +72,16 @@ class SignupResponseParams extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        firstName,
-        middleName,
-        lastName,
-        email,
-        mobile,
-        profileImage,
-        isActive,
-        userRole,
-        createdAt,
-        updatedAt,
-      ];
+    id,
+    firstName,
+    middleName,
+    lastName,
+    email,
+    mobile,
+    profileImage,
+    isActive,
+    userRole,
+    createdAt,
+    updatedAt,
+  ];
 }

@@ -9,7 +9,9 @@ class UserLoginWithEmail implements UseCase<LoginUser, LoginWithEmailParams> {
   UserLoginWithEmail(this.repository);
 
   @override
-  Future<Either<dynamic, LoginUser>> call({LoginWithEmailParams? params}) async {
+  Future<Either<dynamic, LoginUser>> call({
+    LoginWithEmailParams? params,
+  }) async {
     return await repository.loginWithEmail(
       email: params!.email,
       password: params.password,
@@ -21,8 +23,5 @@ class LoginWithEmailParams {
   final String email;
   final String password;
 
-  LoginWithEmailParams({
-    required this.email,
-    required this.password,
-  });
+  LoginWithEmailParams({required this.email, required this.password});
 }

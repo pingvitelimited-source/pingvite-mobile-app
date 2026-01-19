@@ -87,8 +87,8 @@ class AppRoutes {
         );
       default:
         return MaterialPageRoute(
-          builder: (_) => const Scaffold(
-            body: Center(child: AppTexts(text: 'Route not found')),
+          builder: (_) => const Material(
+            child: Center(child: AppTexts(text: 'Route not found')),
           ),
         );
     }

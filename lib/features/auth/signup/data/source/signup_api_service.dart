@@ -7,9 +7,7 @@ import 'package:pingvite/features/auth/signup/data/models/signup_response_params
 import 'package:pingvite/service_locator_dependencies.dart';
 
 abstract class SignupApiService {
-  Future<Either<dynamic, SignupResult>> signup(
-    SignupRequestParams params,
-  );
+  Future<Either<dynamic, SignupResult>> signup(SignupRequestParams params);
 }
 
 class SignupApiServiceImpl implements SignupApiService {

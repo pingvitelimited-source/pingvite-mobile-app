@@ -6,8 +6,12 @@ import 'package:pingvite/features/auth/signin/data/models/login_request_params.d
 import 'package:pingvite/features/auth/signin/data/models/login_response_params.dart';
 
 abstract class LoginApiService {
-  Future<Either<dynamic, LoginResponseParams>> loginWithEmail(LoginRequestParams params);
-  Future<Either<dynamic, LoginResponseParams>> loginWithPhone(LoginRequestParams params);
+  Future<Either<dynamic, LoginResponseParams>> loginWithEmail(
+    LoginRequestParams params,
+  );
+  Future<Either<dynamic, LoginResponseParams>> loginWithPhone(
+    LoginRequestParams params,
+  );
 }
 
 class LoginApiServiceImpl implements LoginApiService {
@@ -17,7 +21,8 @@ class LoginApiServiceImpl implements LoginApiService {
 
   @override
   Future<Either<dynamic, LoginResponseParams>> loginWithEmail(
-      LoginRequestParams params) async {
+    LoginRequestParams params,
+  ) async {
     try {
       final response = await _dioClient.post(
         ApiUrls.login,
@@ -33,7 +38,8 @@ class LoginApiServiceImpl implements LoginApiService {
         return Left(response.data['message'] ?? 'Login failed');
       }
     } on DioException catch (e) {
-      final errorMessage = e.response?.data['message'] ?? e.message ?? 'Login failed';
+      final errorMessage =
+          e.response?.data['message'] ?? e.message ?? 'Login failed';
       return Left(errorMessage);
     } catch (e) {
       return Left(e.toString());
@@ -42,7 +48,8 @@ class LoginApiServiceImpl implements LoginApiService {
 
   @override
   Future<Either<dynamic, LoginResponseParams>> loginWithPhone(
-      LoginRequestParams params) async {
+    LoginRequestParams params,
+  ) async {
     try {
       final response = await _dioClient.post(
         ApiUrls.login,
@@ -58,7 +65,8 @@ class LoginApiServiceImpl implements LoginApiService {
         return Left(response.data['message'] ?? 'Login failed');
       }
     } on DioException catch (e) {
-      final errorMessage = e.response?.data['message'] ?? e.message ?? 'Login failed';
+      final errorMessage =
+          e.response?.data['message'] ?? e.message ?? 'Login failed';
       return Left(errorMessage);
     } catch (e) {
       return Left(e.toString());

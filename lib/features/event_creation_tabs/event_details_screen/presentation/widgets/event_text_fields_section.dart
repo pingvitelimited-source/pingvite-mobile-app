@@ -55,9 +55,7 @@ class _EventNameField extends StatelessWidget {
       name: "eventName",
       hintText: "Event name",
       validators: [
-        FormBuilderValidators.required(
-          errorText: "Event name is required",
-        ),
+        FormBuilderValidators.required(errorText: "Event name is required"),
       ],
     );
   }

@@ -10,9 +10,7 @@ part 'signup_event.dart';
 part 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  SignupBloc({
-    required UserSignup userSignup,
-  }) : super(SignupInitial()) {
+  SignupBloc({required UserSignup userSignup}) : super(SignupInitial()) {
     on<SignupSubmitted>(_onSignupSubmitted);
     on<SignupReset>(_onSignupReset);
   }
@@ -36,17 +34,13 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
     result.fold(
       (failure) => emit(SignupFailure(failure)),
-      (signupResult) => emit(SignupSuccess(
-        message: signupResult.message,
-        user: signupResult.user,
-      )),
+      (signupResult) => emit(
+        SignupSuccess(message: signupResult.message, user: signupResult.user),
+      ),
     );
   }
 
-  void _onSignupReset(
-    SignupReset event,
-    Emitter<SignupState> emit,
-  ) {
+  void _onSignupReset(SignupReset event, Emitter<SignupState> emit) {
     emit(SignupInitial());
   }
 }

@@ -19,17 +19,14 @@ class LoginRepositoryImpl implements LoginRepository {
     final params = LoginRequestParams(email: email, password: password);
     final result = await _loginApiService.loginWithEmail(params);
 
-    return result.fold(
-      (error) => Left(error),
-      (response) async {
-        // Save tokens to secure storage
-        await _secureStorageService.saveTokens(
-          accessToken: response.token,
-          refreshToken: response.refreshToken,
-        );
-        return Right(response.toEntity());
-      },
-    );
+    return result.fold((error) => Left(error), (response) async {
+      // Save tokens to secure storage
+      await _secureStorageService.saveTokens(
+        accessToken: response.token,
+        refreshToken: response.refreshToken,
+      );
+      return Right(response.toEntity());
+    });
   }
 
   @override
@@ -40,16 +37,13 @@ class LoginRepositoryImpl implements LoginRepository {
     final params = LoginRequestParams(mobile: mobile, password: password);
     final result = await _loginApiService.loginWithPhone(params);
 
-    return result.fold(
-      (error) => Left(error),
-      (response) async {
-        // Save tokens to secure storage
-        await _secureStorageService.saveTokens(
-          accessToken: response.token,
-          refreshToken: response.refreshToken,
-        );
-        return Right(response.toEntity());
-      },
-    );
+    return result.fold((error) => Left(error), (response) async {
+      // Save tokens to secure storage
+      await _secureStorageService.saveTokens(
+        accessToken: response.token,
+        refreshToken: response.refreshToken,
+      );
+      return Right(response.toEntity());
+    });
   }
 }

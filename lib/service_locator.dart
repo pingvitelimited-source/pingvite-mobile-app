@@ -27,6 +27,9 @@ Future<void> initDependecies() async {
 
   // Location Search Feature
   _initLocationSearch();
+
+  // Forgot Password Feature
+  _initForgotPassword();
 }
 
 void _initSignup() {
@@ -125,4 +128,30 @@ void _initLocationSearch() {
       searchCitiesUseCase: sl(),
     ),
   );
+}
+
+void _initForgotPassword() {
+  // API Services
+  sl.registerLazySingleton<VerifyUserApiService>(
+    () => VerifyUserApiServiceImpl(),
+  );
+  sl.registerLazySingleton<ForgotPasswordApiService>(
+    () => ForgotPasswordApiServiceImpl(),
+  );
+
+  // Repositories
+  sl.registerLazySingleton<VerifyUserRepository>(
+    () => VerifyUserRepositoryImpl(),
+  );
+  sl.registerLazySingleton<ForgotPasswordRepository>(
+    () => ForgotPasswordRepositoryImpl(),
+  );
+
+  // UseCases
+  sl.registerLazySingleton<VerifyUserUseCase>(() => VerifyUserUseCase());
+  sl.registerLazySingleton<ResetPasswordUseCase>(() => ResetPasswordUseCase());
+
+  // Blocs
+  sl.registerFactory<VerifyUserBloc>(() => VerifyUserBloc());
+  sl.registerFactory<ResetPasswordBloc>(() => ResetPasswordBloc());
 }

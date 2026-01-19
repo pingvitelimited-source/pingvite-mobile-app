@@ -9,7 +9,9 @@ class UserLoginWithPhone implements UseCase<LoginUser, LoginWithPhoneParams> {
   UserLoginWithPhone(this.repository);
 
   @override
-  Future<Either<dynamic, LoginUser>> call({LoginWithPhoneParams? params}) async {
+  Future<Either<dynamic, LoginUser>> call({
+    LoginWithPhoneParams? params,
+  }) async {
     return await repository.loginWithPhone(
       mobile: params!.mobile,
       password: params.password,
@@ -21,8 +23,5 @@ class LoginWithPhoneParams {
   final String mobile;
   final String password;
 
-  LoginWithPhoneParams({
-    required this.mobile,
-    required this.password,
-  });
+  LoginWithPhoneParams({required this.mobile, required this.password});
 }
