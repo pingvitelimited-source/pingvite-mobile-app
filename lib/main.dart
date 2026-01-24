@@ -8,6 +8,7 @@ import 'package:pingvite/core/utils/session_manager.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/features/home/presentation/pages/home_page.dart';
 import 'package:pingvite/features/inital_screen/presentation/pages/initial_page.dart';
+import 'package:pingvite/features/location_search/presentation/bloc/location_search_bloc.dart';
 import 'package:pingvite/features/location_selection/presentation/bloc/location_bloc.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 import 'package:provider/provider.dart';
@@ -53,8 +54,11 @@ class _MyAppState extends State<MyApp> {
       create: (context) => ThemeController(),
       child: Consumer<ThemeController>(
         builder: (context, themeController, child) {
-          return BlocProvider(
-            create: (context) => sl<LocationBloc>(),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => sl<LocationBloc>()),
+              BlocProvider(create: (context) => sl<LocationSearchBloc>()),
+            ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               title: Constants.appTitle,

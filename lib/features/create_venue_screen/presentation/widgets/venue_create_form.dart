@@ -3,14 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
-import 'package:pingvite/core/custom_widgets/custom_dropdown.dart';
 import 'package:pingvite/core/custom_widgets/factory/text_field_factory.dart';
 import 'package:pingvite/core/shared_widgets/shared_widgets.dart';
 import 'package:pingvite/core/theme/app_button_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
+import 'package:pingvite/features/create_venue_screen/presentation/widgets/seating_card.dart';
 import 'package:pingvite/features/location_search/domain/entities/location_suggestion.dart';
 import 'package:pingvite/features/location_search/presentation/widgets/location_autocomplete_field.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
@@ -24,16 +25,20 @@ class VenueCreateForm extends StatefulWidget {
 
 class _VenueCreateFormState extends State<VenueCreateForm> {
   final _venueformKey = GlobalKey<FormBuilderState>();
+  final _animatedListKey = GlobalKey<AnimatedListState>();
   File? _selectedImage;
 
   // Location selections
   LocationSuggestion? _selectedCountry;
-  LocationSuggestion? _selectedState;
+  bool _isStateSelected = false;
+
+  // Seating entries
+  final List<int> _seatingEntries = [0]; // Start with one entry
+  int _nextId = 1;
 
   // Validation errors
   String? _countryError;
   String? _stateError;
-  String? _cityError;
 
   // Selected tags
   final List<String> _selectedTags = [
@@ -61,10 +66,10 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
               context: context,
               buttonTheme: buttonTheme,
               name: "venueName",
-              hintText: "Venue Name",
+              hintText: Constants.venueNameRequired,
               validators: [
                 FormBuilderValidators.required(
-                  errorText: "Venue name is required",
+                  errorText: Constants.venueNameRequired,
                 ),
               ],
             ),
@@ -75,8 +80,8 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
               context: context,
               buttonTheme: buttonTheme,
               name: "venueDescription",
-              hintText: "Venue Description",
-              requiredError: "Description is required",
+              hintText: Constants.venueDescription,
+              requiredError: Constants.descriptionRequired,
               maxLines: 3,
             ),
             SizedBox(height: sl<SizeConfig>().rpx(16)),
@@ -86,10 +91,10 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
               context: context,
               buttonTheme: buttonTheme,
               name: "addressLine1",
-              hintText: "Address Line 1",
+              hintText: Constants.addressLine1,
               validators: [
                 FormBuilderValidators.required(
-                  errorText: "Address is required",
+                  errorText: Constants.addressRequired,
                 ),
               ],
             ),
@@ -100,23 +105,22 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
               context: context,
               buttonTheme: buttonTheme,
               name: "addressLine2",
-              hintText: "Address Line 2",
+              hintText: Constants.addressLine2,
             ),
             SizedBox(height: sl<SizeConfig>().rpx(16)),
 
             // Country Autocomplete
             LocationAutocompleteField(
               name: "country",
-              hintText: "Country",
+              hintText: Constants.selectCountry,
               locationType: 'country',
               errorText: _countryError,
               onSelected: (country) {
                 setState(() {
                   _selectedCountry = country;
-                  _selectedState = null;
+                  _isStateSelected = false;
                   _countryError = null;
                   _stateError = null;
-                  _cityError = null;
                 });
               },
             ),
@@ -125,34 +129,31 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
             // State Autocomplete
             LocationAutocompleteField(
               name: "state",
-              hintText: "State",
+              hintText: Constants.selectState,
               locationType: 'state',
-              parentId: _selectedCountry?.id,
+              parentId:
+                  _selectedCountry?.code, // Pass country code instead of ID
               enabled: _selectedCountry != null,
               errorText: _stateError,
               onSelected: (state) {
                 setState(() {
-                  _selectedState = state;
+                  _isStateSelected = true;
                   _stateError = null;
-                  _cityError = null;
                 });
               },
             ),
             SizedBox(height: sl<SizeConfig>().rpx(16)),
 
-            // City Autocomplete
-            LocationAutocompleteField(
+            // City
+            TextFieldFactory.custom(
+              context: context,
+              buttonTheme: buttonTheme,
               name: "city",
-              hintText: "City",
-              locationType: 'city',
-              parentId: _selectedState?.id,
-              enabled: _selectedState != null,
-              errorText: _cityError,
-              onSelected: (city) {
-                setState(() {
-                  _cityError = null;
-                });
-              },
+              hintText: Constants.selectCity,
+              readOnly: !_isStateSelected,
+              validators: [
+                FormBuilderValidators.required(errorText: Constants.selectCity),
+              ],
             ),
             SizedBox(height: sl<SizeConfig>().rpx(16)),
 
@@ -161,10 +162,10 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
               context: context,
               buttonTheme: buttonTheme,
               name: "pincode",
-              hintText: "Pincode",
+              hintText: Constants.pincode,
               validators: [
                 FormBuilderValidators.required(
-                  errorText: "Pincode is required",
+                  errorText: Constants.pincodeRequired,
                 ),
                 FormBuilderValidators.numeric(errorText: "Enter valid pincode"),
                 FormBuilderValidators.equalLength(
@@ -180,35 +181,36 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
               context: context,
               buttonTheme: buttonTheme,
               name: "landmark",
-              hintText: "Landmark",
+              hintText: Constants.landmark,
             ),
             SizedBox(height: sl<SizeConfig>().rpx(16)),
 
-            // Seating/Tickets Category Dropdown
-            CustomDropdown<String>(
-              name: "seatingCategory",
-              hintText: "Seating / Tickets Category",
-              buttonTheme: buttonTheme,
-              items: const ["VIP", "General", "Premium", "Economy"],
-              onChanged: (val) => debugPrint("Seating Category: $val"),
+            // Seating/Tickets Cards with AnimatedList
+            AnimatedList(
+              key: _animatedListKey,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              initialItemCount: _seatingEntries.length,
+              itemBuilder: (context, index, animation) {
+                if (index >= _seatingEntries.length) {
+                  return const SizedBox.shrink();
+                }
+                return Padding(
+                  padding: EdgeInsets.only(bottom: sl<SizeConfig>().rpx(16)),
+                  child: _buildSeatingCard(
+                    index,
+                    animation,
+                    _seatingEntries[index],
+                  ),
+                );
+              },
             ),
-            SizedBox(height: sl<SizeConfig>().rpx(16)),
-
-            // No. of Seats/Tickets Dropdown
-            CustomDropdown<String>(
-              name: "noOfSeats",
-              hintText: "No. of Seats / Tickets",
-              buttonTheme: buttonTheme,
-              items: const ["50", "100", "200", "500", "1000", "2000+"],
-              onChanged: (val) => debugPrint("No of Seats: $val"),
-            ),
-            SizedBox(height: sl<SizeConfig>().rpx(8)),
 
             // Add More Link
             GestureDetector(
-              onTap: () {},
+              onTap: _addSeatingCard,
               child: AppTexts(
-                text: "+ Add More",
+                text: Constants.addMore,
                 style: textTheme.body2.copyWith(
                   color: AppColors.blue,
                   fontWeight: FontWeight.w500,
@@ -249,4 +251,35 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
   }
 
   File? getSelectedImage() => _selectedImage;
+
+  void _addSeatingCard() {
+    final newId = _nextId++;
+    _seatingEntries.add(newId);
+    _animatedListKey.currentState?.insertItem(
+      _seatingEntries.length - 1,
+      duration: const Duration(milliseconds: 300),
+    );
+  }
+
+  void _deleteSeatingCard(int index) {
+    final removedItem = _seatingEntries[index];
+    _seatingEntries.removeAt(index);
+    _animatedListKey.currentState?.removeItem(
+      index,
+      (context, animation) => _buildSeatingCard(index, animation, removedItem),
+      duration: const Duration(milliseconds: 300),
+    );
+  }
+
+  Widget _buildSeatingCard(int index, Animation<double> animation, int id) {
+    final buttonTheme = Theme.of(context).extension<AppButtonTheme>()!;
+    return SeatingCard(
+      key: ValueKey(id),
+      index: index,
+      buttonTheme: buttonTheme,
+      showDelete: _seatingEntries.length > 1,
+      onDelete: () => _deleteSeatingCard(index),
+      animation: animation,
+    );
+  }
 }

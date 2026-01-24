@@ -11,4 +11,11 @@ class ApiUrls {
 
   // Contacts
   static const String contact = '$baseUrl/contact';
+
+  // Location
+  static const String countries = '$baseUrl/countries';
+  static String getStateList(String countryCode) =>
+      '$baseUrl/state-list/$countryCode';
+  static String getCityList(String stateCode) =>
+      '$baseUrl/city-list/$stateCode';
 }

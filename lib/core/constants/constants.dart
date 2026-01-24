@@ -155,4 +155,39 @@ class Constants {
   static const listedVenue = 'assets/svg/listed_venues.svg';
   static const gradientBall = 'assets/svg/gradientball.svg';
   static const noteText = 'assets/svg/notetext.svg';
+
+  // Location Selection
+  static const selectYourCity = 'Select Your City';
+  static const findEventsNearYou = 'Find Events Near You';
+  static const selectLocationDescription =
+      'Select your country, state, and city to discover amazing events happening in your area.';
+  static const country = 'Country';
+  static const selectCountry = 'Select Country';
+  static const state = 'State';
+  static const selectState = 'Select State';
+  static const city = 'City';
+  static const selectCity = 'Select City';
+
+  // Venue Creation (Additional strings)
+  static const venueDescription = 'Venue Description';
+  static const descriptionRequired = 'Description is required';
+  static const addressLine1 = 'Address Line 1';
+  static const addressRequired = 'Address is required';
+  static const addressLine2 = 'Address Line 2';
+  static const pincode = 'Pincode';
+  static const pincodeRequired = 'Pincode is required';
+  static const landmark = 'Landmark';
+  static const seatingCategory = 'Seating Category';
+  static const noOfSeats = 'No. of Seats / Tickets';
+  static const vip = 'VIP';
+  static const general = 'General';
+  static const premium = 'Premium';
+  static const economy = 'Economy';
+  static const addMore = '+ Add More';
+  static const seatOption50 = '50';
+  static const seatOption100 = '100';
+  static const seatOption200 = '200';
+  static const seatOption500 = '500';
+  static const seatOption1000 = '1000';
+  static const seatOption2000Plus = '2000+';
 }

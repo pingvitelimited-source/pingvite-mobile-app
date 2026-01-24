@@ -220,13 +220,9 @@ class _LocationAutocompleteFieldState extends State<LocationAutocompleteField> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: sl<SizeConfig>().rpx(16),
-                vertical: sl<SizeConfig>().rpx(4),
-              ),
               decoration: BoxDecoration(
-                color: buttonTheme.fillColor,
-                borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(8)),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(sl<SizeConfig>().rpx(12)),
                 border: Border.all(
                   color: widget.errorText != null
                       ? Colors.red
@@ -241,12 +237,20 @@ class _LocationAutocompleteFieldState extends State<LocationAutocompleteField> {
                       controller: _controller,
                       focusNode: _focusNode,
                       enabled: widget.enabled,
-                      style: textTheme.body,
+                      style: textTheme.body.copyWith(
+                        color: AppColors.lightPrimaryText,
+                      ),
                       decoration: InputDecoration(
                         hintText: widget.hintText,
-                        hintStyle: textTheme.body,
+                        hintStyle: textTheme.body.copyWith(
+                          color: AppColors.lightSecondaryText,
+                        ),
                         border: InputBorder.none,
                         isDense: true,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: sl<SizeConfig>().rpx(16),
+                          vertical: sl<SizeConfig>().rpx(12),
+                        ),
                       ),
                       onChanged: (value) {
                         _searchLocations(value);
