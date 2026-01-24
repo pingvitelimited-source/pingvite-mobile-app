@@ -513,6 +513,7 @@ class TextFieldFactory {
     VoidCallback? onSubmitted,
     int? maxLines = 1,
     bool enabled = true,
+    bool readOnly = false,
     String? initialValue,
     ValueChanged<String?>? onChanged,
   }) {
@@ -529,6 +530,7 @@ class TextFieldFactory {
       onSubmitted: onSubmitted,
       maxLines: maxLines,
       enabled: enabled,
+      readOnly: readOnly,
       initialValue: initialValue,
       onChanged: onChanged,
     );

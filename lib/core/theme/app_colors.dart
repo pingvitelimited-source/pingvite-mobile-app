@@ -44,4 +44,18 @@ class AppColors {
   // Section header colors
   static const Color lightSectionBackground = Color(0xFFF5F5F5);
   static const Color darkSectionBackground = Color(0xFF2A2A2A);
+
+  // Blue color opacity variants
+  static Color get blueLightAlpha08 => blue.withValues(alpha: 0.08);
+  static Color get blueLightAlpha12 => blue.withValues(alpha: 0.12);
+  static Color get blueLightAlpha15 => blue.withValues(alpha: 0.15);
+  static Color get blueLightAlpha25 => blue.withValues(alpha: 0.25);
+
+  // Icon badge backgrounds
+  static const Color iconBadgeBackground = Color(0xFFE3F2FD);
+  static const Color iconBadgeBackgroundDark = Color(0xFF1A237E);
+
+  // Card border color
+  static const Color cardBorderLight = Color(0xFFE0E0E0);
+  static const Color cardBorderDark = Color(0xFF424242);
 }

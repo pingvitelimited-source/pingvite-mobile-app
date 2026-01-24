@@ -5,6 +5,7 @@ class LocationSuggestionModel extends LocationSuggestion {
     required super.id,
     required super.name,
     required super.type,
+    super.code,
   });
 
   factory LocationSuggestionModel.fromJson(Map<String, dynamic> json) {
@@ -12,10 +13,11 @@ class LocationSuggestionModel extends LocationSuggestion {
       id: json['id']?.toString() ?? '',
       name: json['name'] ?? '',
       type: json['type'] ?? '',
+      code: json['code'],
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {'id': id, 'name': name, 'type': type};
+    return {'id': id, 'name': name, 'type': type, 'code': code};
   }
 }
