@@ -14,6 +14,7 @@ import 'package:pingvite/features/auth/signin/presentation/bloc/signin_bloc.dart
 import 'package:pingvite/features/auth/signin/presentation/bloc/signin_event.dart';
 import 'package:pingvite/features/auth/signin/presentation/bloc/signin_state.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
+import 'package:pingvite/core/utils/session_manager.dart';
 
 class LoginForm extends StatefulWidget {
   final int? authType;
@@ -55,8 +56,10 @@ class _LoginFormState extends State<LoginForm> {
     return BlocProvider(
       create: (context) => sl<SigninBloc>(),
       child: BlocConsumer<SigninBloc, SigninState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is SigninSuccess) {
+            // Persist login session
+            await SessionManager.saveSession();
             // Clear any existing snackbars before showing success message
             ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(context).showSnackBar(

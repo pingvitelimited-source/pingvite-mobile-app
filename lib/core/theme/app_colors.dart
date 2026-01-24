@@ -26,7 +26,7 @@ class AppColors {
   static const Color red = Colors.red;
   static const Color blue = Color(0xFF61A0FF);
   static const Color homebackground = Color(0xFFF0FAFE);
-  static const Color greenColor = Color(0x004BD670);
+  static const Color greenColor = Color(0xFF4BD670);
   static const Color circleColor1 = Color(0xFFBD0D6A);
   static const Color labelPink = Color(0xFFBD0D6A);
   static const Color labelBlue = Color(0xFF1F78D5);

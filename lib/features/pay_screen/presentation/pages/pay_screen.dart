@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/factory/app_button_factory.dart';
+import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/utils/event_title.dart';
 import 'package:pingvite/core/utils/size_extension.dart';
@@ -10,6 +11,7 @@ import 'package:pingvite/features/dashboard/presentation/widgets/custom_appbar.d
 import 'package:pingvite/features/pay_screen/domain/pay_screen_args.dart';
 import 'package:pingvite/features/pay_screen/presentation/widgets/pay_summary_row.dart';
 import 'package:pingvite/features/pay_screen/presentation/widgets/pay_ticket_list.dart';
+import 'package:pingvite/features/payment_success/data/models/transaction_details_model.dart';
 
 class PayScreen extends StatelessWidget {
   final PayScreenArgs args;
@@ -71,7 +73,15 @@ class PayScreen extends StatelessWidget {
                   type: ButtonType.gradient,
                   title: Constants.pay,
                   width: 200.rpx,
-                  onPressed: () {},
+                  onPressed: () {
+                    // Navigate to payment success screen with dummy data
+                    final transactionDetails =
+                        TransactionDetailsModel.getDummyData();
+                    Navigator.of(context).pushNamed(
+                      AppRoutes.paymentSuccess,
+                      arguments: transactionDetails,
+                    );
+                  },
                 ),
               ),
               Gap(24.gap),

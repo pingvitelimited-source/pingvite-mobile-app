@@ -30,6 +30,9 @@ Future<void> initDependecies() async {
 
   // Forgot Password Feature
   _initForgotPassword();
+
+  // Payment Feature
+  _initPayment();
 }
 
 void _initSignup() {
@@ -154,4 +157,9 @@ void _initForgotPassword() {
   // Blocs
   sl.registerFactory<VerifyUserBloc>(() => VerifyUserBloc());
   sl.registerFactory<ResetPasswordBloc>(() => ResetPasswordBloc());
+}
+
+void _initPayment() {
+  // Bloc
+  sl.registerFactory<PaymentBloc>(() => PaymentBloc());
 }

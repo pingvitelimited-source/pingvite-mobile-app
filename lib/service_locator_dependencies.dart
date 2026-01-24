@@ -38,5 +38,6 @@ import 'package:pingvite/features/forgot_password/domain/usecases/verify_user_us
 import 'package:pingvite/features/forgot_password/domain/usecases/reset_password_usecase.dart';
 import 'package:pingvite/features/forgot_password/presentation/bloc/verify_user_bloc.dart';
 import 'package:pingvite/features/forgot_password/presentation/bloc/reset_password_bloc.dart';
+import 'package:pingvite/features/payment_success/presentation/bloc/payment_bloc.dart';
 
 part 'service_locator.dart';

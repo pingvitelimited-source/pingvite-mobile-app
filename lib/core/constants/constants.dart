@@ -33,6 +33,13 @@ class Constants {
   static const total = "Total";
   static const qty = "Qty";
   static const rupeeSymbol = "₹";
+  static const gst = "GST";
+
+  // Payment Success Screen
+  static const paymentSuccessful = "Payment Successful";
+  static const transactionSuccessful = "Your transaction is successful";
+  static const transactionId = "Transaction id";
+  static const homeButton = "Home";
 
   static const sampleText =
       "Join us  to connect with like-minded individuals, learn valuable financial concepts, and take control of your investments! Come join us for a fun and informative gathering Whether you're just starting to manage your money or looking to expand your financial knowledge, this event is perfect for you. Learn tips and tricks for personal finance, connect with like-minded individuals, and expand your network. Don/t miss out on this opportunity to grow your financial skills while enjoying a cup of coffee. See you there!";
@@ -190,4 +197,5 @@ class Constants {
   static const seatOption500 = '500';
   static const seatOption1000 = '1000';
   static const seatOption2000Plus = '2000+';
+  static const verifyIcon = 'assets/png/verify.png';
 }
