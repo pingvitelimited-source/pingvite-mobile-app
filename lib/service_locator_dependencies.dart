@@ -39,5 +39,14 @@ import 'package:pingvite/features/forgot_password/domain/usecases/reset_password
 import 'package:pingvite/features/forgot_password/presentation/bloc/verify_user_bloc.dart';
 import 'package:pingvite/features/forgot_password/presentation/bloc/reset_password_bloc.dart';
 import 'package:pingvite/features/payment_success/presentation/bloc/payment_bloc.dart';
+import 'package:pingvite/features/auth/otp_screen/data/source/send_otp_api_service.dart';
+import 'package:pingvite/features/auth/otp_screen/data/source/verify_otp_api_service.dart';
+import 'package:pingvite/features/auth/otp_screen/data/repository/send_otp_repository_impl.dart';
+import 'package:pingvite/features/auth/otp_screen/data/repository/verify_otp_repository_impl.dart';
+import 'package:pingvite/features/auth/otp_screen/domain/repository/send_otp_repository.dart';
+import 'package:pingvite/features/auth/otp_screen/domain/repository/verify_otp_repository.dart';
+import 'package:pingvite/features/auth/otp_screen/domain/usecase/send_otp_usecase.dart';
+import 'package:pingvite/features/auth/otp_screen/domain/usecase/verify_otp_usecase.dart';
+import 'package:pingvite/features/auth/otp_screen/presentation/bloc/otp_bloc/otp_bloc.dart';
 
 part 'service_locator.dart';

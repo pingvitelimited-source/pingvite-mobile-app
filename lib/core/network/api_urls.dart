@@ -18,4 +18,9 @@ class ApiUrls {
       '$baseUrl/state-list/$countryCode';
   static String getCityList(String stateCode) =>
       '$baseUrl/city-list/$stateCode';
+
+  // OTP
+  static String sendRegisterOtp(String email) =>
+      '$baseUrl/send-otp/register/$email';
+    static const String verifyOtp = '$baseUrl/verify-otp';
 }

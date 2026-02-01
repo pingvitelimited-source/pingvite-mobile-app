@@ -31,6 +31,9 @@ Future<void> initDependecies() async {
   // Forgot Password Feature
   _initForgotPassword();
 
+  // OTP Feature
+  _initOtp();
+
   // Payment Feature
   _initPayment();
 }
@@ -162,4 +165,27 @@ void _initForgotPassword() {
 void _initPayment() {
   // Bloc
   sl.registerFactory<PaymentBloc>(() => PaymentBloc());
+}
+
+void _initOtp() {
+  // API Services
+  sl.registerLazySingleton<SendOtpApiService>(() => SendOtpApiServiceImpl());
+  sl.registerLazySingleton<VerifyOtpApiService>(
+    () => VerifyOtpApiServiceImpl(),
+  );
+
+  // Repositories
+  sl.registerLazySingleton<SendOtpRepository>(() => SendOtpRepositoryImpl());
+  sl.registerLazySingleton<VerifyOtpRepository>(
+    () => VerifyOtpRepositoryImpl(),
+  );
+
+  // UseCases
+  sl.registerLazySingleton<SendOtpUsecase>(() => SendOtpUsecase());
+  sl.registerLazySingleton<VerifyOtpUsecase>(() => VerifyOtpUsecase());
+
+  // Bloc
+  sl.registerFactory<SendOtpBloc>(
+    () => SendOtpBloc(sendOtpUsecase: sl(), verifyOtpUsecase: sl()),
+  );
 }
