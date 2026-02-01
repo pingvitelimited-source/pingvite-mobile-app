@@ -90,8 +90,9 @@ class AppRoutes {
         final args = settings.arguments as PayScreenArgs;
         return MaterialPageRoute(builder: (_) => PayScreen(args: args));
       case locationSelection:
+        final isFirstTime = settings.arguments as bool? ?? false;
         return MaterialPageRoute(
-          builder: (_) => const LocationSelectionScreen(),
+          builder: (_) => LocationSelectionScreen(isFirstTime: isFirstTime),
         );
       case paymentSuccess:
         final transactionDetails = settings.arguments as TransactionDetails;

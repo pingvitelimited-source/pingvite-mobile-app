@@ -3,6 +3,7 @@ import 'package:pingvite/core/network/dio_client.dart';
 import 'package:pingvite/features/location_search/data/models/country_model.dart';
 import 'package:pingvite/features/location_search/data/models/location_suggestion_model.dart';
 import 'package:pingvite/features/location_search/data/models/state_model.dart';
+import 'package:pingvite/features/location_search/data/models/city_model.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
 abstract class LocationSearchDataSource {
@@ -117,7 +118,44 @@ class LocationSearchDataSourceImpl implements LocationSearchDataSource {
     String query,
     String stateId,
   ) async {
-    // For now, return empty list
-    return [];
+    try {
+      // Fetch from API using state id
+      final response = await sl<DioClient>().get(ApiUrls.getCityList(stateId));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = response.data as List<dynamic>;
+
+        // Convert API response to CityModel
+        final cities = data
+            .map((item) => CityModel.fromJson(item as Map<String, dynamic>))
+            .toList();
+
+        // Convert to LocationSuggestionModel for UI layer
+        final suggestions = cities
+            .map(
+              (city) => LocationSuggestionModel(
+                id: city.id,
+                name: city.name,
+                type: 'city',
+              ),
+            )
+            .toList();
+
+        // Filter by query if provided
+        if (query.isEmpty) {
+          return suggestions;
+        }
+
+        return suggestions
+            .where(
+              (city) => city.name.toLowerCase().contains(query.toLowerCase()),
+            )
+            .toList();
+      }
+
+      return [];
+    } catch (e) {
+      return [];
+    }
   }
 }

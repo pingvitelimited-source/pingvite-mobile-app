@@ -4,16 +4,16 @@ import 'package:gap/gap.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
-import 'package:pingvite/features/location_selection/presentation/widgets/city_list_widget.dart';
 import 'package:pingvite/features/location_selection/presentation/widgets/location_selection_header.dart';
 import 'package:pingvite/features/location_selection/presentation/widgets/location_selection_form.dart';
 import 'package:pingvite/features/location_search/domain/entities/location_suggestion.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
-import 'package:pingvite/features/location_selection/data/models/location_model.dart';
 import 'package:pingvite/features/location_selection/presentation/bloc/location_bloc.dart';
 
 class LocationSelectionScreen extends StatefulWidget {
-  const LocationSelectionScreen({super.key});
+  final bool isFirstTime;
+
+  const LocationSelectionScreen({super.key, this.isFirstTime = false});
 
   @override
   State<LocationSelectionScreen> createState() =>
@@ -21,8 +21,8 @@ class LocationSelectionScreen extends StatefulWidget {
 }
 
 class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
-  List<CityModel> citiesList = [];
   LocationSuggestion? _selectedState;
+  LocationSuggestion? _selectedCity;
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +30,9 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return PopScope(
-      canPop: true,
+      canPop: !widget.isFirstTime,
       onPopInvokedWithResult: (didPop, result) {
-        if (didPop) {
-          return;
-        }
-        Navigator.pop(context, false);
+        // Prevent back navigation only for first-time users
       },
       child: Scaffold(
         backgroundColor: isDarkMode
@@ -46,13 +43,7 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
               ? AppColors.darkBackground
               : AppColors.lightbackground,
           elevation: 0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios_new,
-              color: isDarkMode ? AppColors.white : AppColors.black,
-            ),
-            onPressed: () => Navigator.pop(context, false),
-          ),
+          automaticallyImplyLeading: !widget.isFirstTime,
           title: AppTexts(
             text: 'Select Your City',
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
@@ -66,8 +57,8 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
           listener: (context, state) {
             if (state is CitySelected) {
               Navigator.pop(context, {
-                'city': state.cityName,
-                'state': state.stateName,
+                'city': _selectedCity?.name ?? state.cityName,
+                'state': _selectedState?.name ?? state.stateName,
               });
             }
           },
@@ -81,27 +72,35 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
                   LocationSelectionHeader(isDarkMode: isDarkMode),
                   Gap(sizeConfig.rpx(30)),
 
-                  // Location Selection Form
+                  // Location Selection Form with Autocomplete for Country, State, City
                   LocationSelectionForm(
                     isDarkMode: isDarkMode,
-                    onCountrySelected: (_) {},
+                    onCountrySelected: (country) {
+                      setState(() {
+                        // Country selected, state will be enabled
+                      });
+                    },
                     onStateSelected: (state) {
                       setState(() {
                         _selectedState = state;
-                        if (_selectedState != null) {
-                          // Fetch cities for selected state
-                          citiesList = [];
-                        }
                       });
+                    },
+                    onCitySelected: (city) {
+                      setState(() {
+                        _selectedCity = city;
+                      });
+                      // Auto-submit when city is selected
+                      if (city != null) {
+                        context.read<LocationBloc>().add(
+                          SelectCityEvent(
+                            cityName: city.name,
+                            stateName: _selectedState?.name ?? 'Unknown',
+                          ),
+                        );
+                      }
                     },
                   ),
                   Gap(sizeConfig.rpx(30)),
-
-                  // Cities Section
-                  if (_selectedState != null && citiesList.isEmpty)
-                    _buildLoadingCities(context)
-                  else if (_selectedState != null && citiesList.isNotEmpty)
-                    _buildCitiesSection(context, isDarkMode),
                 ],
               ),
             ),
@@ -110,66 +109,4 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
       ),
     );
   }
-
-  Widget _buildLoadingCities(BuildContext context) {
-    final sizeConfig = sl<SizeConfig>();
-
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: sizeConfig.rpx(40)),
-      child: const Center(
-        child: CircularProgressIndicator(color: AppColors.blue),
-      ),
-    );
-  }
-
-  Widget _buildCitiesSection(BuildContext context, bool isDarkMode) {
-    final sizeConfig = sl<SizeConfig>();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Cities Header
-        Row(
-          children: [
-            Container(
-              padding: EdgeInsets.all(sizeConfig.rpx(8)),
-              decoration: BoxDecoration(
-                color: AppColors.blue.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(sizeConfig.rpx(8)),
-              ),
-              child: Icon(
-                Icons.location_city,
-                color: AppColors.blue,
-                size: sizeConfig.rpx(20),
-              ),
-            ),
-            Gap(sizeConfig.rpx(10)),
-            AppTexts(
-              text: 'Select City',
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: isDarkMode ? AppColors.white : AppColors.black,
-                letterSpacing: 0.2,
-              ),
-            ),
-          ],
-        ),
-        Gap(sizeConfig.rpx(16)),
-        CityListWidget(
-          cities: citiesList,
-          stateName: _selectedState?.name ?? 'Unknown',
-          onCitySelected: (cityName) {
-            context.read<LocationBloc>().add(
-              SelectCityEvent(
-                cityName: cityName,
-                stateName: _selectedState?.name ?? 'Unknown',
-              ),
-            );
-          },
-        ),
-      ],
-    );
-  }
 }
-
-// Old methods removed - using new widgets instead

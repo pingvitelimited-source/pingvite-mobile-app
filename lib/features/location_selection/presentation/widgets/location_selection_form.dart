@@ -12,12 +12,14 @@ class LocationSelectionForm extends StatefulWidget {
   final bool isDarkMode;
   final Function(LocationSuggestion?) onCountrySelected;
   final Function(LocationSuggestion?) onStateSelected;
+  final Function(LocationSuggestion?) onCitySelected;
 
   const LocationSelectionForm({
     super.key,
     required this.isDarkMode,
     required this.onCountrySelected,
     required this.onStateSelected,
+    required this.onCitySelected,
   });
 
   @override
@@ -26,7 +28,9 @@ class LocationSelectionForm extends StatefulWidget {
 
 class _LocationSelectionFormState extends State<LocationSelectionForm> {
   LocationSuggestion? _selectedCountry;
+  LocationSuggestion? _selectedState;
   bool _isStateEnabled = false;
+  bool _isCityEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +72,34 @@ class _LocationSelectionFormState extends State<LocationSelectionForm> {
             locationType: 'state',
             parentId: _selectedCountry?.code,
             enabled: _isStateEnabled,
-            onSelected: widget.onStateSelected,
+            onSelected: (state) {
+              setState(() {
+                _selectedState = state;
+                _isCityEnabled = state != null;
+              });
+              widget.onStateSelected(state);
+            },
+          ),
+        ),
+        Gap(sizeConfig.rpx(24)),
+
+        // City Section
+        _buildSectionHeader(
+          context,
+          Constants.city,
+          Icons.location_city,
+          isEnabled: _isCityEnabled,
+        ),
+        Gap(sizeConfig.rpx(12)),
+        Opacity(
+          opacity: _isCityEnabled ? 1.0 : 0.6,
+          child: LocationAutocompleteField(
+            name: "city_selection",
+            hintText: Constants.selectCity,
+            locationType: 'city',
+            parentId: _selectedState?.id,
+            enabled: _isCityEnabled,
+            onSelected: widget.onCitySelected,
           ),
         ),
       ],
