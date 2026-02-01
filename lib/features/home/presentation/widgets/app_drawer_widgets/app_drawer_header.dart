@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pingvite/core/constants/constants.dart';
+import 'package:pingvite/core/custom_widgets/app_images.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
@@ -8,7 +10,9 @@ import 'package:pingvite/core/services/secure_storage_service.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
 
 class AppDrawerHeader extends StatefulWidget {
-  const AppDrawerHeader({super.key});
+  final VoidCallback? onSegmentTap;
+
+  const AppDrawerHeader({super.key, this.onSegmentTap});
 
   @override
   State<AppDrawerHeader> createState() => _AppDrawerHeaderState();
@@ -52,11 +56,36 @@ class _AppDrawerHeaderState extends State<AppDrawerHeader> {
         ),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: AppTexts(text: 'Welcome, $_userName', style: textTheme.bold),
+            child: AppTexts(
+              text: Constants.drawerWelcomePrefix + _userName,
+              style: textTheme.bold,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
+          const SizedBox(width: 8),
+          if (widget.onSegmentTap != null)
+            GestureDetector(
+              onTap: widget.onSegmentTap,
+              child: Container(
+                width: 34,
+                height: 34,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.18),
+                  shape: BoxShape.circle,
+                ),
+                child: AppImages.svgIcon(
+                  context,
+                  Constants.toggleIcon,
+                  25,
+                  25,
+                  AppColors.darkPrimaryText,
+                ),
+              ),
+            ),
+          const SizedBox(width: 10),
           GestureDetector(
             onTap: () => Navigator.pop(context),
             child: const Icon(Icons.close, color: AppColors.darkPrimaryText),
