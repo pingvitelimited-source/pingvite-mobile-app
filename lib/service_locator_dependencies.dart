@@ -19,6 +19,11 @@ import 'package:pingvite/features/contacts/data/repository/contact_repository_im
 import 'package:pingvite/features/contacts/domain/repository/contact_repository.dart';
 import 'package:pingvite/features/contacts/domain/usecases/create_contact.dart';
 import 'package:pingvite/features/contacts/presentation/bloc/create_contact_bloc.dart';
+import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/data/datasources/contact_list_api_service.dart';
+import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/data/repositories/contact_list_repository_impl.dart';
+import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/domain/repositories/contact_list_repository.dart';
+import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/domain/usecases/get_contact_list_usecase.dart';
+import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/bloc/contact_list_bloc.dart';
 import 'package:pingvite/features/location_selection/data/repositories/location_repository.dart';
 import 'package:pingvite/features/location_selection/presentation/bloc/location_bloc.dart';
 import 'package:pingvite/features/location_search/data/datasources/location_search_datasource.dart';

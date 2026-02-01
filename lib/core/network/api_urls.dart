@@ -11,6 +11,7 @@ class ApiUrls {
 
   // Contacts
   static const String contact = '$baseUrl/contact';
+  static String getContactList(int userId) => '$baseUrl/contact-list/$userId';
 
   // Location
   static const String countries = '$baseUrl/countries';

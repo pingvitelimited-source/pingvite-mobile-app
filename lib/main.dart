@@ -9,6 +9,8 @@ import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/features/auth/signup/presentation/bloc/signup_bloc.dart';
 import 'package:pingvite/features/home/presentation/pages/home_page.dart';
 import 'package:pingvite/features/inital_screen/presentation/pages/initial_page.dart';
+import 'package:pingvite/features/location_selection/data/repositories/location_repository.dart';
+import 'package:pingvite/features/location_selection/presentation/pages/location_selection_screen.dart';
 import 'package:pingvite/features/location_search/presentation/bloc/location_search_bloc.dart';
 import 'package:pingvite/features/location_selection/presentation/bloc/location_bloc.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
@@ -29,6 +31,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool? _isLoggedIn;
+  bool? _isLocationSelected;
 
   @override
   void initState() {
@@ -38,8 +41,23 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _checkLoginStatus() async {
     final isLoggedIn = await SessionManager.isLoggedIn();
+    bool isLocationSelected = false;
+
+    // If user is logged in, check if they've selected a location
+    if (isLoggedIn) {
+      try {
+        final locationRepository = sl<LocationRepository>();
+        isLocationSelected = await locationRepository.isLocationSaved();
+      } catch (e) {
+        debugPrint('Error checking location: $e');
+        // If error, treat as not selected - show location selection
+        isLocationSelected = false;
+      }
+    }
+
     setState(() {
       _isLoggedIn = isLoggedIn;
+      _isLocationSelected = isLocationSelected;
     });
   }
 
@@ -78,10 +96,26 @@ class _MyAppState extends State<MyApp> {
 
   Widget _buildHome(ThemeController themeController) {
     // Show empty scaffold while loading (native splash still visible)
-    if (!themeController.isInitialized || _isLoggedIn == null) {
+    if (!themeController.isInitialized ||
+        _isLoggedIn == null ||
+        _isLocationSelected == null) {
       return const Scaffold(body: SizedBox.shrink());
     }
 
-    return _isLoggedIn! ? const HomePage() : InitialPage();
+    // Not logged in - show initial page
+    if (!_isLoggedIn!) {
+      return const InitialPage();
+    }
+
+    // Logged in but no location selected - show location selection
+    if (!_isLocationSelected!) {
+      return BlocProvider<LocationBloc>(
+        create: (context) => sl<LocationBloc>(),
+        child: const LocationSelectionScreen(),
+      );
+    }
+
+    // Logged in with location selected - show home
+    return const HomePage();
   }
 }
