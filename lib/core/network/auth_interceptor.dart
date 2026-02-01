@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pingvite/core/network/api_urls.dart';
 import 'package:pingvite/core/utils/session_manager.dart';
@@ -95,20 +96,27 @@ class AuthInterceptor extends Interceptor {
     try {
       final refreshToken = await secureStorage.read(key: 'refresh_token');
 
-      if (refreshToken == null) {
+      if (refreshToken == null || refreshToken.isEmpty) {
         return false;
       }
 
       final response = await dio.post(
         ApiUrls.refreshToken,
         data: {'refresh_token': refreshToken},
+        options: Options(
+          // Prevent infinite loops - don't add auth header to refresh token request
+          headers: {'Authorization': ''},
+        ),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final newToken = response.data['token'];
         final newRefreshToken = response.data['refresh_token'];
 
-        if (newToken != null && newRefreshToken != null) {
+        if (newToken != null &&
+            newToken.isNotEmpty &&
+            newRefreshToken != null &&
+            newRefreshToken.isNotEmpty) {
           await secureStorage.write(key: 'access_token', value: newToken);
           await secureStorage.write(
             key: 'refresh_token',
@@ -120,6 +128,7 @@ class AuthInterceptor extends Interceptor {
 
       return false;
     } catch (e) {
+      debugPrint('Token refresh failed: $e');
       return false;
     }
   }

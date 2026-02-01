@@ -1,20 +1,17 @@
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
-import 'package:pingvite/core/constants/constants.dart';
-import 'package:pingvite/core/constants/enum_tabs.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pingvite/core/custom_widgets/custom_fab.dart';
-import 'package:pingvite/core/custom_widgets/reusable_tab_widget.dart';
-import 'package:pingvite/core/model/tab_item.dart';
-import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/data/contact_list_data.dart';
+import 'package:pingvite/core/utils/jwt_token_decoder.dart';
+import 'package:pingvite/core/services/secure_storage_service.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/data/contact_model.dart';
-import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/data/sample_contacts_data.dart';
+import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/domain/entities/contact_entity.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/widgets/all_contacts_view.dart';
-import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/widgets/all_lists_view.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/widgets/contact_options_dialog.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/create_new_contact/presentation/widgets/create_new_contacts_wrapper.dart';
-import 'package:pingvite/features/bottom_tabs/contacts_screen/create_new_contact_list/presentation/pages/create_new_contact_list_page.dart';
-import 'package:pingvite/features/bottom_tabs/contacts_screen/bulk_upload_contacts/presentation/pages/bulk_upload_contacts_page.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/custom_appbar.dart';
+import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/bloc/contact_list_bloc.dart';
+import 'package:pingvite/service_locator_dependencies.dart';
 
 class ContactsMain extends StatefulWidget {
   const ContactsMain({super.key});
@@ -24,34 +21,98 @@ class ContactsMain extends StatefulWidget {
 }
 
 class _ContactsMainState extends State<ContactsMain> {
-  int _selectedIndex = 0;
-  List<ContactModel> _contactModels = [];
-  List<ContactListData> _contactLists = [];
-
-  static const List<String> _tabs = [
-    Constants.allContacts,
-    Constants.allList,
-    Constants.completed,
-    Constants.draft,
-  ];
+  int _userId = 0;
 
   @override
   void initState() {
     super.initState();
-    _initData();
+    _initUserAndFetchContacts();
   }
 
-  void _initData() {
-    _contactLists = SampleContactsData.contactLists;
-    _contactModels = _prepareContactModels(SampleContactsData.attendees);
+  Future<void> _initUserAndFetchContacts() async {
+    try {
+      final secureStorage = sl<SecureStorageService>();
+      final token = await secureStorage.getAccessToken();
+
+      if (token != null && token.isNotEmpty) {
+        final userId = JwtTokenDecoder.getUserId(token);
+        if (userId != null) {
+          setState(() => _userId = userId);
+          // Fetch contacts using BLoC
+          if (mounted) {
+            context.read<ContactListBloc>().add(
+              FetchContactListEvent(userId: userId),
+            );
+          }
+        }
+      }
+    } catch (e) {
+      debugPrint('Error decoding token: $e');
+    }
   }
 
-  List<ContactModel> _prepareContactModels(
-    List<Map<String, String>> attendees,
-  ) {
-    final models = attendees.map((attendee) {
-      final firstLetter = attendee['name']!.substring(0, 1).toUpperCase();
-      return ContactModel(data: attendee, tagIndex: firstLetter);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const CustomAppBar.withBackButton(title: 'My Contacts'),
+      body: BlocBuilder<ContactListBloc, ContactListState>(
+        builder: (context, state) {
+          if (state is ContactListLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is ContactListSuccess) {
+            return _buildContactsView(state.contacts);
+          } else if (state is ContactListFailure) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Error: ${state.message}'),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<ContactListBloc>().add(
+                        RefreshContactListEvent(userId: _userId),
+                      );
+                    },
+                    child: const Text('Retry'),
+                  ),
+                ],
+              ),
+            );
+          }
+          return const SizedBox.shrink();
+        },
+      ),
+      floatingActionButton: CustomFAB(
+        onPressed: () => _showCreateContactOption(context),
+        child: const Icon(Icons.add, color: Colors.white, size: 28),
+      ),
+    );
+  }
+
+  Widget _buildContactsView(List<Contact> contacts) {
+    if (contacts.isEmpty) {
+      return const Center(child: Text('No contacts found'));
+    }
+
+    // Convert Contact entities to ContactModel for display
+    final contactModels = _convertToContactModels(contacts);
+
+    return AllContactsView(contactModels: contactModels);
+  }
+
+  List<ContactModel> _convertToContactModels(List<Contact> contacts) {
+    final models = contacts.map((contact) {
+      final firstLetter = contact.contactName.substring(0, 1).toUpperCase();
+      return ContactModel(
+        data: {
+          'name': contact.contactName,
+          'email': contact.email,
+          'mobile': contact.mobile,
+          'id': contact.id.toString(),
+        },
+        tagIndex: firstLetter,
+      );
     }).toList();
 
     models.sort((a, b) => a.data['name']!.compareTo(b.data['name']!));
@@ -61,53 +122,7 @@ class _ContactsMainState extends State<ContactsMain> {
     return models;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar.withBackButton(title: 'My Contacts'),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-            child: ReusableTabWidget(
-              style: TabStyle.boxy,
-              showContent: false,
-              tabs: _tabs.map((title) => TabItem(title: title)).toList(),
-              onTabChanged: (index) {
-                setState(() => _selectedIndex = index);
-              },
-            ),
-          ),
-          Expanded(child: _buildTabContent()),
-        ],
-      ),
-      floatingActionButton: CustomFAB(
-        onPressed: () => _showContactOptions(context),
-        child: const Icon(Icons.add, color: Colors.white, size: 28),
-      ),
-    );
-  }
-
-  Widget _buildTabContent() {
-    switch (_tabs[_selectedIndex]) {
-      case Constants.allList:
-        return AllListsView(
-          contactLists: _contactLists,
-          onEdit: _handleEditList,
-          onDelete: _handleDeleteList,
-        );
-      case Constants.allContacts:
-      default:
-        return AllContactsView(contactModels: _contactModels);
-    }
-  }
-
-  void _handleEditList(ContactListData listData) {}
-
-  void _handleDeleteList(ContactListData listData) {}
-
-  Future<void> _showContactOptions(BuildContext context) async {
+  Future<void> _showCreateContactOption(BuildContext context) async {
     final navigator = Navigator.of(context);
     final action = await ContactOptionsDialog.show(context);
     if (action == null || !mounted) return;
@@ -121,14 +136,10 @@ class _ContactsMainState extends State<ContactsMain> {
         );
         break;
       case ContactAction.createList:
-        navigator.push(
-          MaterialPageRoute(builder: (_) => const CreateNewContactListPage()),
-        );
+        // Will add later
         break;
       case ContactAction.bulkUpload:
-        navigator.push(
-          MaterialPageRoute(builder: (_) => const BulkUploadContactsPage()),
-        );
+        // Will add later
         break;
     }
   }

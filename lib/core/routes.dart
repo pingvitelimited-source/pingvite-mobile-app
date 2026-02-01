@@ -7,7 +7,7 @@ import 'package:pingvite/features/auth/otp_screen/presentation/pages/otp_screen.
 import 'package:pingvite/features/auth/signin/presentation/pages/signin_page.dart';
 import 'package:pingvite/features/auth/signup/presentation/pages/signup_screen.dart';
 import 'package:pingvite/features/booking_selection_screen/presentation/pages/booking_selection_page.dart';
-import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/pages/contacts_main.dart';
+import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/pages/contacts_main_page.dart';
 import 'package:pingvite/features/bottom_tabs/venue_screen/presentation/pages/venue_tab.dart';
 import 'package:pingvite/features/create_event_screen/presentation/pages/create_event_screen.dart';
 import 'package:pingvite/features/create_venue_screen/presentation/pages/create_venue_screen.dart';
@@ -64,7 +64,7 @@ class AppRoutes {
       case createVenue:
         return MaterialPageRoute(builder: (_) => const CreateVenueScreen());
       case myContacts:
-        return MaterialPageRoute(builder: (_) => const ContactsMain());
+        return MaterialPageRoute(builder: (_) => const ContactsMainPage());
       case myVenues:
         return MaterialPageRoute(builder: (_) => const VenueTab());
       case forgotPassword:

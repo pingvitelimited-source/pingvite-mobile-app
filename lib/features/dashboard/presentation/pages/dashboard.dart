@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
 import 'package:pingvite/core/theme/theme_controller.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/pages/contacts_main.dart';
+import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/bloc/contact_list_bloc.dart';
 import 'package:pingvite/features/bottom_tabs/events_screen/presentation/pages/event_main.dart';
 import 'package:pingvite/features/bottom_tabs/home_tab/hometab.dart';
 import 'package:pingvite/features/bottom_tabs/venue_screen/presentation/pages/venue_tab.dart';
 import 'package:pingvite/features/dashboard/data/model/navitem.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/app_bottom_navigation.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/custom_appbar.dart';
+import 'package:pingvite/service_locator_dependencies.dart';
 import 'package:provider/provider.dart';
 
 class Dashboard extends StatefulWidget {
@@ -29,12 +32,15 @@ class _DashboardState extends State<Dashboard> {
     NavItem(iconPath: Constants.profile, label: Constants.profileLabel),
   ];
 
-  final _tabs = const <Widget>[
-    Hometab(),
-    ContactsMain(),
-    VenueTab(),
-    EventMain(),
-    _DummyTab(label: 'Profile'),
+  final _tabs = <Widget>[
+    const Hometab(),
+    BlocProvider<ContactListBloc>(
+      create: (context) => sl<ContactListBloc>(),
+      child: const ContactsMain(),
+    ),
+    const VenueTab(),
+    const EventMain(),
+    const _DummyTab(label: 'Profile'),
   ];
 
   void _onNotificationTap() {

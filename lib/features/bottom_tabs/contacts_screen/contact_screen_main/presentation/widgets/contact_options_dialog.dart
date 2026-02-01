@@ -39,7 +39,7 @@ class ContactOptionsDialog extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
-        padding: EdgeInsets.only(left: 80.rpx, right: 20.rpx, bottom: 180.rpx),
+        padding: EdgeInsets.only(left: 80.rpx, right: 25.rpx, bottom: 100.rpx),
         child: Material(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12.rpx),
@@ -55,26 +55,6 @@ class ContactOptionsDialog extends StatelessWidget {
                   text: Constants.createNewContact,
                   style: textTheme.semiBold.copyWith(color: AppColors.black100),
                   action: ContactAction.createContact,
-                ),
-                Divider(
-                  color: AppColors.black100.withValues(alpha: 0.1),
-                  height: 1,
-                ),
-                _buildOption(
-                  context: context,
-                  text: Constants.createNewContactList,
-                  style: textTheme.semiBold.copyWith(color: AppColors.black100),
-                  action: ContactAction.createList,
-                ),
-                Divider(
-                  color: AppColors.black100.withValues(alpha: 0.1),
-                  height: 1,
-                ),
-                _buildOption(
-                  context: context,
-                  text: Constants.bulkUpload,
-                  style: textTheme.semiBold.copyWith(color: AppColors.black100),
-                  action: ContactAction.bulkUpload,
                 ),
               ],
             ),

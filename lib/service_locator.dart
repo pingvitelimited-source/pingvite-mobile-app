@@ -88,17 +88,35 @@ void _initContact() {
     () => ContactRemoteDataSourceImpl(dioClient: sl()),
   );
 
-  // Repository
+  // API Service for Contact List
+  sl.registerLazySingleton<ContactListApiService>(
+    () => ContactListApiServiceImpl(),
+  );
+
+  // Repository for Contact List
+  sl.registerLazySingleton<ContactListRepository>(
+    () => ContactListRepositoryImpl(apiService: sl()),
+  );
+
+  // Repository for Create Contact
   sl.registerLazySingleton<ContactRepository>(
     () => ContactRepositoryImpl(remoteDataSource: sl()),
   );
 
-  // UseCase
+  // UseCase for Contact List
+  sl.registerLazySingleton<GetContactListUseCase>(
+    () => GetContactListUseCase(),
+  );
+
+  // UseCase for Create Contact
   sl.registerLazySingleton<CreateContactUseCase>(
     () => CreateContactUseCase(sl()),
   );
 
-  // Bloc
+  // Bloc for Contact List
+  sl.registerFactory<ContactListBloc>(() => ContactListBloc());
+
+  // Bloc for Create Contact
   sl.registerFactory<CreateContactBloc>(
     () => CreateContactBloc(createContactUseCase: sl()),
   );

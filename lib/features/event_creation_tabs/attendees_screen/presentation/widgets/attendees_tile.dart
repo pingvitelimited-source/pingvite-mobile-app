@@ -6,6 +6,7 @@ import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_card_theme.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
+import 'package:pingvite/core/utils/size_extension.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
 import 'package:pingvite/features/event_creation_tabs/attendees_screen/presentation/widgets/tag_label.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
@@ -40,70 +41,89 @@ class AttendeeTile extends StatelessWidget {
               ? AppColors.darkSecondaryText
               : cardTheme.sectionLabelColor.withValues(alpha: 0.7));
 
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// Profile Image
-            CircleAvatar(
-              radius: sl<SizeConfig>().rpx(36),
-              backgroundImage: AssetImage(attendee["image"]!),
-            ),
-            const SizedBox(width: 12),
-
-            /// Name + Email + Tag
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TagLabel(tag: attendee["tag"]!),
-                  const SizedBox(height: 6),
-                  AppTexts(
-                    text: attendee["name"]!,
-                    style: textTheme.subheading.copyWith(color: textColor),
-                  ),
-                  const SizedBox(height: 4),
-                  AppTexts(
-                    text: attendee["email"]!,
-                    style: textTheme.accent.copyWith(color: secondaryTextColor),
-                  ),
-                ],
+    return Padding(
+      padding: EdgeInsets.only(top: 20.rpx),
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /// Profile Image
+              CircleAvatar(
+                radius: sl<SizeConfig>().rpx(36),
+                backgroundImage: attendee["image"] != null
+                    ? AssetImage(attendee["image"]!)
+                    : null,
+                backgroundColor: AppColors.circleColor1,
+                child: attendee["image"] == null
+                    ? const Icon(Icons.person, color: Colors.white)
+                    : null,
               ),
-            ),
+              const SizedBox(width: 12),
 
-            /// Delete Icon
-            Visibility(
-              visible: isVisible,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  right: sl<SizeConfig>().rpx(20),
-                  top: sl<SizeConfig>().rpx(25),
-                ),
-                child: AppImages.pngIcon(
-                  context,
-                  Constants.delete,
-                  22,
-                  22,
-                  color: AppColors.lightGradient,
+              /// Name + Email + Tag
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (attendee["tag"] != null)
+                      TagLabel(tag: attendee["tag"]!),
+                    if (attendee["tag"] != null) const SizedBox(height: 6),
+                    AppTexts(
+                      text: attendee["name"] ?? '--',
+                      style: textTheme.subheading.copyWith(color: textColor),
+                    ),
+                    const SizedBox(height: 4),
+                    AppTexts(
+                      text: attendee["email"] ?? '--',
+                      style: textTheme.accent.copyWith(
+                        color: secondaryTextColor,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    AppTexts(
+                      text: attendee["mobile"] ?? '--',
+                      style: textTheme.accent.copyWith(
+                        color: secondaryTextColor,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
-        ),
 
-        const SizedBox(height: 12),
+              /// Delete Icon
+              Visibility(
+                visible: isVisible,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    right: sl<SizeConfig>().rpx(20),
+                    top: sl<SizeConfig>().rpx(25),
+                  ),
+                  child: AppImages.pngIcon(
+                    context,
+                    Constants.delete,
+                    22,
+                    22,
+                    color: AppColors.lightGradient,
+                  ),
+                ),
+              ),
+            ],
+          ),
 
-        /// Dashed Divider
-        const DottedLine(
-          dashLength: 6,
-          dashGapLength: 4,
-          lineThickness: 1,
-          dashColor: AppColors.unSelectedTabText,
-        ),
+          const SizedBox(height: 12),
 
-        const SizedBox(height: 12),
-      ],
+          /// Dashed Divider
+          const DottedLine(
+            dashLength: 6,
+            dashGapLength: 4,
+            lineThickness: 1,
+            dashColor: AppColors.unSelectedTabText,
+          ),
+
+          const SizedBox(height: 12),
+        ],
+      ),
     );
   }
 }
