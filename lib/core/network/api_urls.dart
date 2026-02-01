@@ -16,11 +16,10 @@ class ApiUrls {
   static const String countries = '$baseUrl/countries';
   static String getStateList(String countryCode) =>
       '$baseUrl/state-list/$countryCode';
-  static String getCityList(String stateCode) =>
-      '$baseUrl/city-list/$stateCode';
+  static String getCityList(String stateId) => '$baseUrl/cities/$stateId';
 
   // OTP
   static String sendRegisterOtp(String email) =>
       '$baseUrl/send-otp/register/$email';
-    static const String verifyOtp = '$baseUrl/verify-otp';
+  static const String verifyOtp = '$baseUrl/verify-otp';
 }

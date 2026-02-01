@@ -30,6 +30,7 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
 
   // Location selections
   LocationSuggestion? _selectedCountry;
+  LocationSuggestion? _selectedState;
   bool _isStateSelected = false;
 
   // Seating entries
@@ -66,7 +67,7 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
               context: context,
               buttonTheme: buttonTheme,
               name: "venueName",
-              hintText: Constants.venueNameRequired,
+              hintText: Constants.venueName,
               validators: [
                 FormBuilderValidators.required(
                   errorText: Constants.venueNameRequired,
@@ -118,6 +119,7 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
               onSelected: (country) {
                 setState(() {
                   _selectedCountry = country;
+                  _selectedState = null;
                   _isStateSelected = false;
                   _countryError = null;
                   _stateError = null;
@@ -137,6 +139,7 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
               errorText: _stateError,
               onSelected: (state) {
                 setState(() {
+                  _selectedState = state;
                   _isStateSelected = true;
                   _stateError = null;
                 });
@@ -144,16 +147,18 @@ class _VenueCreateFormState extends State<VenueCreateForm> {
             ),
             SizedBox(height: sl<SizeConfig>().rpx(16)),
 
-            // City
-            TextFieldFactory.custom(
-              context: context,
-              buttonTheme: buttonTheme,
+            // City Autocomplete
+            LocationAutocompleteField(
               name: "city",
               hintText: Constants.selectCity,
-              readOnly: !_isStateSelected,
-              validators: [
-                FormBuilderValidators.required(errorText: Constants.selectCity),
-              ],
+              locationType: 'city',
+              parentId: _selectedState?.id,
+              enabled: _isStateSelected,
+              onSelected: (city) {
+                setState(() {
+                  _isStateSelected = true;
+                });
+              },
             ),
             SizedBox(height: sl<SizeConfig>().rpx(16)),
 

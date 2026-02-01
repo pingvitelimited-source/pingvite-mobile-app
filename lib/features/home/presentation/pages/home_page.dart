@@ -53,24 +53,23 @@ class _HomePageState extends State<HomePage> {
     if (!mounted) return;
 
     if (!isSaved) {
-      // First login - navigate to location selection
+      // First login - navigate to location selection with isFirstTime=true
       if (mounted) {
-        Navigator.of(
-          context,
-          rootNavigator: true,
-        ).pushNamed(AppRoutes.locationSelection).then((result) {
-          if (result is Map<String, dynamic>) {
-            final cityName = result['city'] as String?;
-            if (cityName != null && mounted) {
-              setState(() {
-                _selectedCity = cityName;
-              });
-            }
-          }
-        });
+        Navigator.of(context, rootNavigator: true)
+            .pushNamed(AppRoutes.locationSelection, arguments: true)
+            .then((result) {
+              if (result is Map<String, dynamic>) {
+                final cityName = result['city'] as String?;
+                if (cityName != null && mounted) {
+                  setState(() {
+                    _selectedCity = cityName;
+                  });
+                }
+              }
+            });
       }
     } else {
-      // Already saved - load location
+      // Already saved - load location (user can go back)
       context.read<LocationBloc>().add(const LoadCurrentLocationEvent());
     }
   }
