@@ -60,6 +60,7 @@ class _LoginFormState extends State<LoginForm> {
           if (state is SigninSuccess) {
             // Persist login session
             await SessionManager.saveSession();
+            if (!context.mounted) return;
             // Clear any existing snackbars before showing success message
             ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(context).showSnackBar(
@@ -69,7 +70,7 @@ class _LoginFormState extends State<LoginForm> {
                 duration: const Duration(seconds: 2),
               ),
             );
-            // Navigate to home - no async gap
+            // Navigate to home
             Navigator.pushReplacementNamed(context, AppRoutes.home);
           } else if (state is SigninFailure) {
             ScaffoldMessenger.of(context).clearSnackBars();

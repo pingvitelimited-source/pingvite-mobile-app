@@ -1,21 +1,82 @@
 import 'package:flutter/material.dart';
+import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/routes.dart';
 import 'package:pingvite/core/theme/app_colors.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
-import 'package:pingvite/core/utils/session_manager.dart';
+
 import 'package:pingvite/core/utils/theme_helper.dart';
+ 
 import 'package:pingvite/features/home/presentation/widgets/app_drawer_widgets/app_drawer_header.dart';
 import 'package:pingvite/features/home/presentation/widgets/app_drawer_widgets/section_items.dart';
 import 'package:pingvite/features/home/presentation/widgets/app_drawer_widgets/section_title.dart';
+import 'package:pingvite/features/home/presentation/widgets/app_drawer_widgets/drawer_divider.dart';
+import 'package:pingvite/features/home/presentation/widgets/app_drawer_widgets/segment_option.dart';
+import 'package:pingvite/features/home/presentation/widgets/app_drawer_widgets/drawer_theme_toggle.dart';
+import 'package:pingvite/features/home/presentation/widgets/app_drawer_widgets/drawer_logout_button.dart';
+ 
 
-class AppDrawer extends StatelessWidget {
+enum DrawerSegment { organizer, discover, host }
+
+class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
+
+  @override
+  State<AppDrawer> createState() => _AppDrawerState();
+}
+
+class _AppDrawerState extends State<AppDrawer> {
+  DrawerSegment _activeSegment = DrawerSegment.organizer;
 
   void _navigateTo(BuildContext context, String route) {
     Navigator.pop(context); // Close drawer
     Navigator.pushNamed(context, route);
   }
+
+  void _openSegmentPicker(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SegmentOption(
+                  title: Constants.drawerForOrganizers,
+                  isSelected: _activeSegment == DrawerSegment.organizer,
+                  onTap: () => _setActiveSegment(DrawerSegment.organizer, context),
+                ),
+                SegmentOption(
+                  title: Constants.drawerDiscover,
+                  isSelected: _activeSegment == DrawerSegment.discover,
+                  onTap: () => _setActiveSegment(DrawerSegment.discover, context),
+                ),
+                SegmentOption(
+                  title: Constants.drawerHost,
+                  isSelected: _activeSegment == DrawerSegment.host,
+                  onTap: () => _setActiveSegment(DrawerSegment.host, context),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _setActiveSegment(DrawerSegment segment, BuildContext context) {
+    setState(() => _activeSegment = segment);
+    Navigator.pop(context);
+  }
+
+  bool _isOrganizerActive() => _activeSegment == DrawerSegment.organizer;
+  bool _isDiscoverActive() => _activeSegment == DrawerSegment.discover;
+  bool _isHostActive() => _activeSegment == DrawerSegment.host;
 
   @override
   Widget build(BuildContext context) {
@@ -27,69 +88,119 @@ class AppDrawer extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            AppDrawerHeader(),
+            AppDrawerHeader(onSegmentTap: () => _openSegmentPicker(context)),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SectionTitle(title: 'Discover'),
-                    SectionItems(item: 'Find Events'),
-                    SectionItems(item: 'Find Venue'),
-                    SectionItems(item: 'Exhibitions'),
-                    SectionItems(item: 'Business Conventions'),
-                    SectionItems(item: 'For Startups'),
-
-                    _divider(),
-
-                    SectionTitle(title: 'Host'),
-                    SectionItems(item: 'Create an Invite'),
+                    SectionTitle(
+                      title: Constants.drawerForOrganizers,
+                      isEnabled: _isOrganizerActive(),
+                    ),
                     SectionItems(
-                      item: 'Create Event',
+                      item: Constants.drawerDashboard,
+                      isEnabled: _isOrganizerActive(),
+                      isActive: _isOrganizerActive(),
+                    ),
+                    SectionItems(
+                      item: Constants.drawerCreateEvent,
+                      isEnabled: _isOrganizerActive(),
                       onTap: () => _navigateTo(context, AppRoutes.createEvent),
                     ),
-                    SectionItems(item: 'My Events'),
                     SectionItems(
-                      item: 'My Contacts',
+                      item: Constants.drawerManageEvents,
+                      isEnabled: _isOrganizerActive(),
+                    ),
+                    SectionItems(
+                      item: Constants.drawerMyVenues,
+                      isEnabled: _isOrganizerActive(),
+                      onTap: () => _navigateTo(context, AppRoutes.myVenues),
+                    ),
+                    SectionItems(
+                      item: Constants.drawerPromotion,
+                      isEnabled: _isOrganizerActive(),
+                    ),
+
+                    const DrawerDivider(),
+
+                    SectionTitle(
+                      title: Constants.drawerDiscover,
+                      isEnabled: _isDiscoverActive(),
+                    ),
+                    SectionItems(
+                      item: Constants.drawerFindEvents,
+                      isEnabled: _isDiscoverActive(),
+                      isActive: _isDiscoverActive(),
+                    ),
+                    SectionItems(
+                      item: Constants.drawerFindVenue,
+                      isEnabled: _isDiscoverActive(),
+                    ),
+                    SectionItems(
+                      item: Constants.drawerExhibitions,
+                      isEnabled: _isDiscoverActive(),
+                    ),
+                    SectionItems(
+                      item: Constants.drawerBusinessConventions,
+                      isEnabled: _isDiscoverActive(),
+                    ),
+                    SectionItems(
+                      item: Constants.drawerForStartups,
+                      isEnabled: _isDiscoverActive(),
+                    ),
+
+                    const DrawerDivider(),
+
+                    SectionTitle(title: Constants.drawerHost, isEnabled: _isHostActive()),
+                    SectionItems(
+                      item: Constants.drawerCreateEvent,
+                      isEnabled: _isHostActive(),
+                      isActive: _isHostActive(),
+                      onTap: () => _navigateTo(context, AppRoutes.createEvent),
+                    ),
+                    SectionItems(item: Constants.drawerMyEvents, isEnabled: _isHostActive()),
+                    SectionItems(
+                      item: Constants.drawerMyContacts,
+                      isEnabled: _isHostActive(),
                       onTap: () => _navigateTo(context, AppRoutes.myContacts),
                     ),
                     SectionItems(
-                      item: 'My Venues',
+                      item: Constants.drawerMyVenues,
+                      isEnabled: _isHostActive(),
                       onTap: () => _navigateTo(context, AppRoutes.myVenues),
                     ),
-                    SectionItems(item: 'Browse E-Card Templates'),
 
-                    _divider(),
+                    const DrawerDivider(),
 
-                    SectionTitle(title: 'For Organizers'),
-                    SectionItems(item: 'Dashboard'),
-                    SectionItems(
-                      item: 'Create Event',
-                      onTap: () => _navigateTo(context, AppRoutes.createEvent),
-                    ),
-                    SectionItems(item: 'Manage Events'),
-                    SectionItems(
-                      item: 'My Venues',
-                      onTap: () => _navigateTo(context, AppRoutes.myVenues),
-                    ),
-                    SectionItems(item: 'Promotion'),
+                    SectionTitle(title: Constants.drawerAccount),
+                    SectionItems(item: Constants.drawerMyProfile),
+                    SectionItems(item: Constants.drawerMyTickets),
+                    SectionItems(item: Constants.drawerBilling),
 
-                    _divider(),
+                    const DrawerDivider(),
 
-                    SectionItems(item: 'FAQ'),
-                    SectionItems(item: 'Support'),
-                    SectionItems(item: 'Contact Us'),
-                    SectionItems(
-                      item: 'Log Out',
-                      onTap: () => _handleLogout(context),
-                    ),
+                    SectionTitle(title: Constants.drawerContact),
+                    SectionItems(item: Constants.drawerFAQ),
+                    SectionItems(item: Constants.drawerSupport),
+                    SectionItems(item: Constants.drawerContactUs),
 
-                    const SizedBox(height: 24),
+                    const DrawerDivider(),
+
+                    const DrawerThemeToggle(),
+
+                    const SizedBox(height: 16),
+
+                    const DrawerLogoutButton(),
+
+                    const SizedBox(height: 16),
 
                     AppTexts(
-                      text: 'version 1.1',
-                      style: textTheme.accent.copyWith(color: AppColors.grey),
+                      text: Constants.drawerVersion,
+                      style: textTheme.subheading.copyWith(
+                        color: ThemeHelper.primaryTextColor(context),
+                      ),
                     ),
 
                     const SizedBox(height: 16),
@@ -102,47 +213,4 @@ class AppDrawer extends StatelessWidget {
       ),
     );
   }
-
-  Future<void> _handleLogout(BuildContext context) async {
-    // Show confirmation dialog
-    final shouldLogout = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const AppTexts(text: 'Log Out'),
-        content: const AppTexts(text: 'Are you sure you want to log out?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const AppTexts(text: 'Cancel'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const AppTexts(text: 'Log Out'),
-          ),
-        ],
-      ),
-    );
-
-    if (shouldLogout == true && context.mounted) {
-      Navigator.pop(context); // Close drawer first
-      await SessionManager.clearSession();
-      if (context.mounted) {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          AppRoutes.initial,
-          (route) => false,
-        );
-      }
-    }
-  }
-}
-
-Widget _divider() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 16),
-    child: Container(
-      height: 1,
-      color: Colors.pinkAccent.withValues(alpha: 0.6),
-    ),
-  );
 }

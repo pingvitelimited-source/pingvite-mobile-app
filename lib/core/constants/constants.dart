@@ -1,4 +1,43 @@
 class Constants {
+  // Drawer Section Titles
+  static const drawerForOrganizers = 'For Organizers';
+  static const drawerDiscover = 'Discover';
+  static const drawerHost = 'Host';
+  static const drawerAccount = 'Account';
+  static const drawerContact = 'Contact';
+
+  // Drawer Section Items
+  static const drawerDashboard = 'Dashboard';
+  static const drawerCreateEvent = 'Create Event';
+  static const drawerManageEvents = 'Manage Events';
+  static const drawerMyVenues = 'My Venues';
+  static const drawerPromotion = 'Promotion';
+  static const drawerFindEvents = 'Find Events';
+  static const drawerFindVenue = 'Find Venue';
+  static const drawerExhibitions = 'Exhibitions';
+  static const drawerBusinessConventions = 'Business Conventions';
+  static const drawerForStartups = 'For Startups';
+  static const drawerMyEvents = 'My Events';
+  static const drawerMyContacts = 'My Contacts';
+  static const drawerMyProfile = 'My Profile';
+  static const drawerMyTickets = 'My Tickets';
+  static const drawerBilling = 'Billing';
+  static const drawerFAQ = 'FAQ';
+  static const drawerSupport = 'Support';
+  static const drawerContactUs = 'Contact Us';
+
+  // Drawer Dialogs & Buttons
+  static const drawerLogOut = 'Log Out';
+  static const drawerLogOutConfirm = 'Are you sure you want to log out?';
+  static const drawerCancel = 'Cancel';
+  static const drawerVersion = 'version 1.1';
+
+  // Drawer Theme Toggle
+  static const drawerDarkMode = 'Dark Mode';
+  static const drawerLightMode = 'Light Mode';
+
+  // Drawer Header
+  static const drawerWelcomePrefix = 'Welcome, ';
   static const appTitle = 'Pingvite';
   //Login Screen
   static const loginHeaderText = "Events simplified";
@@ -162,7 +201,8 @@ class Constants {
   static const listedVenue = 'assets/svg/listed_venues.svg';
   static const gradientBall = 'assets/svg/gradientball.svg';
   static const noteText = 'assets/svg/notetext.svg';
-
+  static const verifyIcon = 'assets/png/verify.png';
+  static const toggleIcon = 'assets/svg/profile_toggle.svg';
   // Location Selection
   static const selectYourCity = 'Select Your City';
   static const findEventsNearYou = 'Find Events Near You';
@@ -197,5 +237,4 @@ class Constants {
   static const seatOption500 = '500';
   static const seatOption1000 = '1000';
   static const seatOption2000Plus = '2000+';
-  static const verifyIcon = 'assets/png/verify.png';
 }

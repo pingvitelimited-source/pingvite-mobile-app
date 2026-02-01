@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pingvite/core/constants/constants.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/theme/app_text_theme.dart';
-import 'package:pingvite/core/theme/theme_controller.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/pages/contacts_main.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/bloc/contact_list_bloc.dart';
 import 'package:pingvite/features/bottom_tabs/events_screen/presentation/pages/event_main.dart';
@@ -13,7 +12,6 @@ import 'package:pingvite/features/dashboard/data/model/navitem.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/app_bottom_navigation.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/custom_appbar.dart';
 import 'package:pingvite/service_locator_dependencies.dart';
-import 'package:provider/provider.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -43,32 +41,13 @@ class _DashboardState extends State<Dashboard> {
     const _DummyTab(label: 'Profile'),
   ];
 
-  void _onNotificationTap() {
-    final themeController = Provider.of<ThemeController>(
-      context,
-      listen: false,
-    );
-    themeController.toggleTheme();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: AppTexts(
-          text: themeController.isDarkMode
-              ? 'Switched to Dark Theme'
-              : 'Switched to Light Theme',
-        ),
-        duration: const Duration(seconds: 1),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.dashboard(
+      appBar: const CustomAppBar.dashboard(
         greeting: 'Hi',
         userName: 'John',
         userImageUrl: null,
-        onNotificationTap: _onNotificationTap,
         hasNotification: true,
       ),
       body: IndexedStack(index: _currentIndex, children: _tabs),

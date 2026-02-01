@@ -1,7 +1,5 @@
-library otp_bloc;
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pingvite/features/auth/otp_screen/domain/entites/send_otp_response_entity.dart';
 import 'package:pingvite/features/auth/otp_screen/domain/entites/verify_otp_response_entity.dart';
 import 'package:pingvite/features/auth/otp_screen/domain/usecase/send_otp_usecase.dart';

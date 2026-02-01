@@ -1,4 +1,4 @@
-part of otp_bloc;
+part of '../otp_bloc/otp_bloc.dart';
 
 @immutable
 sealed class EventOtp {}
