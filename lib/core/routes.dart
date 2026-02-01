@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pingvite/core/custom_widgets/app_texts.dart';
 import 'package:pingvite/core/data/event_card_data.dart';
 import 'package:pingvite/core/enums/event_card_type.dart';
+import 'package:pingvite/features/auth/otp_screen/presentation/pages/otp_screen.dart';
 import 'package:pingvite/features/auth/signin/presentation/pages/signin_page.dart';
 import 'package:pingvite/features/auth/signup/presentation/pages/signup_screen.dart';
 import 'package:pingvite/features/booking_selection_screen/presentation/pages/booking_selection_page.dart';
@@ -20,6 +22,8 @@ import 'package:pingvite/features/events_list/presentation/pages/events_list_pag
 import 'package:pingvite/features/location_selection/presentation/pages/location_selection_screen.dart';
 import 'package:pingvite/features/payment_success/domain/entities/transaction_details.dart';
 import 'package:pingvite/features/payment_success/presentation/pages/payment_success_screen.dart';
+import 'package:pingvite/features/auth/otp_screen/presentation/bloc/otp_bloc/otp_bloc.dart';
+import 'package:pingvite/service_locator_dependencies.dart';
 
 class AppRoutes {
   static const String initial = '/initial';
@@ -38,6 +42,7 @@ class AppRoutes {
   static const String pay = '/pay';
   static const String locationSelection = '/locationSelection';
   static const String paymentSuccess = '/paymentSuccess';
+  static const String otp = '/otp';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -93,6 +98,14 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (_) =>
               PaymentSuccessScreen(transactionDetails: transactionDetails),
+        );
+      case otp:
+        final formData = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<SendOtpBloc>(),
+            child: OtpScreen(signupData: formData),
+          ),
         );
       default:
         return MaterialPageRoute(

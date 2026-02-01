@@ -29,16 +29,7 @@ class _SignupFormState extends State<SignupForm> {
 
       final formData = _formKey.currentState!.value;
 
-      context.read<SignupBloc>().add(
-        SignupSubmitted(
-          firstName: (formData[Constants.firstName] as String).trim(),
-          middleName: (formData[Constants.middleName] as String?)?.trim(),
-          lastName: (formData[Constants.lastName] as String).trim(),
-          email: (formData[Constants.emailField] as String).trim(),
-          mobile: (formData[Constants.phoneField] as String).trim(),
-          password: (formData[Constants.passwordField] as String).trim(),
-        ),
-      );
+      Navigator.pushNamed(context, AppRoutes.otp, arguments: formData);
     }
   }
 
@@ -56,7 +47,7 @@ class _SignupFormState extends State<SignupForm> {
             ),
           );
           // Navigate to login screen
-          Navigator.pushReplacementNamed(context, AppRoutes.signin);
+          Navigator.pushReplacementNamed(context, AppRoutes.initial);
         } else if (state is SignupFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -70,6 +61,14 @@ class _SignupFormState extends State<SignupForm> {
         padding: EdgeInsets.all(sl<SizeConfig>().rpx(20)),
         child: FormBuilder(
           key: _formKey,
+          initialValue: {
+            Constants.firstName: 'Abhishek',
+            Constants.middleName: 'K',
+            Constants.lastName: 'Sharma',
+            Constants.emailField: 'abhishek.sharma4595@gmail.com',
+            Constants.phoneField: '9876543210',
+            Constants.passwordField: 'Test@1234',
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

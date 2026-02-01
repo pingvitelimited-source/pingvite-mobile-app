@@ -6,6 +6,7 @@ import 'package:pingvite/core/theme/app_theme.dart';
 import 'package:pingvite/core/theme/theme_controller.dart';
 import 'package:pingvite/core/utils/session_manager.dart';
 import 'package:pingvite/core/utils/sizeconfig.dart';
+import 'package:pingvite/features/auth/signup/presentation/bloc/signup_bloc.dart';
 import 'package:pingvite/features/home/presentation/pages/home_page.dart';
 import 'package:pingvite/features/inital_screen/presentation/pages/initial_page.dart';
 import 'package:pingvite/features/location_search/presentation/bloc/location_search_bloc.dart';
@@ -56,6 +57,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, themeController, child) {
           return MultiBlocProvider(
             providers: [
+              BlocProvider(create: (context) => sl<SignupBloc>()),
               BlocProvider(create: (context) => sl<LocationBloc>()),
               BlocProvider(create: (context) => sl<LocationSearchBloc>()),
             ],

@@ -44,8 +44,12 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
       return response;
-    } on DioException {
-      rethrow;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 500) {
+        throw 'Internal server error';
+      } else {
+        throw 'Something went wrong! Please try again later.';
+      }
     }
   }
 
@@ -68,8 +72,12 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
       return response;
-    } on DioException {
-      rethrow;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 500) {
+        throw 'Internal server error';
+      } else {
+        throw 'Something went wrong! Please try again later.';
+      }
     }
   }
 
@@ -94,8 +102,12 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
       return response;
-    } on DioException {
-      rethrow;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 500) {
+        throw 'Internal server error';
+      } else {
+        throw 'Something went wrong! Please try again later.';
+      }
     }
   }
 
@@ -116,8 +128,12 @@ class DioClient {
         cancelToken: cancelToken,
       );
       return response;
-    } on DioException {
-      rethrow;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 500) {
+        throw 'Internal server error';
+      } else {
+        throw 'Something went wrong! Please try again later.';
+      }
     }
   }
 }

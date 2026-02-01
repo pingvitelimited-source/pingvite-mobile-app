@@ -11,7 +11,7 @@ import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_mai
 import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/widgets/all_contacts_view.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/widgets/all_lists_view.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/contact_screen_main/presentation/widgets/contact_options_dialog.dart';
-import 'package:pingvite/features/bottom_tabs/contacts_screen/create_new_contact/presentation/pages/create_new_contacts_page.dart';
+import 'package:pingvite/features/bottom_tabs/contacts_screen/create_new_contact/presentation/widgets/create_new_contacts_wrapper.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/create_new_contact_list/presentation/pages/create_new_contact_list_page.dart';
 import 'package:pingvite/features/bottom_tabs/contacts_screen/bulk_upload_contacts/presentation/pages/bulk_upload_contacts_page.dart';
 import 'package:pingvite/features/dashboard/presentation/widgets/custom_appbar.dart';
@@ -115,7 +115,9 @@ class _ContactsMainState extends State<ContactsMain> {
     switch (action) {
       case ContactAction.createContact:
         navigator.push(
-          MaterialPageRoute(builder: (_) => const CreateNewContactsPage()),
+          MaterialPageRoute(
+            builder: (_) => const CreateNewContactsPageWrapper(),
+          ),
         );
         break;
       case ContactAction.createList:
